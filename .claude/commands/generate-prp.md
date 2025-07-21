@@ -4,7 +4,7 @@ YOU MUST DO IN-DEPTH RESEARCH, FOLLOW THE <RESEARCH PROCESS>
 
 <RESEARCH PROCESS>
 
-   - Don't only research one page, and don't use your own webscraping tool - instead scrape many relevant pages from all documentation links mentioned in the DESIGN.md file
+   - Don't only research one page - use web_search to find many relevant pages from all documentation links mentioned in the DESIGN.md file
    - Take my tech as sacred truth, for example if I say a model name then research that model name for usage - don't assume from your own knowledge at any point
    - When I say don't just research one page, I mean do incredibly in-depth research, like to the point where it's just absolutely ridiculous how much research you've actually done, then when you create the PRP document you need to put absolutely everything into that including INCREDIBLY IN DEPTH CODE EXAMPLES so any AI can pick up your PRP and generate WORKING and COMPLETE production ready code.
 
@@ -29,7 +29,7 @@ The AI agent only gets the context you are appending to the PRP and training dat
    - Library documentation (include specific URLs)
    - Implementation examples (GitHub/StackOverflow/blogs)
    - Best practices and common pitfalls
-   - Don't only research one page, and don't use your own webscraping tool - instead scrape many relevant pages from all documentation links mentioned in the DESIGN.md file
+   - Don't only research one page - use web_search to research many relevant pages from all documentation links mentioned in the DESIGN.md file
    - Take my tech as sacred truth, for example if I say Next.js 15.4.1 then research that exact version - don't assume from your own knowledge at any point
    - When I say don't just research one page, I mean do incredibly in-depth research, like to the point where it's just absolutely ridiculous how much research you've actually done, then when you create the PRP document you need to put absolutely everything into that including INCREDIBLY IN DEPTH CODE EXAMPLES so any AI can pick up your PRP and generate WORKING and COMPLETE production ready code.
 
