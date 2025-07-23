@@ -7,6 +7,7 @@ import { connectionLine } from '@/examples/lib/animations'
 /**
  * CoLab-style animated connection line
  * Draws on scroll with optional progress dots
+ * Updated to use LCH color space as per DESIGN.md
  * 
  * @example
  * <ConnectionLine 
@@ -58,29 +59,29 @@ export function ConnectionLine({
       >
         <defs>
           <linearGradient id={getGradientId} x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="rgb(94 106 210)" />
-            <stop offset="100%" stopColor="rgb(176 123 236)" />
+            <stop offset="0%" stopColor="lch(70% 90 230)" />
+            <stop offset="100%" stopColor="lch(65% 80 280)" />
           </linearGradient>
         </defs>
         
-        {/* Background line (subtle) */}
+        {/* Background line (subtle) using LCH */}
         <path
           d={getPath()}
-          stroke="rgb(39 39 42)"
+          stroke="lch(25% 0 0)"
           strokeWidth="0.5"
           fill="none"
           vectorEffect="non-scaling-stroke"
         />
         
-        {/* Animated line */}
+        {/* Animated line with LCH colors */}
         <motion.path
           d={getPath()}
           stroke={
             color === 'gradient' 
               ? `url(#${getGradientId})`
               : color === 'blue' 
-              ? 'rgb(94 106 210)'
-              : 'rgb(176 123 236)'
+              ? 'lch(70% 90 230)'
+              : 'lch(65% 80 280)'
           }
           strokeWidth="2"
           fill="none"
@@ -89,15 +90,15 @@ export function ConnectionLine({
           style={animated ? { pathLength, opacity } : { pathLength: 1, opacity: 1 }}
         />
         
-        {/* Progress dots */}
+        {/* Progress dots with LCH colors */}
         {dotPositions.map((position, index) => (
           <motion.circle
             key={position}
             cx={orientation === 'horizontal' ? position : 50}
             cy={orientation === 'vertical' ? position : 50}
             r="4"
-            fill="rgb(14 14 16)"
-            stroke={color === 'blue' ? 'rgb(94 106 210)' : 'rgb(176 123 236)'}
+            fill="lch(18% 0 0)"
+            stroke={color === 'blue' ? 'lch(70% 90 230)' : 'lch(65% 80 280)'}
             strokeWidth="2"
             initial={{ scale: 0, opacity: 0 }}
             animate={animated ? { scale: 1, opacity: 1 } : {}}
@@ -111,4 +112,4 @@ export function ConnectionLine({
       </svg>
     </div>
   )
-} 
+}

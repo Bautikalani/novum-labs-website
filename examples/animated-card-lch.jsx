@@ -7,6 +7,7 @@ import { cn } from '@/lib/utils'
 /**
  * Linear-style card with CoLab animations
  * Features gradient borders and smooth hover effects
+ * Updated to use LCH color space as per DESIGN.md
  * 
  * @example
  * <AnimatedCard gradient glow index={0}>
@@ -34,33 +35,33 @@ export function AnimatedCard({
       custom={index}
       whileHover={hoverScale}
     >
-      {/* Gradient border effect */}
+      {/* Gradient border effect using LCH colors */}
       {gradient && (
-        <div className="absolute -inset-[1px] rounded-xl bg-gradient-to-r from-accent-blue to-accent-purple opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+        <div className="absolute -inset-[1px] rounded-xl bg-gradient-to-r from-accent to-accent2 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
       )}
       
-      {/* Glow effect */}
+      {/* Glow effect with LCH accent color */}
       {glow && (
         <motion.div
-          className="absolute -inset-4 rounded-xl bg-accent-blue/20 blur-xl opacity-0 group-hover:opacity-100"
+          className="absolute -inset-4 rounded-xl bg-accent/20 blur-xl opacity-0 group-hover:opacity-100"
           whileHover={hoverGlow}
         />
       )}
       
-      {/* Card content */}
+      {/* Card content with LCH-based colors */}
       <div className={cn(
-        'relative h-full rounded-xl border border-[#27272a] bg-[#18181b] p-6 transition-colors duration-300',
-        'group-hover:border-[#39393b] group-hover:bg-[#1e1e20]'
+        'relative h-full rounded-xl border border-border bg-card p-6 transition-colors duration-300',
+        'group-hover:border-border/80 group-hover:bg-card/90'
       )}>
         {/* Subtle grid pattern */}
-        <div className="absolute inset-0 rounded-xl bg-[linear-gradient(to_right,#27272a_1px,transparent_1px),linear-gradient(to_bottom,#27272a_1px,transparent_1px)] bg-[size:24px_24px] opacity-[0.03]" />
+        <div className="absolute inset-0 rounded-xl bg-[linear-gradient(to_right,lch(25%_0_0)_1px,transparent_1px),linear-gradient(to_bottom,lch(25%_0_0)_1px,transparent_1px)] bg-[size:24px_24px] opacity-[0.03]" />
         
         {/* Content */}
         <div className="relative z-10">
           {children}
         </div>
         
-        {/* Corner accent (CoLab style) */}
+        {/* Corner accent (CoLab style) with LCH gradients */}
         <div className="absolute top-0 right-0 w-16 h-16 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
           <svg width="100%" height="100%" viewBox="0 0 64 64">
             <path
@@ -70,8 +71,8 @@ export function AnimatedCard({
             />
             <defs>
               <linearGradient id="corner-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stopColor="rgb(94 106 210)" />
-                <stop offset="100%" stopColor="rgb(176 123 236)" />
+                <stop offset="0%" stopColor="lch(70% 90 230)" />
+                <stop offset="100%" stopColor="lch(65% 80 280)" />
               </linearGradient>
             </defs>
           </svg>
@@ -79,4 +80,4 @@ export function AnimatedCard({
       </div>
     </motion.div>
   )
-} 
+}

@@ -1,6 +1,7 @@
 /**
  * CoLab-inspired animation configurations
  * Smooth, professional animations with scroll triggers
+ * Updated to use LCH color space where colors are referenced
  */
 
 // Timing functions
@@ -124,8 +125,9 @@ export const hoverScale = {
   },
 }
 
+// Updated hover glow to use LCH color
 export const hoverGlow = {
-  boxShadow: '0 0 30px rgba(94, 106, 210, 0.3)',
+  boxShadow: '0 0 30px lch(70% 90 230 / 0.3)',
   transition: {
     duration: durations.fast,
     ease: easings.smooth,
@@ -170,4 +172,4 @@ export const connectionLine = {
       },
     },
   }),
-} 
+}

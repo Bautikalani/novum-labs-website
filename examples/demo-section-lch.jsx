@@ -10,6 +10,7 @@ import { staggerChildren } from '@/examples/lib/animations'
 /**
  * Example implementation of the Demos section
  * Shows how to combine all patterns together
+ * Updated to use LCH color space consistently
  */
 export function DemosSection() {
   const demos = [
@@ -80,25 +81,25 @@ export function DemosSection() {
             className="relative z-10"
           >
             <div className="space-y-4">
-              <h3 className="text-xl font-semibold text-foreground">
+              <h3 className="text-xl font-semibold text-fg">
                 {demo.title}
               </h3>
               <p className="text-muted">
                 {demo.description}
               </p>
               
-              {/* Coming Soon Badge */}
+              {/* Coming Soon Badge with LCH colors */}
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent-orange/10 border border-accent-orange/20">
                 <div className="w-2 h-2 rounded-full bg-accent-orange animate-pulse" />
                 <span className="text-sm text-accent-orange">Coming Soon</span>
               </div>
               
-              {/* Hover CTA */}
+              {/* Hover CTA with LCH colors */}
               <motion.button
-                className="mt-4 w-full py-3 rounded-lg border border-accent-blue/20 text-accent-blue opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                className="mt-4 w-full py-3 rounded-lg border border-accent/20 text-accent opacity-0 group-hover:opacity-100 transition-opacity duration-300"
                 whileHover={{ 
-                  backgroundColor: 'rgba(94, 106, 210, 0.1)',
-                  borderColor: 'rgba(94, 106, 210, 0.5)',
+                  backgroundColor: 'lch(70% 90 230 / 0.1)',
+                  borderColor: 'lch(70% 90 230 / 0.5)',
                 }}
                 whileTap={{ scale: 0.98 }}
               >
@@ -109,9 +110,9 @@ export function DemosSection() {
         ))}
       </motion.div>
       
-      {/* Floating elements (CoLab style) */}
-      <div className="absolute -top-20 -right-20 w-40 h-40 bg-accent-purple/20 rounded-full blur-3xl animate-float" />
-      <div className="absolute -bottom-20 -left-20 w-60 h-60 bg-accent-blue/20 rounded-full blur-3xl animate-float" style={{ animationDelay: '3s' }} />
+      {/* Floating elements (CoLab style) with LCH colors */}
+      <div className="absolute -top-20 -right-20 w-40 h-40 bg-accent2/20 rounded-full blur-3xl animate-float" />
+      <div className="absolute -bottom-20 -left-20 w-60 h-60 bg-accent/20 rounded-full blur-3xl animate-float" style={{ animationDelay: '3s' }} />
     </SectionWrapper>
   )
-} 
+}

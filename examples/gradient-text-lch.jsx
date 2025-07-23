@@ -3,6 +3,7 @@ import { cn } from '@/lib/utils'
 /**
  * Linear-style gradient text component
  * Creates smooth text gradients with optional animation
+ * Updated to use LCH color space as per DESIGN.md
  * 
  * @example
  * <GradientText gradient="blurple" animate>
@@ -16,9 +17,9 @@ export function GradientText({
   animate = false,
 }) {
   const gradients = {
-    blurple: 'from-[#5e6ad2] to-[#b07bec]',
-    greenBlue: 'from-[#26b082] to-[#5e6ad2]',
-    orangePurple: 'from-[#f2994a] to-[#b07bec]',
+    blurple: 'from-accent to-accent2',           // lch(70% 90 230) to lch(65% 80 280)
+    greenBlue: 'from-accent-green to-accent',    // lch(65% 85 142) to lch(70% 90 230)
+    orangePurple: 'from-accent-orange to-accent2', // lch(70% 75 70) to lch(65% 80 280)
   }
   
   return (
@@ -33,4 +34,4 @@ export function GradientText({
       {children}
     </span>
   )
-} 
+}
