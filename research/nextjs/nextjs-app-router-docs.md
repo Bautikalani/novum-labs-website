@@ -1,19 +1,29 @@
-# Next.js 15.4.1 - App Router
+# Next.js 15.4.1 App Router Documentation
 
-**Source**: https://nextjs.org/docs/app
-**Scraped**: [Current Date]
+## Core App Router Concepts
 
-## Overview
+### Project Structure
+```
+src/
+├── app/                 # Next.js App Router pages
+├── components/          # Reusable components
+│   ├── ui/             # shadcn/ui components
+│   ├── sections/       # Page sections
+│   └── layout/         # Layout components
+├── lib/                # Utilities and helpers
+├── styles/             # Global styles
+└── types/              # TypeScript definitions
+```
 
-The App Router is a new paradigm for building applications using React's latest features. It's the recommended way to build new Next.js applications starting from version 13.
+### Root Layout Component
+Every App Router application needs a root layout that wraps all pages:
 
-## File Conventions
-
-### layout.js
-A layout is UI that is shared between routes.
-
-```jsx
-export default function RootLayout({ children }) {
+```typescript
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode
+}) {
   return (
     <html lang="en">
       <body>{children}</body>
@@ -22,192 +32,307 @@ export default function RootLayout({ children }) {
 }
 ```
 
-### page.js
-A page is UI that is unique to a route.
+### Page Components
+Create pages using `page.tsx` files in the app directory:
 
-```jsx
+```typescript
 export default function Page() {
   return <h1>Hello, Next.js!</h1>
 }
 ```
 
-### loading.js
-Creates instant loading states built on Suspense.
+## Navigation and Routing
 
-```jsx
-export default function Loading() {
-  return <div>Loading...</div>
+### Link Component
+Use Next.js Link for client-side navigation:
+
+```typescript
+import Link from 'next/link'
+
+export default function Navigation() {
+  return (
+    <nav>
+      <Link href="/">Home</Link>
+      <Link href="/about">About</Link>
+      <Link href="/blog">Blog</Link>
+    </nav>
+  )
 }
 ```
 
-### error.js
-Error boundaries for handling errors in nested routes.
+### Navigation Hooks
+Access router information in client components:
 
-```jsx
+```typescript
 'use client'
 
-export default function Error({ error, reset }) {
+import { useRouter, usePathname, useSearchParams } from 'next/navigation'
+
+export default function ClientComponent() {
+  const router = useRouter()
+  const pathname = usePathname()
+  const searchParams = useSearchParams()
+
   return (
     <div>
-      <h2>Something went wrong!</h2>
-      <button onClick={() => reset()}>Try again</button>
+      <p>Current path: {pathname}</p>
+      <button onClick={() => router.push('/about')}>
+        Go to About
+      </button>
     </div>
   )
 }
-```
-
-### not-found.js
-Show a custom UI when the `notFound` function is invoked.
-
-```jsx
-export default function NotFound() {
-  return (
-    <div>
-      <h2>Not Found</h2>
-      <p>Could not find requested resource</p>
-    </div>
-  )
-}
-```
-
-## Route Groups
-
-Organize routes without affecting the URL structure:
-
-```
-app/
-├── (marketing)/
-│   ├── about/
-│   │   └── page.js
-│   └── blog/
-│       └── page.js
-└── (shop)/
-    ├── products/
-    │   └── page.js
-    └── cart/
-        └── page.js
 ```
 
 ## Dynamic Routes
 
-### Single Dynamic Segment
-`app/blog/[slug]/page.js`
+### Creating Dynamic Segments
+Use square brackets for dynamic routes:
 
-```jsx
-export default function Page({ params }) {
-  return <div>My Post: {params.slug}</div>
+```typescript
+// app/blog/[slug]/page.tsx
+export default async function BlogPost({
+  params,
+}: {
+  params: Promise<{ slug: string }>
+}) {
+  const { slug } = await params
+  const post = await getPost(slug)
+
+  return (
+    <div>
+      <h1>{post.title}</h1>
+      <p>{post.content}</p>
+    </div>
+  )
 }
 ```
 
-### Catch-all Segments
-`app/shop/[...categories]/page.js`
+### Static Generation
+Generate static params for dynamic routes:
 
-```jsx
-export default function Page({ params }) {
-  // URL: /shop/clothes/tops/t-shirts
-  // params.categories: ['clothes', 'tops', 't-shirts']
-  return <div>Categories: {params.categories.join(' > ')}</div>
+```typescript
+export async function generateStaticParams() {
+  return [
+    { slug: 'post-1' },
+    { slug: 'post-2' },
+    { slug: 'post-3' }
+  ]
 }
 ```
 
-## Metadata
+## Data Fetching
 
-### Static Metadata
-```jsx
-export const metadata = {
-  title: 'Novum Labs - AI Consulting',
-  description: 'Transform your business with AI',
+### Server Components (Default)
+Fetch data directly in server components:
+
+```typescript
+async function getData() {
+  const res = await fetch('https://api.example.com/data')
+  return res.json()
 }
-```
 
-### Dynamic Metadata
-```jsx
-export async function generateMetadata({ params, searchParams }) {
-  const product = await getProduct(params.id)
-  
-  return {
-    title: product.title,
-    openGraph: {
-      images: [product.image],
-    },
-  }
-}
-```
-
-## Server Components (Default)
-
-Components are Server Components by default:
-
-```jsx
-// This component runs on the server
-async function BlogPosts() {
-  const posts = await getPosts() // Direct database access
+export default async function Page() {
+  const data = await getData()
   
   return (
-    <ul>
-      {posts.map((post) => (
-        <li key={post.id}>{post.title}</li>
-      ))}
-    </ul>
+    <div>
+      <h1>Server Component</h1>
+      <pre>{JSON.stringify(data, null, 2)}</pre>
+    </div>
   )
+}
+```
+
+### Caching Strategies
+Control caching behavior with fetch options:
+
+```typescript
+export default async function Page() {
+  // Static data (cached until manually invalidated)
+  const staticData = await fetch('https://api.example.com/static', { 
+    cache: 'force-cache' 
+  })
+
+  // Dynamic data (fetched on every request)
+  const dynamicData = await fetch('https://api.example.com/dynamic', { 
+    cache: 'no-store' 
+  })
+
+  // Revalidated data (cached with time limit)
+  const revalidatedData = await fetch('https://api.example.com/timed', {
+    next: { revalidate: 60 } // Revalidate every 60 seconds
+  })
+
+  return <div>...</div>
 }
 ```
 
 ## Client Components
 
-Use the `'use client'` directive for interactivity:
+### Using Client Components
+Add 'use client' directive for interactive components:
 
-```jsx
+```typescript
 'use client'
 
 import { useState } from 'react'
 
 export default function Counter() {
   const [count, setCount] = useState(0)
-  
+
   return (
-    <button onClick={() => setCount(count + 1)}>
-      Count: {count}
-    </button>
+    <div>
+      <p>Count: {count}</p>
+      <button onClick={() => setCount(count + 1)}>
+        Increment
+      </button>
+    </div>
   )
 }
 ```
 
-## Route Handlers
+## Layouts
 
-API routes in the App Router:
+### Nested Layouts
+Create layouts for specific route segments:
 
-```jsx
-// app/api/hello/route.js
-export async function GET(request) {
-  return Response.json({ hello: 'world' })
-}
-
-export async function POST(request) {
-  const body = await request.json()
-  return Response.json({ received: body })
-}
-```
-
-## Middleware
-
-```jsx
-// middleware.js
-import { NextResponse } from 'next/server'
-
-export function middleware(request) {
-  return NextResponse.redirect(new URL('/home', request.url))
-}
-
-export const config = {
-  matcher: '/about/:path*',
+```typescript
+// app/dashboard/layout.tsx
+export default function DashboardLayout({
+  children,
+}: {
+  children: React.ReactNode
+}) {
+  return (
+    <div className="dashboard">
+      <nav>Dashboard Navigation</nav>
+      <main>{children}</main>
+    </div>
+  )
 }
 ```
 
-## Best Practices for App Router
+## Route Handlers (API Routes)
 
-1. **Use Server Components by default** - Only use Client Components when needed
-2. **Colocate data fetching** - Fetch data where it's used
-3. **Use loading.js** - For better UX during navigation
-4. **Implement error.js** - For graceful error handling
-5. **Static where possible** - Use `generateStaticParams` for known dynamic routes
+### Creating API Endpoints
+Use route.ts files for API endpoints:
+
+```typescript
+// app/api/users/route.ts
+export async function GET(request: Request) {
+  const users = await getUsers()
+  return Response.json(users)
+}
+
+export async function POST(request: Request) {
+  const data = await request.json()
+  const user = await createUser(data)
+  return Response.json(user)
+}
+```
+
+## File Conventions
+
+### Special Files
+- `page.tsx` - Page UI
+- `layout.tsx` - Shared UI for route segment
+- `loading.tsx` - Loading UI
+- `error.tsx` - Error UI
+- `not-found.tsx` - Not found UI
+- `route.ts` - API endpoint
+
+### Dynamic Routing Conventions
+- `[folder]` - Dynamic segment
+- `[...folder]` - Catch-all segment
+- `[[...folder]]` - Optional catch-all segment
+- `(folder)` - Route group (doesn't affect URL)
+- `@folder` - Parallel route
+
+## Performance Optimization
+
+### Link Prefetching
+Control link prefetching behavior:
+
+```typescript
+import Link from 'next/link'
+
+export default function Navigation() {
+  return (
+    <div>
+      {/* Prefetch enabled (default) */}
+      <Link href="/about">About</Link>
+      
+      {/* Prefetch disabled */}
+      <Link href="/contact" prefetch={false}>
+        Contact
+      </Link>
+    </div>
+  )
+}
+```
+
+### Web Vitals Monitoring
+Monitor Core Web Vitals:
+
+```typescript
+// app/_components/web-vitals.tsx
+'use client'
+
+import { useReportWebVitals } from 'next/web-vitals'
+
+export function WebVitals() {
+  useReportWebVitals((metric) => {
+    console.log('Web Vital:', metric)
+  })
+
+  return null
+}
+```
+
+## Migration from Pages Router
+
+### Key Differences
+1. **File-based routing**: Folder structure defines routes
+2. **Server Components**: Default to server-side rendering
+3. **Layouts**: Built-in layout support
+4. **Data Fetching**: New async/await pattern in components
+5. **API Routes**: Now called Route Handlers
+
+### Common Migration Patterns
+- `pages/_app.js` → `app/layout.tsx`
+- `pages/index.js` → `app/page.tsx`
+- `pages/api/*` → `app/api/*/route.ts`
+- `getServerSideProps` → Server Component with fetch
+- `getStaticProps` → Server Component with cached fetch
+- `getStaticPaths` → `generateStaticParams`
+
+## Best Practices
+
+1. **Use Server Components by default** - Only add 'use client' when needed
+2. **Minimize Client Components** - Keep interactivity at the leaf level
+3. **Co-locate components** - Place related files near their usage
+4. **Implement proper error boundaries** - Use error.tsx files
+5. **Optimize data fetching** - Use appropriate caching strategies
+6. **Follow TypeScript patterns** - Leverage type safety throughout
+
+## TypeScript Integration
+
+### Typed Params
+Use proper TypeScript types for route parameters:
+
+```typescript
+interface PageProps {
+  params: Promise<{ id: string }>
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>
+}
+
+export default async function Page({ params, searchParams }: PageProps) {
+  const { id } = await params
+  const search = await searchParams
+  
+  return <div>Page {id}</div>
+}
+```
+
+This documentation covers the essential App Router concepts and patterns needed for building modern Next.js applications.

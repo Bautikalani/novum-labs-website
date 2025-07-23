@@ -6,7 +6,7 @@ Create a sophisticated AI consultancy website that balances Linear's systematic 
 
 ### Key Design Principles
 - **Seamless Flow**: One continuous black canvas with no visual section breaks
-- **Journey Narrative**: Animated line guides users through the experience
+- **Journey Narrative**: Animated line guides/follows users through the experience
 - **Purposeful Minimalism**: Every element earns its place
 - **Technical Elegance**: Professional without being cold
 
@@ -147,7 +147,7 @@ section {
 │  │          (Mesh gradient background)                     │  │
 │  └─────────────────────────────────────────────────────────┘  │
 │                                                                 │
-│●═══════════════════════════════════════════════════════════════●│
+|                                                                 |
 │                    DEMOS SECTION                                │
 │                                                                 │
 │  ┌─────────────────────┐  ╱  ┌─────────────────────────────┐  │
@@ -159,7 +159,7 @@ section {
 │  │                     │     │  - Expected outcome         │  │
 │  └─────────────────────┘     └─────────────────────────────┘  │
 │                                                                 │
-│●────────────────────────────────────────────────────────────────●
+|                                                                 |
 │                                                                 │
 │  ┌─────────────────────────────┐  ╲  ┌─────────────────────┐  │
 │  │  Demo 2 Title               │   ╲ │                     │  │
@@ -170,7 +170,6 @@ section {
 │  │  - Expected outcome         │     │                     │  │
 │  └─────────────────────────────┘     └─────────────────────┘  │
 │                                                                 │
-│●────────────────────────────────────────────────────────────────●
 │                                                                 │
 │  ┌─────────────────────┐  ╱  ┌─────────────────────────────┐  │
 │  │                     │ ╱   │  Demo 3 Title               │  │
@@ -181,15 +180,12 @@ section {
 │  │                     │     │  - Expected outcome         │  │
 │  └─────────────────────┘     └─────────────────────────────┘  │
 │                                                                 │
-│●═══════════════════════════════════════════════════════════════●│
-
-Legend:
-╱ ╲ = Visual flow indicators showing zigzag reading pattern
+|                                                                 |
 │                    PROCESS SECTION                              │
 │                                                                 │
 │     Discovery ──●── Strategy ──●── Development ──●── Deploy    │
 │                                                                 │
-│●═══════════════════════════════════════════════════════════════●│
+|                                                                 |
 │                      TEAM SECTION                               │
 │                                                                 │
 │            ┌─────┐    ┌─────┐    ┌─────┐    ┌─────┐           │
@@ -199,7 +195,7 @@ Legend:
 │             Name       Name       Name       Name              │
 │             Role       Role       Role       Role              │
 │                                                                 │
-│●═══════════════════════════════════════════════════════════════●│
+|-----------------------------------------------------------------| 
 │                       CTA SECTION                               │
 │                                                                 │
 │              Ready to Transform with AI?                        │

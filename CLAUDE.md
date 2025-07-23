@@ -10,6 +10,7 @@ Build a cutting-edge AI consultancy website that showcases technical excellence 
 - **Use `context7` for library-specific information** — Request documentation when implementing features that require external APIs
 - **Trust Context7 versions** — The documentation provided is version-accurate for our tech stack
 - **Manual research only for design inspiration** — Linear.app and CoLab patterns are stored in `/research/design-inspiration/`
+- **Use context7 mcp for documentation**
 
 ### Phase-Driven Development
 - **Always check PHASES.md** for current phase and constraints
