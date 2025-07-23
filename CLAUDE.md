@@ -1,79 +1,190 @@
-### 🔄 Project Awareness & Context & Research - Novum Labs Website
-- **Documentation is a source of truth** - Your knowledge is out of date, I will always give you the latest documentation before writing any files that use third party APIs - that information was freshly scraped and you should NOT use your own knowledge, but rather use the documentation as a source of absolute truth.
-- **Always read DESIGN.md** at the start of a new conversation to understand Novum Labs' visual architecture, component specifications, and two-phase implementation approach.
-- **Check TASK.md** before starting a new task. If the task isn't listed, add it with a brief description and today's date.
-- **Use consistent naming conventions, file structure, and architecture patterns** as described in DESIGN.md and Next.js 15 App Router conventions.
-- **Performance First** - All features must meet Lighthouse 90+ scores. Implement lazy loading, code splitting, and image optimization from the start.
-- **Premium Visual Experience** - Every component should reinforce Novum Labs as a cutting-edge AI consultancy. Use smooth animations, sophisticated gradients, and polished micro-interactions.
-- **Dark Theme Primary** - Build with dark theme as default using LCH color space. Design all components to support future light theme without breaking changes.
-- **Mobile-First Responsive** - All features must work flawlessly on mobile devices. Design for touch interactions first, enhance for desktop hover states.
-- **Stick to OFFICIAL DOCUMENTATION PAGES ONLY** - For all research ONLY use official documentation pages. Use web search on the documentation page given to you and then create documentation in your memory, then choose the exact pages that make sense for this project and scrape them using web search tools.
-- **Ultrathink** - Use deep thinking capabilities to decide which technologies to research, what information to put into PRPs, and how to build premium web experiences.
-- **Create 2 PRP documents** - phase-1-novum-labs.md and phase-2-novum-labs.md - phase 1 implements the static foundation as defined in DESIGN.md Section 8, phase 2 adds complete production ready code with all animations and interactive features.
-- **Always research extensively when doing research** - If a page 404s or does not contain correct content, try to search again and find the actual page/content. Put the output of each successful web search into a new directory with the name of the technology researched, then inside it .md files of each output.
-- **Refer to /research/ directory** - Before implementing any feature that uses something that requires documentation, refer to the relevant directory inside /research/ directory and use the .md files to ensure you're coding with great accuracy for Next.js 15, React 19, Tailwind v4, and Motion.
-- **Design System Accuracy** - When implementing visual components, always verify against the LCH color tokens, typography scale, and spacing system defined in DESIGN.md Section 3.
-- **For Maximum efficiency, whenever you need to perform multiple independent operations, such as research, invoke all relevant tools simultaneously, rather than sequentially.**
+# CLAUDE.md — Novum Labs Website
 
-### 🧱 Code Structure & Modularity
-- **Never create a file longer than 500 lines of code.** If a file approaches this limit, refactor by splitting it into modules or helper files.
-- **Organize code into clearly separated modules**, grouped by feature responsibility under `src/`:
-    - `src/components/ui/` - Reusable shadcn/ui components
-    - `src/components/sections/` - Page sections (Hero, Demos, Team, Process, CTA)
-    - `src/components/layout/` - Header, Footer, Navigation components
-    - `src/components/demos/` - Interactive demo preview components
-    - `src/lib/` - Utilities, hooks, constants, theme configuration
-    - `src/app/` - Next.js 15 App Router pages and layouts
-    - `src/styles/` - Global styles and CSS modules
-    - `src/types/` - TypeScript type definitions
-- **Use clear, consistent imports following Next.js conventions** (absolute imports with @ alias pointing to src/).
-- **Use environment variables** for all API keys, external service URLs, and configuration.
+## 🎯 Project North Star
+Build a cutting-edge AI consultancy website that showcases technical excellence through sophisticated minimalism. Every decision should reinforce Novum Labs as a premium AI partner capable of transforming businesses.
 
-### 🧪 Testing & Reliability
-- **Always create unit tests** for utility functions and hooks using Jest.
-- **Component testing** with React Testing Library for UI components.
-- **Accessibility testing** with jest-axe to ensure WCAG AA compliance.
-- **Performance testing** with Lighthouse CI to ensure 90+ scores across all metrics.
-- **Bundle size monitoring** - Run `next build --profile` after adding new dependencies.
-- Tests should live in component folders as `component.test.tsx` or in `__tests__` for integration tests.
-    - Include at least: 1 happy path test, 1 edge case, 1 accessibility test, 1 performance benchmark
+## 🏗️ Architecture Principles
 
-### ✅ Task Completion
-- **Mark completed tasks in TASK.md** immediately after finishing them.
-- **Performance validation** - Before marking any feature complete, verify it meets the performance budgets in DESIGN.md Section 8.
-- Add new sub-tasks or TODOs discovered during development to TASK.md under a "Discovered During Work" section.
+### Context7 MCP is Truth
+- **All documentation comes through Context7 MCP** — Never web scrape for Next.js, React, Tailwind, or Motion documentation
+- **Use `context7` for library-specific information** — Request documentation when implementing features that require external APIs
+- **Trust Context7 versions** — The documentation provided is version-accurate for our tech stack
+- **Manual research only for design inspiration** — Linear.app and CoLab patterns are stored in `/research/design-inspiration/`
 
-### 📎 Style & Conventions
-- **Use TypeScript** strictly with no `any` types unless explicitly justified.
-- **Follow Next.js 15 conventions** - App Router, Server Components where appropriate, proper metadata exports.
-- **Tailwind CSS v4** - Use utility classes with design system constraints, avoid arbitrary values.
-- **Motion library patterns** - 300-500ms durations, cubic-bezier(0.65, 0, 0.35, 1) easing, respect prefers-reduced-motion.
-- Write **comprehensive JSDoc comments for every exported function** using standard format:
-  ```typescript
-  /**
-   * Creates animated mesh gradient background for hero section
-   * 
-   * @param {MeshConfig} config - Gradient configuration options
-   * @returns {HTMLCanvasElement} Animated canvas element
-   * 
-   * @example
-   * const mesh = createMeshGradient({ 
-   *   colors: ['--accent-1', '--accent-2'],
-   *   speed: 0.5 
-   * })
-   */
-  ```
+### Phase-Driven Development
+- **Always check PHASES.md** for current phase and constraints
+- **Never skip phases** — Each phase has specific validation gates
+- **Phase progression is intentional** — Structure → Style → Motion
+- **Validation is mandatory** — Run checks in `/validation/` before considering phase complete
 
-### 📚 Documentation & Explainability
-- **Update README.md** when adding new features, changing setup process, or modifying architecture.
-- **Component documentation** - Each major component should have usage examples and prop descriptions.
-- **Document design decisions** that deviate from standard patterns or affect performance.
-- When implementing complex animations or interactions, **add inline comments** explaining the approach and performance considerations.
+### TypeScript First
+- **Use TypeScript exclusively** — No JavaScript files except for configuration
+- **Strict mode always** — `"strict": true` in tsconfig.json
+- **Type safety over convenience** — Never use `any` unless absolutely necessary with justification
+- **Interfaces over types** — For consistency and better error messages
 
-### 🧠 AI Behavior Rules
-- **Never assume missing context. Ask clarifying questions** about design intentions, animation details, or performance trade-offs.
-- **Never delete or overwrite existing components** unless explicitly instructed as part of a refactor.
-- **Follow the two-phase approach strictly** - Phase 1 must work without JavaScript, Phase 2 adds enhancements.
-- **Check examples/ folder first** before implementing new patterns.
-- **Performance over complexity** - Choose simpler solutions that meet performance budgets over complex ones that don't.
-- **Accessibility is non-negotiable** - Every interactive element must be keyboard accessible and screen reader friendly.
+## 🛠️ Technical Constants
+
+### Core Stack (Immutable)
+```typescript
+const TECH_STACK = {
+  framework: "next@15.4.1",      // App Router only
+  ui: "react@19.1",              // Latest stable
+  styles: "tailwindcss@4.1",     // With LCH color space
+  components: "shadcn/ui",       // Radix-based
+  animation: "motion@12.23.6",   // Formerly Framer Motion
+  language: "typescript@5.7",    // Strict mode
+  deployment: "vercel"           // Optimized for Next.js
+} as const;
+```
+
+### Project Structure (Fixed)
+```
+src/
+├── app/                 # Next.js App Router pages
+├── components/          # Reusable components
+│   ├── ui/             # shadcn/ui components
+│   ├── sections/       # Page sections
+│   └── layout/         # Layout components
+├── lib/                # Utilities and helpers
+├── styles/             # Global styles
+└── types/              # TypeScript definitions
+```
+
+### Performance Budgets (Non-Negotiable)
+- **Lighthouse Score**: 90+ across all metrics
+- **First Contentful Paint**: < 1.5s
+- **Largest Contentful Paint**: < 2.5s
+- **Cumulative Layout Shift**: < 0.1
+- **Time to Interactive**: < 3s
+- **Bundle Size**: < 150KB JS (gzipped)
+
+## 🎨 Design Philosophy
+
+### Linear-Inspired Minimalism
+- **Every element has purpose** — No decorative additions without functional value
+- **Mathematical relationships** — Spacing, typography follow systematic scales
+- **LCH color space** — Perceptually uniform color generation
+- **Reduction over addition** — Start minimal, add only what's essential
+
+### CoLab-Inspired Functionality
+- **Animation serves user goals** — Never animate for animation's sake
+- **Performance over complexity** — 60fps is mandatory for all animations
+- **Progressive disclosure** — Reveal complexity only when needed
+- **Engineering-first interactions** — Practical over playful
+
+### Dark Theme Foundation
+- **Dark is primary** — Build dark-first, not dark-adapted
+- **Future-ready architecture** — Theme system supports light mode addition
+- **Contrast accessibility** — WCAG AAA where possible, AA minimum
+- **Consistent token usage** — Never hardcode colors outside design system
+
+## 📁 File Organization Rules
+
+### Component Structure
+```typescript
+// components/sections/hero-section.tsx
+export function HeroSection() {
+  // Component implementation
+}
+
+// Always prefer named exports for components
+// Always use kebab-case for filenames
+// Always colocate related files
+```
+
+### Import Hierarchy
+1. External dependencies
+2. Internal aliases (@/...)
+3. Relative imports
+4. Type imports
+
+### Naming Conventions
+- **Files**: `kebab-case.tsx`
+- **Components**: `PascalCase`
+- **Utilities**: `camelCase`
+- **Constants**: `SCREAMING_SNAKE_CASE`
+- **Types/Interfaces**: `PascalCase`
+
+## ✅ Quality Standards
+
+### Code Quality
+- **ESLint**: Zero warnings policy
+- **Prettier**: Automatic formatting
+- **TypeScript**: No implicit any
+- **Imports**: Sorted and grouped
+
+### Accessibility
+- **Semantic HTML**: Proper element usage
+- **ARIA**: Only when semantic HTML insufficient
+- **Keyboard**: Full keyboard navigation
+- **Screen readers**: Tested with NVDA/JAWS
+
+### Testing Philosophy
+- **Type safety is first test** — TypeScript catches many bugs
+- **Integration over unit** — Test user flows, not implementation
+- **Visual regression** — Prevent style breaks between phases
+- **Performance monitoring** — Continuous Core Web Vitals tracking
+
+## 🚫 Anti-Patterns to Avoid
+
+### Never Do This
+- ❌ Skip validation between phases
+- ❌ Use `any` without comment justification
+- ❌ Implement features not in current phase
+- ❌ Web scrape when Context7 can provide
+- ❌ Hardcode values that should be tokens
+- ❌ Create files over 300 lines
+- ❌ Mix concerns in single component
+- ❌ Animate without performance testing
+
+### Always Do This
+- ✅ Check PHASES.md before implementing
+- ✅ Run validation/ checks before phase transition
+- ✅ Use design tokens from examples/
+- ✅ Request Context7 documentation for APIs
+- ✅ Follow ASCII wireframe exactly in Phase 1
+- ✅ Test on real mobile devices
+- ✅ Consider reduced motion preferences
+- ✅ Document non-obvious decisions
+
+## 🤖 AI Assistant Behavior
+
+### Context7 Usage Pattern
+```typescript
+// When implementing a Next.js feature:
+// "I need to implement dynamic routes in Next.js 15.4.1"
+// → Use context7 to get app router documentation
+
+// When implementing animations:
+// "I need to create scroll-triggered animations"
+// → Use context7 for Motion/Framer Motion docs
+
+// For design patterns:
+// → Check examples/ and research/design-inspiration/
+```
+
+### Decision Making
+1. **Phase constraints override everything** — Even good ideas wait for appropriate phase
+2. **Validation gates are binary** — Pass or fail, no partial credit
+3. **Performance budgets are ceilings** — Not targets to hit but limits to stay under
+4. **When uncertain, choose simpler** — Complexity must justify itself
+
+### Communication Style
+- **Be specific about phase constraints** when declining requests
+- **Suggest phase-appropriate alternatives** when features are premature
+- **Cite specific validation requirements** when explaining decisions
+- **Reference design tokens by name** for consistency
+
+## 🎯 Success Definition
+
+The Novum Labs website succeeds when:
+1. **Technical Excellence**: 95+ Lighthouse scores prove our capability
+2. **Design Sophistication**: Linear-inspired minimalism creates premium perception
+3. **Functional Delight**: CoLab-inspired interactions engage without overwhelming
+4. **Future Readiness**: Architecture supports growth without refactoring
+5. **Team Pride**: The website represents our best work
+
+---
+
+*This document defines the unchanging principles that guide every decision in the Novum Labs website project. For phase-specific guidance, see PHASES.md. For design specifications, see DESIGN.md. For implementation details, see INITIAL.md.*
