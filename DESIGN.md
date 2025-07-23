@@ -1,477 +1,511 @@
-# DESIGN.md — Novum Labs Website
+# DESIGN.md — Novum Labs Website Visual Design Specification
 
-## 1. Purpose
+## 🎨 Design Vision
 
-Create an impressive, modular marketing website for **Novum Labs** (novumlabs.ai).
+Create a sophisticated AI consultancy website that balances Linear's systematic minimalism with CoLab's functional dynamism. Every visual decision reinforces technical excellence through purposeful simplicity.
 
-**Immediate goal:** Wow high-value leads with live AI demos and move them to a discovery call.
+### Key Design Principles
+- **Seamless Flow**: One continuous black canvas with no visual section breaks
+- **Journey Narrative**: Animated line guides users through the experience
+- **Purposeful Minimalism**: Every element earns its place
+- **Technical Elegance**: Professional without being cold
 
-## 2. Technology Stack
+## 🌈 Color System (LCH)
 
-| Layer | Preferred Tools | Notes |
-|-------|----------------|-------|
-| Framework | **Next.js 15.4.1** (App Router) & **React 19.1** | Latest stable versions released July 2025 with server components, Turbopack builds, and React 19 stable features |
-| Styling | **Tailwind CSS v4.1** + **shadcn/ui** | Tailwind v4.1 with 5x faster builds, automatic content detection, and text shadows. shadcn/ui fully updated for Tailwind v4 + React 19 |
-| Motion | **Motion 12.23.6** (formerly Framer Motion) — GSAP / Lenis allowed if lighter | Latest Motion for React with hybrid engine combining JavaScript animations and native browser APIs |
-| Hosting | Vercel (optional) | Optimized for Next.js deployment |
-| Extensibility | Must allow future light theme & extra pages without re-architecting | Scalable architecture from day one |
-
-## 3. Design Tokens (LCH Color Space)
-
-| Token | Dark Value | Light Value (future) | Usage |
-|-------|------------|---------------------|-------|
-| `--bg-main` | `lch(18% 0 0)` | `lch(98% 0 0)` | Global background |
-| `--fg-high` | `lch(95% 0 0)` | `lch(10% 0 0)` | Headings |
-| `--fg-muted` | `lch(70% 0 0 / 0.7)` | `lch(35% 0 0 / 0.8)` | Body text |
-| `--accent-1` | `lch(70% 90 230)` | same | Primary neon accent |
-| `--accent-2` | `lch(65% 80 280)` | same | Gradient second stop |
-
-### CSS Custom Properties Structure
-
+### Background Treatment
 ```css
-:root[data-theme='dark'] { 
-  --bg-main: 18% 0 0;
-  --fg-high: 95% 0 0;
-  --fg-muted: 70% 0 0 / 0.7;
-  --accent-1: 70% 90 230;
-  --accent-2: 65% 80 280;
+/* Seamless background throughout entire page */
+body {
+  background: var(--color-background); /* lch(5% 0 0) */
+  /* No section dividers or color changes */
+  /* Sections flow continuously on single canvas */
 }
 
-:root[data-theme='light'] { 
-  --bg-main: 98% 0 0;
-  --fg-high: 10% 0 0;
-  --fg-muted: 35% 0 0 / 0.8;
-  --accent-1: 70% 90 230;
-  --accent-2: 65% 80 280;
+/* Section separation through spacing only */
+section {
+  /* No background colors */
+  /* No borders */
+  /* Use padding/margin for visual separation */
 }
 ```
 
-### Tailwind Configuration
-
-```typescript
-// tailwind.config.ts
-export default {
-  theme: {
-    extend: {
-      colors: {
-        bg:      'lch(var(--bg-main) / <alpha-value>)',
-        fg:      'lch(var(--fg-high) / <alpha-value>)',
-        muted:   'lch(var(--fg-muted) / <alpha-value>)',
-        accent:  'lch(var(--accent-1) / <alpha-value>)',
-        accent2: 'lch(var(--accent-2) / <alpha-value>)'
-      }
-    }
-  }
-};
+### Core Palette
+```css
+:root {
+  /* Primary Colors */
+  --color-background: lch(5% 0 0);        /* Near black */
+  --color-foreground: lch(98% 0 0);       /* Near white */
+  --color-muted: lch(45% 0 0 / 0.7);      /* Muted text */
+  
+  /* Accent Colors (Linear-inspired) */
+  --color-accent-blue: lch(65% 90 260);    /* Primary accent */
+  --color-accent-purple: lch(70% 85 300);  /* Secondary accent */
+  --color-accent-green: lch(75% 80 150);   /* Success states */
+  --color-accent-orange: lch(75% 85 60);   /* Warning states */
+  
+  /* UI Colors */
+  --color-border: lch(15% 0 0 / 0.2);     /* Subtle borders */
+  --color-surface: lch(10% 0 0);          /* Card backgrounds */
+  --color-hover: lch(12% 0 0);            /* Hover states */
+}
 ```
 
-## 4. Theme Management Strategy
+### Gradient System
+```css
+/* Primary gradient (hero, CTAs) */
+--gradient-primary: linear-gradient(135deg, 
+  var(--color-accent-blue), 
+  var(--color-accent-purple)
+);
 
-- Add `data-theme="dark"` | `"light"` to the `<html>` element
-- Provide a `ThemeProvider` (client component) that toggles the attribute and stores preference in localStorage
-- All colors use CSS variables, so Tailwind classes automatically adapt across themes
-
-## 5. Site Architecture
-
-### Route Structure
-```
-/               Landing – hero → demos → team → process → CTA
-/playground     Live demo hub
-/book           Scheduler embed
-/legal/*        Static docs
-```
-
-### Page Flow
-```
-Landing Page → Live Demos → Process Overview → Team/About → Call to Action
-     ↓              ↓              ↓              ↓              ↓
-  Hero Section   Demo Cards    Flow Diagram    Team Grid   Scheduler CTA
+/* Mesh gradient (backgrounds) */
+--gradient-mesh: 
+  radial-gradient(at 40% 20%, var(--color-accent-blue) 0px, transparent 50%),
+  radial-gradient(at 80% 0%, var(--color-accent-purple) 0px, transparent 50%),
+  radial-gradient(at 0% 50%, var(--color-accent-green) 0px, transparent 50%);
 ```
 
-## 6. Component Inventory
+## 📐 Typography System
 
-### Core Components
-- **`MeshHero`** – Full-viewport hero with mesh-gradient canvas
-- **`DemoPreviewCard`** – Interactive mini-demo block
-- **`TeamGrid`** – Professional team showcase with headshots and roles
-- **`FlowDiagram`** – Animated SVG line graphic (CoLab style)
-- **`Section`** – Grid wrapper with scroll-snap utilities
-- **`SchedulerCTA`** – Button/dialog that lazy-loads call-scheduler
-
-### Component Hierarchy
-```
-Website Layout
-├── ThemeProvider
-├── Header/Navigation
-├── Main Content
-│   ├── MeshHero
-│   ├── Section (demos)
-│   │   └── DemoPreviewCard[]
-│   ├── Section (process)
-│   │   └── FlowDiagram
-│   ├── Section (team)
-│   │   └── TeamGrid
-│   └── Section (CTA)
-│       └── SchedulerCTA
-└── Footer
+### Font Stack
+```css
+--font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+--font-mono: 'JetBrains Mono', 'SF Mono', Consolas, monospace;
 ```
 
-### Core Components
-- **`MeshHero`** – Full-viewport hero with mesh-gradient canvas
-- **`DemoPreviewCard`** – Interactive mini-demo block
-- **`TeamGrid`** – Professional team showcase with headshots and roles
-- **`FlowDiagram`** – Animated SVG line graphic (CoLab style)
-- **`Section`** – Grid wrapper with scroll-snap utilities
-- **`SchedulerCTA`** – Button/dialog that lazy-loads call-scheduler
+### Type Scale (Perfect Fourth - 1.333)
+```css
+--text-xs: 0.75rem;     /* 12px */
+--text-sm: 0.875rem;    /* 14px */
+--text-base: 1rem;      /* 16px */
+--text-lg: 1.125rem;    /* 18px */
+--text-xl: 1.5rem;      /* 24px */
+--text-2xl: 2rem;       /* 32px */
+--text-3xl: 2.667rem;   /* 42.67px */
+--text-4xl: 3.556rem;   /* 56.89px */
+--text-5xl: 4.741rem;   /* 75.85px */
+```
 
-## 7. Layout & Wireframes
+### Font Weights
+```css
+--font-normal: 400;
+--font-medium: 500;
+--font-semibold: 600;
+--font-bold: 700;
+```
 
-### Design Inspiration
-Drawing from industry leaders known for exceptional design:
-- **Stripe:** Simple design, centrepieces, and impressive details with diagonal color sections and visible grid structure
-- **Linear:** Dark background with linear gradient colors, blurs, dynamic streamers, and professional engineering-focused aesthetic
-- **Vercel:** Clean design system with high contrast, accessible color system and consistent web experiences
-- **CoLab:** Clear value proposition presentation with smooth gradients and professional CAD software aesthetic
+### Line Heights
+```css
+--leading-tight: 1.1;    /* Headings */
+--leading-snug: 1.3;     /* Sub-headings */
+--leading-normal: 1.6;   /* Body text */
+--leading-relaxed: 1.8;  /* Small text */
+```
 
-### Desktop Layout Structure (Alternating Blocks + Animated Connecting Lines)
+## 📏 Spacing System (8px Base)
+
+### Scale
+```css
+--space-0: 0;
+--space-1: 0.25rem;   /* 4px */
+--space-2: 0.5rem;    /* 8px */
+--space-3: 0.75rem;   /* 12px */
+--space-4: 1rem;      /* 16px */
+--space-5: 1.5rem;    /* 24px */
+--space-6: 2rem;      /* 32px */
+--space-8: 3rem;      /* 48px */
+--space-10: 4rem;     /* 64px */
+--space-12: 6rem;     /* 96px */
+--space-16: 8rem;     /* 128px */
+--space-20: 10rem;    /* 160px */
+```
+
+### Container
+```css
+--container-max: 1200px;
+--container-padding: var(--space-4);
+--container-padding-lg: var(--space-6);
+```
+
+## 🗺️ Layout Structure
+
+### Desktop Wireframe (1200px+)
 ```
 ┌─────────────────────────────────────────────────────────────────┐
-│ Header (fixed/transparent)          [Theme] [Menu] [Book Call] │
+│ Header (fixed, blur backdrop)                    [Book Call CTA] │
 ├─────────────────────────────────────────────────────────────────┤
 │                                                                 │
-│                    HERO SECTION                                 │
-│  ┌─────────────────────────────────────────────────────────┐   │
-│  │  Large Heading: "Build AI solutions..."                │   │
-│  │  Subheading: Value proposition                          │   │
-│  │  CTA: "See Live Demo" | "Book Discovery Call"          │   │
-│  │                                                         │   │
-│  │           [Mesh Gradient Background Canvas]             │   │
-│  │              with floating elements                     │   │
-│  └─────────────────────────────────────────────────────────┘   │
+│                         HERO SECTION                            │
+│                   (100vh - header height)                       │
+│  ┌─────────────────────────────────────────────────────────┐  │
+│  │                                                         │  │
+│  │           Headline (text-5xl, bold)                     │  │
+│  │         Subheadline (text-xl, muted)                   │  │
+│  │                                                         │  │
+│  │      [Primary CTA]    [Secondary CTA]                  │  │
+│  │                                                         │  │
+│  │          (Mesh gradient background)                     │  │
+│  └─────────────────────────────────────────────────────────┘  │
 │                                                                 │
-├─────────────────────────────────────────────────────────────────┤
-│                DEMOS SECTION (Alternating Layout)              │
+│●═══════════════════════════════════════════════════════════════●│
+│                    DEMOS SECTION                                │
 │                                                                 │
-│  ┌─────────────────────────────┐    ●────────────────────┐     │
-│  │        Demo 1 Content       │    │  [Animated Line]   │     │
-│  │    "Coming Soon Demo"       │    │                    │     │
-│  │                             │    │                    │     │
-│  │   [Coming Soon Preview]     │    │                    │     │
-│  │      [Coming Soon]          │    │                    │     │
-│  └─────────────────────────────┘    │                    │     │
-│                                      │                    │     │
-│              ┌───────────────────────┼────────────────────●     │
-│              │  [Connecting Line]    │                          │
-│              │                       │                          │
-│     ┌────────┼───────────────────────┘                          │
-│     │        │        Demo 2 Content                            │
-│     │        │      "Coming Soon Demo"                          │
-│     │        │                                                  │
-│     │        │   [Coming Soon Preview]                          │
-│     │        │      [Coming Soon]                               │
-│     │        └─────────────────────────────┘                    │
-│     │                                                           │
-│     └──●──────────────────────────────────┐                    │
-│        │  [Connecting Line]                │                    │
-│        │                                   │                    │
-│  ┌─────┼───────────────────────────────────┘                    │
-│  │     │        Demo 3 Content                                  │
-│  │     │     "Coming Soon Demo"                                 │
-│  │     │                                                        │
-│  │     │   [Coming Soon Preview]                                │
-│  │     │      [Coming Soon]                                     │
-│  │     └─────────────────────────────┘                          │
-│  │                                                              │
-├─┼──────────────────────────────────────────────────────────────┤
-│ │               PROCESS SECTION (Split Layout)                 │
-│ └──●────────────────────────────────────┐                     │
-│    │                                    │                     │
-│    │  "How We Work With You"            │                     │
-│    │                                    │                     │
-│    │  ┌─ Discovery ─●─ Strategy ─●─ Development ─●─ Deploy     │
-│    │  │             │            │              │             │
-│    │  │  Research   │ Planning   │   Building   │ Launch      │
-│    │  │             │            │              │             │
-│    │  └─────────────┴────────────┴──────────────┴─────────────┘│
-│    │                                                           │
-│    └─────────────────────────────────────┐                     │
-│                                          │                     │
-├──●───────────────────────────────────────┘                     │
-│  │                    TEAM SECTION                             │
-│  └──●──────────────────────────────────────────────────────────┐│
-│     │ "Meet the Team Behind Novum Labs"                        ││
-│     │                                                          ││
-│     │  ┌──────────┐ ┌──────────┐ ┌──────────┐ ┌──────────┐    ││
-│     │  │ Bautista │ │Alessandro│ │Sebastian │ │  Tomas   │    ││
-│     │  │ [Photo]  │ │ [Photo]  │ │ [Photo]  │ │ [Photo]  │    ││
-│     │  │   CEO    │ │   CGO    │ │   CTO    │ │Lead Eng. │    ││
-│     │  │[LinkedIn]│ │[LinkedIn]│ │[LinkedIn]│ │[LinkedIn]│    ││
-│     │  └──────────┘ └──────────┘ └──────────┘ └──────────┘    ││
-│     │                                                          ││
-│     │       Brief company story/mission statement              ││
-│     │                                                          ││
-├─────┼──────────────────────────────────────────────────────────┤│
-│     │                 CTA SECTION                             ││
-│     └──●─────────────────────────────────────────────────────┐││
-│        │                                                     │││
-│        │  "Ready to Transform Your Business with AI?"        │││
-│        │                                                     │││
-│        │         ┌─────────────────────────────────┐         │││
-│        │         │     [Book Discovery Call]       │         │││
-│        │         │                                 │         │││
-│        │         │  OR  [View More Demos]          │         │││
-│        │         └─────────────────────────────────┘         │││
-│        │                                                     │││
-│        └─────────────────────────────────────────────────────┘││
-├─────────────────────────────────────────────────────────────────┤
-│ Footer: Legal | Contact | Social Links                         │
+│  ┌─────────────────────┐  ╱  ┌─────────────────────────────┐  │
+│  │                     │ ╱   │  Demo 1 Title               │  │
+│  │                     │╱    │                             │  │
+│  │    Demo 1 Preview  │     │  How to use this demo:      │  │
+│  │                     │     │  - Step 1 instruction       │  │
+│  │    Coming Soon     │     │  - Step 2 instruction       │  │
+│  │                     │     │  - Expected outcome         │  │
+│  └─────────────────────┘     └─────────────────────────────┘  │
+│                                                                 │
+│●────────────────────────────────────────────────────────────────●
+│                                                                 │
+│  ┌─────────────────────────────┐  ╲  ┌─────────────────────┐  │
+│  │  Demo 2 Title               │   ╲ │                     │  │
+│  │                             │    ╲│                     │  │
+│  │  How to use this demo:      │     │    Demo 2 Preview  │  │
+│  │  - Step 1 instruction       │     │                     │  │
+│  │  - Step 2 instruction       │     │    Coming Soon     │  │
+│  │  - Expected outcome         │     │                     │  │
+│  └─────────────────────────────┘     └─────────────────────┘  │
+│                                                                 │
+│●────────────────────────────────────────────────────────────────●
+│                                                                 │
+│  ┌─────────────────────┐  ╱  ┌─────────────────────────────┐  │
+│  │                     │ ╱   │  Demo 3 Title               │  │
+│  │                     │╱    │                             │  │
+│  │    Demo 3 Preview  │     │  How to use this demo:      │  │
+│  │                     │     │  - Step 1 instruction       │  │
+│  │    Coming Soon     │     │  - Step 2 instruction       │  │
+│  │                     │     │  - Expected outcome         │  │
+│  └─────────────────────┘     └─────────────────────────────┘  │
+│                                                                 │
+│●═══════════════════════════════════════════════════════════════●│
+
+Legend:
+╱ ╲ = Visual flow indicators showing zigzag reading pattern
+│                    PROCESS SECTION                              │
+│                                                                 │
+│     Discovery ──●── Strategy ──●── Development ──●── Deploy    │
+│                                                                 │
+│●═══════════════════════════════════════════════════════════════●│
+│                      TEAM SECTION                               │
+│                                                                 │
+│            ┌─────┐    ┌─────┐    ┌─────┐    ┌─────┐           │
+│            │ IMG │    │ IMG │    │ IMG │    │ IMG │           │
+│            │     │    │     │    │     │    │     │           │
+│            └─────┘    └─────┘    └─────┘    └─────┘           │
+│             Name       Name       Name       Name              │
+│             Role       Role       Role       Role              │
+│                                                                 │
+│●═══════════════════════════════════════════════════════════════●│
+│                       CTA SECTION                               │
+│                                                                 │
+│              Ready to Transform with AI?                        │
+│                                                                 │
+│                   [Book Discovery Call]                         │
+│                                                                 │
 └─────────────────────────────────────────────────────────────────┘
 
 Legend:
-● = Connection points for animated lines
-│ = Vertical animated connecting lines
-─ = Horizontal animated connecting lines
+● = Start and end points of the ONE continuous journey line (static in Phase 1, animated in Phase 3)
+│ = The single continuous line flowing through the entire page
+╱ ╲ = Where the line curves between demos to create zigzag reading flow
+    = Seamless black background with no section dividers
+    = Visual separation through spacing only
 ```
 
-### Mobile Layout Adaptations
+### Mobile Wireframe (< 768px)
 ```
-┌─────────────────────┐
-│ [≡] Novum    [Call] │ <- Collapsed header
-├─────────────────────┤
-│                     │
-│       HERO          │
-│                     │
-│   Large Heading     │
-│   (Stacked)         │
-│                     │
-│   Subheading        │
-│                     │
-│   [Primary CTA]     │
-│   [Secondary CTA]   │
-│                     │
-│  [Mesh Background]  │
-│                     │
-├─────────────────────┤
-│                     │
-│      DEMOS          │
-│                     │
-│  ┌───────────────┐   │ <- Single column
-│  │  Coming Soon  │   │    stack on mobile
-│  │    Demo 1     │   │    (connecting lines
-│  └───────────────┘   │     simplified to
-│         │             │     vertical dots)
-│         ●             │
-│         │             │
-│  ┌───────────────┐   │
-│  │  Coming Soon  │   │
-│  │    Demo 2     │   │
-│  └───────────────┘   │
-│         │             │
-│         ●             │
-│         │             │
-│  ┌───────────────┐   │
-│  │  Coming Soon  │   │
-│  │    Demo 3     │   │
-│  └───────────────┘   │
-│                     │
-├─────────────────────┤
-│                     │
-│     PROCESS         │
-│                     │
-│ [Simplified Flow]   │ <- Vertical stack
-│                     │    instead of
-│   Discovery         │    horizontal
-│      ↓              │
-│   Strategy          │
-│      ↓              │
-│   Development       │
-│      ↓              │
-│   Deployment        │
-│                     │
-├─────────────────────┤
-│                     │
-│    TEAM (2x2 Grid) │
-│                     │
-│ ┌────────┬────────┐ │ <- Compact square format
-│ │ Bauti  │ Ale    │ │    for instant credibility
-│ │ [CEO]  │ [CGO]  │ │    (Leadership team
-│ │ [pic]  │ [pic]  │ │     positioned first)
-│ ├────────┼────────┤ │
-│ │ Sebas  │ Tomas  │ │
-│ │ [CTO]  │[Lead]  │ │
-│ │ [pic]  │ [pic]  │ │
-│ └────────┴────────┘ │
-│   [LinkedIn icons]  │ <- Non-clickable photos
-│                     │    with LinkedIn links
-│   Brief story text  │ <- Condensed company story
-│                     │
-├─────────────────────┤
-│                     │
-│       CTA           │
-│                     │
-│  [Book Call]        │
-│                     │
-│  [View Demos]       │
-│                     │
-└─────────────────────┘
+┌─────────────────┐
+│ [≡]    [CTA]    │
+├─────────────────┤
+│                 │
+│      HERO       │
+│                 │
+│    Headline     │
+│   Subheadline   │
+│                 │
+│   [Primary]     │
+│  [Secondary]    │
+│●                │
+││     DEMOS      │
+││                │
+││ ┌───────────┐  │
+││ │  Demo 1   │  │
+││ │  Preview  │  │
+││ └───────────┘  │
+││ How to use:    │
+││ - Step 1       │
+││ - Step 2       │
+││                │
+││ ┌───────────┐  │
+││ │  Demo 2   │  │
+││ │  Preview  │  │
+││ └───────────┘  │
+││ How to use:    │
+││ - Step 1       │
+││ - Step 2       │
+││                │
+││ ┌───────────┐  │
+││ │  Demo 3   │  │
+││ │  Preview  │  │
+││ └───────────┘  │
+││ How to use:    │
+││ - Step 1       │
+││ - Step 2       │
+││                │
+││   PROCESS      │
+││  Discovery     │
+││      ↓         │
+││  Strategy      │
+││      ↓         │
+││ Development    │
+││      ↓         │
+││   Deploy       │
+││                │
+││     TEAM       │
+││ ┌──┐  ┌──┐    │
+││ └──┘  └──┘    │
+││ Name  Name     │
+││ Role  Role     │
+││                │
+││ ┌──┐  ┌──┐    │
+││ └──┘  └──┘    │
+││ Name  Name     │
+││ Role  Role     │
+││                │
+││     CTA        │
+││ [Book Call]    │
+│●                │
+└─────────────────┘
+
+Legend:
+● = Start and end points of journey line
+│ = ONE continuous line flowing down the page
+    = Seamless black background throughout
 ```
 
-### Section Transitions & Scroll Behavior
-- **Animated connecting lines** that progress with scroll position (like CoLab/Stripe)
-- **Alternating left/right content blocks** for visual rhythm and engagement
-- **Scroll-triggered line drawing** using SVG path animation and Intersection Observer
-- **Smooth easing** between connection points with cubic-bezier transitions
-- **Sticky header** with 85% opacity and backdrop blur
-- **Progressive content reveal** as user scrolls through the connecting line path
+## 🧩 Component Specifications
 
-### Animated Line Implementation Notes
-- **SVG path animation** using `stroke-dasharray` and `stroke-dashoffset`
-- **Scroll progress calculation** to determine line completion percentage  
-- **Connection points** marked with small animated dots that pulse when reached
-- **Responsive behavior** - lines adapt to content positioning on different screen sizes
-- **Performance optimized** using `will-change: transform` and GPU acceleration
+### Demo Cards
+```css
+/* Demo section layout */
+--demo-spacing: var(--space-20);        /* Between demos */
+--demo-preview-width: 45%;              /* Preview area */
+--demo-explanation-width: 45%;          /* Explanation area */
+--demo-gap: var(--space-8);            /* Gap between preview/explanation */
 
-### Key Layout Principles
-1. **Generous white space** - Following Stripe's approach to clarity
-2. **Visible grid structure** - Subtle grid lines like Stripe's design system
-3. **Dark theme primary** - Linear-inspired professional aesthetic  
-4. **Progressive enhancement** - Core content works without JavaScript
-5. **Performance-first** - Critical path rendering optimized
+/* Zigzag pattern (creates visual flow) */
+/* Demo 1: Preview left, explanation right   → */
+/* Demo 2: Explanation left, preview right   ← */  
+/* Demo 3: Preview left, explanation right   → */
 
-## 8. Development Phases
-
-### Phase 1: Static Foundation (Priority: Speed to Launch)
-**Goal:** Get a professional, functional website live quickly for immediate credibility.
-
-**Deliverables:**
-- Responsive layout structure (Hero → Demos → Process → Team → CTA)
-- Design system implementation (colors, typography, spacing)
-- Static content with placeholder copy
-- Basic navigation and routing
-- "Coming Soon" demo placeholders
-- Team section with LinkedIn icon links (non-clickable photos)
-- Smooth scrolling between sections
-- Performance optimization (90+ Lighthouse score)
-
-**Technical Focus:**
-- Next.js 15 + React 19 foundation
-- Tailwind CSS + shadcn/ui components
-- LCH color system implementation
-- Mobile-responsive grid layouts
-- SEO optimization
-
-### Phase 2: Interactive & Animated (Priority: Wow Factor)
-**Goal:** Add sophisticated animations and interactivity that positions Novum Labs as premium.
-
-**Deliverables:**
-- Scroll-triggered animated connecting lines
-- Mesh gradient hero background with floating elements
-- Interactive demo components (embedded within cards)
-- Smooth section transitions and parallax effects
-- Advanced animations (entrance, hover states, micro-interactions)
-- Scheduler integration for CTA
-- Analytics tracking setup
-
-**Technical Focus:**
-- Framer Motion implementation
-- SVG path animation for connecting lines
-- Canvas/WebGL for mesh hero background
-- Intersection Observer for scroll triggers
-- Third-party integrations (scheduler, analytics)
-- Performance monitoring and optimization
-
-### Content Management Strategy
-- **Phase 1:** Hardcoded placeholder content for speed
-- **Updates:** Use Claude Code for copy iterations and testing
-- **Team photos:** Easy swap capability without code changes
-- **Demo updates:** Modular structure for seamless Phase 2 integration
-
-### Performance Targets
-- **Lighthouse Score:** 90+ (Performance, Accessibility, SEO)
-- **First Contentful Paint:** < 1.5s
-- **Largest Contentful Paint:** < 2.5s
-- **Cumulative Layout Shift:** < 0.1
-- **Time to Interactive:** < 3s
-
-## 9. Motion & Animation Guidelines
-
-### Animation Principles
-1. **Duration:** 300–500ms with `cubic-bezier(0.65, 0, 0.35, 1)` easing
-2. **Trigger:** Once per section using `viewport={{ once: true }}`
-3. **Performance:** Max one complex animation per viewport fold
-4. **Accessibility:** Respect `prefers-reduced-motion`
-
-### Motion Library Priority
-1. **Framer Motion** (preferred for React integration)
-2. **GSAP/Lenis** (only if significantly lighter bundle)
-
-## 8. Accessibility & Performance Standards
-
-### Accessibility Requirements
-- Dark/light color combinations must meet **WCAG AA contrast** standards
-- Keyboard navigation support for all interactive elements
-- Screen reader compatibility
-- Reduced motion support
-
-### Performance Optimization
-- Lazy-load heavy canvases via `next/dynamic` with `ssr: false`
-- Run `next build --profile` to monitor bundle impact of motion libraries
-- Optimize images with Next.js Image component
-- Code splitting for non-critical components
-
-## 9. Success Metrics
-
-### User Experience Goals
-- Visitors grasp Novum Labs' value within **5 seconds**
-- Live demo interaction within **10 seconds** of landing
-- Clear path to booking a call with **< 3 clicks**
-- Premium, AI-forward visual impression
-
-### Technical Goals
-- **< 3s** initial page load
-- **> 90** Lighthouse performance score
-- **Flexible architecture** for future pages, themes, and content
-- **Zero breaking changes** when adding light theme
-
-## 10. Team Information
-
-### Team Members
-- **Bautista Kalani Giesenow** - Chief Executive Officer (CEO) / Co-founder
-- **Alessandro Donato Pascali** - Chief Growth Officer (CGO) / Co-founder  
-- **Sebastian Kloster** - Chief Technology Officer (CTO)
-- **Tomas Gerbi** - Lead Engineer
-
-### Team Section Strategy
-The team section serves as a credibility builder in the absence of case studies. It should:
-- Display professional headshots in a clean grid layout
-- Highlight relevant experience and expertise
-- Include brief backgrounds that establish domain authority
-- Position leadership team (co-founders) prominently while showcasing full technical capability
-- Optionally include a company origin story paragraph
-- Position after process demonstration and before the final CTA to reinforce capability with human credibility
-
-## 11. Development Guidelines
-
-### Code Organization
-```
-src/
-├── app/                 # Next.js App Router
-├── components/          # Reusable components
-│   ├── ui/             # shadcn/ui components
-│   ├── sections/       # Page sections
-│   └── layout/         # Layout components
-├── lib/                # Utilities and configurations
-├── styles/             # Global styles and theme
-└── types/              # TypeScript definitions
+/* This creates natural eye movement pattern */
+/* Journey line follows this zigzag flow */
 ```
 
-### Best Practices
-- Use TypeScript for all components
-- Implement proper error boundaries
-- Follow Next.js 15 App Router conventions
-- Maintain component composition over inheritance
-- Write self-documenting code with clear prop interfaces
+### Cards
+```css
+/* Base card */
+--card-padding: var(--space-6);
+--card-radius: 0.75rem;
+--card-border: 1px solid var(--color-border);
+--card-shadow: 0 1px 3px 0 lch(0% 0 0 / 0.1);
+--card-shadow-hover: 0 10px 40px -10px lch(0% 0 0 / 0.2);
+```
+
+### Buttons
+```css
+/* Primary button */
+--button-padding-x: var(--space-6);
+--button-padding-y: var(--space-3);
+--button-radius: 0.5rem;
+--button-font-weight: var(--font-semibold);
+
+/* Sizes */
+--button-height-sm: 2.25rem;   /* 36px */
+--button-height-md: 2.75rem;   /* 44px */
+--button-height-lg: 3.25rem;   /* 52px */
+```
+
+### Forms
+```css
+/* Input fields */
+--input-height: 2.75rem;        /* 44px */
+--input-padding-x: var(--space-4);
+--input-border-width: 2px;
+--input-radius: 0.5rem;
+```
+
+## 🎭 Animation Specifications
+
+### Timing Functions
+```css
+--ease-smooth: cubic-bezier(0.65, 0, 0.35, 1);
+--ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+--ease-in: cubic-bezier(0.87, 0, 0.13, 1);
+```
+
+### Durations
+```css
+--duration-fast: 200ms;
+--duration-normal: 300ms;
+--duration-slow: 500ms;
+--duration-slower: 800ms;
+```
+
+### Animation Patterns (Phase 3)
+
+> **Note**: All animations are Phase 3 only. In Phase 1-2, elements are static with journey line visible but not animated.
+
+#### Journey Line (Primary Navigation Element)
+- **Concept**: ONE continuous line that guides users through their entire journey
+- **Visual**: Like a single thread or river flowing through the page
+  
+- **Path Details**: 
+  - Starts at hero section (below CTAs)
+  - Flows vertically down the left side
+  - Gently curves/weaves to connect the zigzag demo pattern
+  - Continues straight through Process and Team sections
+  - Ends at the final CTA
+  - No breaks, no segments - one smooth, continuous path
+  
+- **Phase 1 (Static)**:
+  - Entire line visible as a faint path (opacity: 0.2)
+  - Shows users the journey they'll take
+  - No animation, just a subtle visual guide
+  - Implemented as SVG path or CSS pseudo-element
+  
+- **Phase 3 (Animated)**:
+  - **Scroll Progress**: Line "fills" like a loading bar as user scrolls
+  - **Visual Effect**: 
+    - Unfilled portion: faint (opacity: 0.2)
+    - Filled portion: brighter (opacity: 0.8)  
+    - Current position: glowing pulse effect
+  - **Technical**: Uses scroll percentage to determine fill amount
+  - **Smooth**: Slight easing for fluid motion, no jumps
+  
+- **Implementation Note**: This is a single SVG path or continuous element, NOT multiple separate lines
+- **Future**: Can host an animated avatar that runs along this path
+- **Mobile**: Same concept but straight vertical line
+
+#### Scroll-Triggered Reveals
+- Elements fade in and slide up 20px
+- Stagger children by 100ms
+- Use Intersection Observer with 10% threshold
+
+#### Demo Section Animations
+- Alternating fade-in from left/right
+- Subtle hover glow on demo cards
+- Preview areas can pulse gently to indicate interactivity
+
+#### Hover States
+- Scale: 1.02 for cards
+- Brightness: 1.1 for buttons
+- All transitions: 200ms ease-smooth
+
+#### Hero Mesh Gradient
+- Slow rotation: 20s infinite
+- Subtle scale breathing: 10s alternate
+- Performance: Use CSS transforms only
+
+## 📱 Responsive Breakpoints
+
+```css
+--breakpoint-sm: 640px;
+--breakpoint-md: 768px;
+--breakpoint-lg: 1024px;
+--breakpoint-xl: 1280px;
+--breakpoint-2xl: 1536px;
+```
+
+### Scaling Strategy
+- **Mobile First**: Base styles for < 640px
+- **Tablet**: Enhance at 768px+
+- **Desktop**: Optimize at 1024px+
+- **Wide**: Max width at 1200px
+
+## 🎯 Visual Hierarchy
+
+### Journey Line Specifications
+```css
+/* ONE continuous line that flows through the entire page */
+--journey-line-width: 2px;
+--journey-line-color: var(--gradient-primary);
+--journey-line-glow: 0 0 20px var(--color-accent-blue);
+
+/* Path description:
+   This is a SINGLE continuous line (like a river) that:
+   1. Starts below hero CTA buttons
+   2. Flows down the left side
+   3. Weaves right to Demo 1, then left to Demo 2, then right to Demo 3
+   4. Continues straight down through Process and Team
+   5. Ends at the CTA button
+   
+   Think of it as a single thread guiding users through the experience.
+   No breaks, no separate segments - one flowing path.
+*/
+
+/* Visual positioning */
+--journey-line-desktop-offset: 60px;    /* From left edge on desktop */
+--journey-line-mobile-offset: 20px;     /* From left edge on mobile */
+
+/* Phase 1: Static appearance */
+--journey-line-static-opacity: 0.2;
+--journey-line-static-color: var(--color-muted);
+
+/* Phase 3: Animation states */
+--journey-line-filled-opacity: 0.8;     /* Already scrolled */
+--journey-line-active-opacity: 1;       /* Current position + glow */
+--journey-line-unfilled-opacity: 0.2;   /* Not yet scrolled */
+
+/* Scroll progress calculation for Phase 3 */
+/* fillPercentage = (window.scrollY / (document.height - window.height)) * 100 */
+/* The line "fills" like a loading bar as user scrolls */
+```
+
+### Z-Index Scale
+```css
+--z-base: 0;
+--z-dropdown: 10;
+--z-sticky: 20;
+--z-fixed: 30;
+--z-modal-backdrop: 40;
+--z-modal: 50;
+--z-popover: 60;
+--z-tooltip: 70;
+```
+
+### Focus States
+- Ring width: 2px
+- Ring color: var(--color-accent-blue)
+- Ring offset: 2px
+- Ring opacity: 0.5
+
+## 🌟 Design Inspiration References
+
+### Linear.app Principles
+- **Systematic Design**: Every spacing value follows the scale
+- **Purposeful Simplicity**: No decoration without function
+- **High Contrast**: Clear visual hierarchy
+- **Consistent Rhythm**: Mathematical relationships
+- **Seamless Experience**: Continuous flow without jarring transitions
+
+### CoLab Software Patterns
+- **Functional Animation**: Every motion has purpose
+- **Progressive Disclosure**: Complexity revealed as needed
+- **Engineering Aesthetic**: Technical but approachable
+- **Performance First**: 60fps mandatory
+- **Guided Journey**: Clear navigation through content
+
+### Unique Novum Elements
+- **Journey Line**: Animated companion that guides users through the experience
+- **Seamless Canvas**: No section dividers, one continuous black background
+- **Alternating Demos**: Left/right pattern creates visual rhythm
+- **Symmetrical Team**: Balanced 4-person grid layout
 
 ---
 
-*This design document serves as the single source of truth for the Novum Labs website architecture and implementation guidelines.*
+*This document contains only visual design specifications. For technical implementation details, see INITIAL.md. For phase-specific constraints, see PHASES.md.*
