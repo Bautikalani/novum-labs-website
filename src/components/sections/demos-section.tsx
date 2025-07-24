@@ -1,64 +1,123 @@
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+import { Badge } from '@/components/ui/badge'
+
 interface DemoData {
   id: number;
   title: string;
   description: string;
   instructions: string[];
   position: 'left' | 'right';
+  status: string;
 }
 
 const demos: DemoData[] = [
   {
     id: 1,
     title: "Invoice to Excel Converter",
-    description: "Transform invoices into structured data",
-    instructions: ["Upload invoice PDF", "AI extracts data", "Download Excel file"],
-    position: 'left'
+    description: "Transform invoices into structured data with AI-powered extraction",
+    instructions: [
+      "Upload invoice PDF or image",
+      "AI extracts key data points",
+      "Download structured Excel file"
+    ],
+    position: 'left',
+    status: 'Coming Soon'
   },
   {
     id: 2, 
     title: "Voice Navigation Assistant",
-    description: "Navigate interfaces with voice commands",
-    instructions: ["Speak your request", "AI processes command", "Action executed"],
-    position: 'right'
+    description: "Navigate complex interfaces using natural voice commands",
+    instructions: [
+      "Speak your request naturally",
+      "AI processes and understands intent",
+      "Action executed automatically"
+    ],
+    position: 'right',
+    status: 'Coming Soon'
   },
   {
     id: 3,
-    title: "TBD AI Tool",
-    description: "More AI solutions coming soon",
-    instructions: ["Feature in development", "Stay tuned", "Contact us for updates"],
-    position: 'left'
+    title: "Smart Document Analyzer",
+    description: "Advanced AI analysis for complex document processing",
+    instructions: [
+      "Upload documents in any format",
+      "AI analyzes and categorizes content",
+      "Get insights and actionable data"
+    ],
+    position: 'left',
+    status: 'Coming Soon'
   }
 ];
 
 export function DemosSection() {
   return (
-    <section aria-label="Live Demos" className="demos-section" id="demos">
-      <h2>See Our AI Solutions in Action</h2>
-      
-      {demos.map((demo) => (
-        <article key={demo.id} className={`demo-item demo-${demo.position}`}>
-          <div className="demo-preview">
-            <div className="demo-placeholder">
-              <p>Coming Soon</p>
-              <span className="demo-status">Demo {demo.id}</span>
+    <section className="py-20 bg-background" id="demos">
+      <div className="container mx-auto px-6">
+        <div className="text-center mb-16">
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">
+            See Our AI Solutions in Action
+          </h2>
+          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+            Experience the power of custom AI through interactive demonstrations
+          </p>
+        </div>
+        
+        <div className="space-y-20">
+          {demos.map((demo) => (
+            <div
+              key={demo.id}
+              className={`grid lg:grid-cols-2 gap-12 items-center ${
+                demo.position === 'right' ? 'lg:grid-flow-col-dense' : ''
+              }`}
+            >
+              {/* Demo Preview */}
+              <div className={demo.position === 'right' ? 'lg:col-start-2' : ''}>
+                <Card className="aspect-video bg-surface border-border/50">
+                  <CardContent className="flex flex-col items-center justify-center h-full space-y-4">
+                    <div className="w-16 h-16 rounded-full bg-gradient-primary/20 flex items-center justify-center">
+                      <span className="text-2xl font-bold text-accent-blue">
+                        {demo.id}
+                      </span>
+                    </div>
+                    <Badge variant="secondary" className="px-4 py-2">
+                      {demo.status}
+                    </Badge>
+                  </CardContent>
+                </Card>
+              </div>
+              
+              {/* Demo Explanation */}
+              <div className={demo.position === 'right' ? 'lg:col-start-1' : ''}>
+                <Card className="border-border/50 bg-surface/50">
+                  <CardHeader>
+                    <CardTitle className="text-2xl">{demo.title}</CardTitle>
+                    <CardDescription className="text-lg">
+                      {demo.description}
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <div>
+                      <h4 className="font-semibold mb-4 text-foreground">
+                        How to use this demo:
+                      </h4>
+                      <ul className="space-y-2">
+                        {demo.instructions.map((instruction, index) => (
+                          <li key={index} className="flex items-start space-x-3">
+                            <span className="flex-shrink-0 w-6 h-6 rounded-full bg-accent-blue/20 text-accent-blue text-sm font-medium flex items-center justify-center mt-0.5">
+                              {index + 1}
+                            </span>
+                            <span className="text-muted-foreground">{instruction}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </CardContent>
+                </Card>
+              </div>
             </div>
-          </div>
-          
-          <div className="demo-explanation">
-            <h3>{demo.title}</h3>
-            <p>{demo.description}</p>
-            
-            <div className="demo-instructions">
-              <h4>How to use this demo:</h4>
-              <ul>
-                {demo.instructions.map((instruction, index) => (
-                  <li key={index}>{instruction}</li>
-                ))}
-              </ul>
-            </div>
-          </div>
-        </article>
-      ))}
+          ))}
+        </div>
+      </div>
     </section>
   )
 }

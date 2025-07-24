@@ -186,6 +186,11 @@ The Novum Labs website succeeds when:
 4. **Future Readiness**: Architecture supports growth without refactoring
 5. **Team Pride**: The website represents our best work
 
+## 📝 Implementation Notes
+
+### Tailwind and PostCSS Management
+- Manage the latest versions of Tailwind CSS with PostCSS to avoid common compatibility pitfalls
+
 ---
 
 *This document defines the unchanging principles that guide every decision in the Novum Labs website project. For phase-specific guidance, see PHASES.md. For design specifications, see DESIGN.md. For implementation details, see INITIAL.md.*

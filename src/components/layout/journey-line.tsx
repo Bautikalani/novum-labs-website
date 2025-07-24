@@ -1,15 +1,26 @@
 export function JourneyLine() {
   return (
-    <div className="journey-line" aria-hidden="true" role="presentation">
+    <div 
+      className="fixed left-0 top-0 w-24 h-full pointer-events-none z-0" 
+      aria-hidden="true"
+    >
       <svg 
-        className="journey-line-svg"
-        viewBox="0 0 100 2000" 
+        className="w-full h-full opacity-30"
+        viewBox="0 0 100 100" 
         preserveAspectRatio="none"
-        aria-hidden="true"
+        fill="none"
       >
+        <defs>
+          <linearGradient id="journeyGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stopColor="lch(65% 90 260)" />
+            <stop offset="50%" stopColor="lch(70% 85 300)" />
+            <stop offset="100%" stopColor="lch(75% 80 150)" />
+          </linearGradient>
+        </defs>
+        
         <path
-          d="M20 50 Q20 200 80 350 Q20 500 80 650 Q20 800 50 950 L50 1200 L50 1450 L50 1700 L50 1950"
-          stroke="currentColor"
+          d="M60 10 Q60 20 20 25 Q60 30 20 35 Q60 40 50 45 L50 55 L50 65 L50 75 L50 85 L50 95"
+          stroke="url(#journeyGradient)"
           strokeWidth="2"
           fill="none"
           className="journey-path"
