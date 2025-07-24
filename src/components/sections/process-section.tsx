@@ -1,5 +1,10 @@
+'use client'
+
+import { motion } from 'motion/react'
 import { Card, CardContent } from '@/components/ui/card'
 import { ArrowRight } from 'lucide-react'
+import { SectionWrapper } from '@/components/animated/section-wrapper'
+import { fadeInUp } from '@/lib/motion-config'
 
 const processSteps = [
   {
@@ -30,45 +35,72 @@ const processSteps = [
 
 export function ProcessSection() {
   return (
-    <section className="py-20 bg-background">
+    <SectionWrapper className="py-20 bg-background" stagger>
       <div className="container mx-auto px-6">
-        <div className="text-center mb-16">
+        <motion.div className="text-center mb-16" variants={fadeInUp}>
           <h2 className="text-3xl md:text-4xl font-bold mb-4">
             How We Transform Your Business
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
             Our proven methodology ensures successful AI implementation
           </p>
-        </div>
+        </motion.div>
         
         <div className="grid md:grid-cols-4 gap-8 relative">
           {processSteps.map((step, index) => (
-            <div key={step.id} className="relative">
-              <Card className="text-center border-border/50 bg-surface/30 hover:bg-surface/50 transition-colors">
-                <CardContent className="pt-8 pb-6">
-                  <div className="text-4xl mb-4">{step.icon}</div>
-                  <div className="w-12 h-12 mx-auto mb-4 rounded-full bg-gradient-primary/20 flex items-center justify-center">
-                    <span className="text-xl font-bold text-accent-blue">
-                      {step.id}
-                    </span>
-                  </div>
-                  <h3 className="text-xl font-semibold mb-3">{step.title}</h3>
-                  <p className="text-muted-foreground text-sm leading-relaxed">
-                    {step.description}
-                  </p>
-                </CardContent>
-              </Card>
+            <motion.div 
+              key={step.id} 
+              className="relative"
+              variants={fadeInUp}
+              custom={index}
+            >
+              <motion.div
+                whileHover={{ y: -4 }}
+                transition={{ duration: 0.2, ease: "easeOut" }}
+              >
+                <Card className="text-center border-border/50 bg-surface/30 hover:bg-surface/50 transition-colors">
+                  <CardContent className="pt-8 pb-6">
+                    <motion.div 
+                      className="text-4xl mb-4"
+                      initial={{ scale: 0 }}
+                      animate={{ scale: 1 }}
+                      transition={{ delay: index * 0.1 + 0.5, duration: 0.3, type: "spring" }}
+                    >
+                      {step.icon}
+                    </motion.div>
+                    
+                    <motion.div 
+                      className="w-12 h-12 mx-auto mb-4 rounded-full bg-gradient-primary/20 flex items-center justify-center"
+                      whileHover={{ scale: 1.1 }}
+                    >
+                      <span className="text-xl font-bold text-accent-blue">
+                        {step.id}
+                      </span>
+                    </motion.div>
+                    
+                    <h3 className="text-xl font-semibold mb-3">{step.title}</h3>
+                    <p className="text-muted-foreground text-sm leading-relaxed">
+                      {step.description}
+                    </p>
+                  </CardContent>
+                </Card>
+              </motion.div>
               
-              {/* Arrow connector */}
+              {/* Animated arrow connector */}
               {index < processSteps.length - 1 && (
-                <div className="hidden md:flex absolute top-1/2 -right-4 transform -translate-y-1/2 z-10">
+                <motion.div 
+                  className="hidden md:flex absolute top-1/2 -right-4 transform -translate-y-1/2 z-10"
+                  initial={{ opacity: 0, x: -10 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: index * 0.2 + 0.8 }}
+                >
                   <ArrowRight className="w-6 h-6 text-accent-blue" />
-                </div>
+                </motion.div>
               )}
-            </div>
+            </motion.div>
           ))}
         </div>
       </div>
-    </section>
+    </SectionWrapper>
   )
 }

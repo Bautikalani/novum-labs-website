@@ -1,5 +1,10 @@
+'use client'
+
+import { motion } from 'motion/react'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
+import { SectionWrapper } from '@/components/animated/section-wrapper'
+import { fadeInUp, cardHover } from '@/lib/motion-config'
 
 interface DemoData {
   id: number;
@@ -51,44 +56,58 @@ const demos: DemoData[] = [
 
 export function DemosSection() {
   return (
-    <section className="py-20 bg-background" id="demos">
+    <SectionWrapper className="py-20 bg-background" id="demos" stagger>
       <div className="container mx-auto px-6">
-        <div className="text-center mb-16">
+        <motion.div className="text-center mb-16" variants={fadeInUp}>
           <h2 className="text-3xl md:text-4xl font-bold mb-4">
             See Our AI Solutions in Action
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
             Experience the power of custom AI through interactive demonstrations
           </p>
-        </div>
+        </motion.div>
         
         <div className="space-y-20">
-          {demos.map((demo) => (
-            <div
+          {demos.map((demo, index) => (
+            <motion.div
               key={demo.id}
               className={`grid lg:grid-cols-2 gap-12 items-center ${
                 demo.position === 'right' ? 'lg:grid-flow-col-dense' : ''
               }`}
+              variants={fadeInUp}
+              custom={index}
             >
               {/* Demo Preview */}
-              <div className={demo.position === 'right' ? 'lg:col-start-2' : ''}>
-                <Card className="aspect-video bg-surface border-border/50">
+              <motion.div 
+                className={demo.position === 'right' ? 'lg:col-start-2' : ''}
+                variants={cardHover}
+                whileHover="hover"
+              >
+                <Card className="aspect-video bg-surface border-border/50 hover:border-accent-blue/30 transition-colors">
                   <CardContent className="flex flex-col items-center justify-center h-full space-y-4">
-                    <div className="w-16 h-16 rounded-full bg-gradient-primary/20 flex items-center justify-center">
+                    <motion.div 
+                      className="w-16 h-16 rounded-full bg-gradient-primary/20 flex items-center justify-center"
+                      whileHover={{ scale: 1.1 }}
+                      transition={{ duration: 0.2 }}
+                    >
                       <span className="text-2xl font-bold text-accent-blue">
                         {demo.id}
                       </span>
-                    </div>
+                    </motion.div>
                     <Badge variant="secondary" className="px-4 py-2">
                       {demo.status}
                     </Badge>
                   </CardContent>
                 </Card>
-              </div>
+              </motion.div>
               
               {/* Demo Explanation */}
-              <div className={demo.position === 'right' ? 'lg:col-start-1' : ''}>
-                <Card className="border-border/50 bg-surface/50">
+              <motion.div 
+                className={demo.position === 'right' ? 'lg:col-start-1' : ''}
+                variants={cardHover}
+                whileHover="hover"
+              >
+                <Card className="border-border/50 bg-surface/50 hover:bg-surface/70 transition-colors">
                   <CardHeader>
                     <CardTitle className="text-2xl">{demo.title}</CardTitle>
                     <CardDescription className="text-lg">
@@ -113,11 +132,11 @@ export function DemosSection() {
                     </div>
                   </CardContent>
                 </Card>
-              </div>
-            </div>
+              </motion.div>
+            </motion.div>
           ))}
         </div>
       </div>
-    </section>
+    </SectionWrapper>
   )
 }
