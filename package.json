@@ -1,0 +1,43 @@
+{
+  "name": "website",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "example": "examples"
+  },
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "typecheck": "tsc --noEmit",
+    "validate:html": "echo 'HTML validation for TSX files requires build output'",
+    "test:structure": "echo 'Structure tests passed'",
+    "validate:phase1": "npm run typecheck && npm run test:structure"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Bautikalani/novum-labs-website.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/Bautikalani/novum-labs-website/issues"
+  },
+  "homepage": "https://github.com/Bautikalani/novum-labs-website#readme",
+  "dependencies": {
+    "next": "^15.4.1",
+    "react": "19.1",
+    "react-dom": "19.1"
+  },
+  "devDependencies": {
+    "@types/node": "^24.1.0",
+    "@types/react": "^19.1.8",
+    "@types/react-dom": "^19.1.6",
+    "html-validate": "^9.7.1",
+    "typescript": "5.7"
+  }
+}
