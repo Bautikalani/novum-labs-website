@@ -23,11 +23,6 @@ export function HeroSection() {
       id="hero"
       className="relative min-h-screen flex items-center justify-center overflow-hidden bg-background"
     >
-      {/* Animated Mesh Gradient Background */}
-      <motion.div 
-        className="absolute inset-0 gradient-mesh opacity-20"
-        style={{ y, opacity }}
-      />
       
       {/* Floating Elements */}
       <motion.div

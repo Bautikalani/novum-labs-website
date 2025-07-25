@@ -1,0 +1,309 @@
+@import "tailwindcss";
+
+/* LCH Design Tokens - DESIGN.md Section 3 */
+@theme {
+  /* Base Colors (LCH format) */
+  --color-background: lch(5% 0 0);        /* Near black seamless canvas */
+  --color-foreground: lch(98% 0 0);       /* Near white text */
+  --color-muted: lch(45% 0 0 / 0.7);      /* Muted text */
+  
+  /* Accent Colors (LCH for vibrant consistency) */
+  --color-accent-blue: lch(65% 90 260);    /* Primary accent */
+  --color-accent-purple: lch(70% 85 300);  /* Secondary accent */
+  --color-accent-green: lch(75% 80 150);   /* Success states */
+  --color-accent-orange: lch(75% 85 60);   /* Warning states */
+  
+  /* UI Colors */
+  --color-border: lch(15% 0 0 / 0.2);     /* Subtle borders */
+  --color-surface: lch(10% 0 0);          /* Card backgrounds */
+  --color-hover: lch(12% 0 0);            /* Hover states */
+  
+  /* shadcn/ui Compatibility Colors */
+  --color-primary: lch(65% 90 260);
+  --color-primary-foreground: lch(98% 0 0);
+  --color-secondary: lch(15% 0 0);
+  --color-secondary-foreground: lch(98% 0 0);
+  --color-muted-foreground: lch(45% 0 0 / 0.7);
+  --color-accent: lch(12% 0 0);
+  --color-accent-foreground: lch(98% 0 0);
+  --color-destructive: lch(55% 85 30);
+  --color-destructive-foreground: lch(98% 0 0);
+  --color-card: lch(10% 0 0);
+  --color-card-foreground: lch(98% 0 0);
+  --color-popover: lch(10% 0 0);
+  --color-popover-foreground: lch(98% 0 0);
+  --color-input: lch(15% 0 0);
+  --color-ring: lch(65% 90 260);
+
+  /* Typography Scale - Perfect Fourth (1.333) - DESIGN.md Section 4 */
+  --font-size-xs: 0.75rem;     /* 12px */
+  --font-size-sm: 0.875rem;    /* 14px */
+  --font-size-base: 1rem;      /* 16px */
+  --font-size-lg: 1.125rem;    /* 18px */
+  --font-size-xl: 1.5rem;      /* 24px */
+  --font-size-2xl: 2rem;       /* 32px */
+  --font-size-3xl: 2.667rem;   /* 42.67px */
+  --font-size-4xl: 3.556rem;   /* 56.89px */
+  --font-size-5xl: 4.741rem;   /* 75.85px */
+  
+  /* Font Families */
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-mono: 'JetBrains Mono', 'SF Mono', Consolas, monospace;
+  
+  /* Font Weights */
+  --font-normal: 400;
+  --font-medium: 500;
+  --font-semibold: 600;
+  --font-bold: 700;
+  
+  /* Line Heights */
+  --leading-tight: 1.1;    /* Headings */
+  --leading-snug: 1.3;     /* Sub-headings */
+  --leading-normal: 1.6;   /* Body text */
+  --leading-relaxed: 1.8;  /* Small text */
+  
+  /* Spacing System - 8px Base - DESIGN.md Section 5 */
+  --space-0: 0;
+  --space-1: 0.25rem;   /* 4px */
+  --space-2: 0.5rem;    /* 8px */
+  --space-3: 0.75rem;   /* 12px */
+  --space-4: 1rem;      /* 16px */
+  --space-5: 1.5rem;    /* 24px */
+  --space-6: 2rem;      /* 32px */
+  --space-8: 3rem;      /* 48px */
+  --space-10: 4rem;     /* 64px */
+  --space-12: 6rem;     /* 96px */
+  --space-16: 8rem;     /* 128px */
+  --space-20: 10rem;    /* 160px */
+  
+  /* Container System */
+  --container-max: 1200px;
+  --container-padding: var(--space-4);
+  --container-padding-lg: var(--space-6);
+  
+  /* Component Tokens */
+  --radius-sm: 0.375rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  
+  /* Shadow System */
+  --shadow-sm: 0 1px 2px 0 lch(0% 0 0 / 0.05);
+  --shadow-md: 0 4px 6px -1px lch(0% 0 0 / 0.1);
+  --shadow-lg: 0 10px 15px -3px lch(0% 0 0 / 0.1);
+  --shadow-xl: 0 20px 25px -5px lch(0% 0 0 / 0.1);
+
+  /* Tailwind Color Mappings */
+  --color-background: lch(5% 0 0);
+  --color-foreground: lch(98% 0 0);
+  --color-primary: lch(65% 90 260);
+  --color-primary-foreground: lch(98% 0 0);
+  --color-secondary: lch(15% 0 0);
+  --color-secondary-foreground: lch(98% 0 0);
+  --color-muted: lch(15% 0 0);
+  --color-muted-foreground: lch(45% 0 0 / 0.7);
+  --color-accent: lch(12% 0 0);
+  --color-accent-foreground: lch(98% 0 0);
+  --color-destructive: lch(55% 85 30);
+  --color-destructive-foreground: lch(98% 0 0);
+  --color-border: lch(15% 0 0 / 0.2);
+  --color-input: lch(15% 0 0);
+  --color-ring: lch(65% 90 260);
+  --radius: 0.5rem;
+}
+
+/* Gradient System */
+@utility gradient-primary {
+  background: linear-gradient(135deg, 
+    lch(65% 90 260), 
+    lch(70% 85 300)
+  );
+}
+
+@utility gradient-mesh {
+  background: 
+    radial-gradient(at 40% 20%, lch(65% 90 260 / 0.3) 0px, transparent 50%),
+    radial-gradient(at 80% 0%, lch(70% 85 300 / 0.3) 0px, transparent 50%),
+    radial-gradient(at 0% 50%, lch(75% 80 150 / 0.3) 0px, transparent 50%);
+}
+
+/* Global Styles */
+@layer base {
+  * {
+    @apply border-border;
+  }
+  
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-bold;
+    line-height: var(--leading-tight);
+  }
+
+  p {
+    line-height: var(--leading-normal);
+  }
+
+  /* Container utility */
+  .container {
+    max-width: var(--container-max);
+    margin: 0 auto;
+    padding: 0 var(--container-padding);
+  }
+
+  @media (min-width: 1024px) {
+    .container {
+      padding: 0 var(--container-padding-lg);
+    }
+  }
+}
+
+/* Component Layer - No animations allowed in Phase 2 */
+@layer components {
+  .btn {
+    @apply inline-flex items-center justify-center gap-2;
+    padding: var(--space-3) var(--space-6);
+    border-radius: var(--radius-md);
+    font-weight: var(--font-semibold);
+    font-size: var(--font-size-base);
+    transition: colors 200ms ease;
+    cursor: pointer;
+    text-decoration: none;
+  }
+  
+  .btn-primary {
+    background: var(--color-primary);
+    color: var(--color-primary-foreground);
+  }
+  
+  .btn-primary:hover {
+    background: lch(60% 90 260);
+  }
+  
+  .btn-secondary {
+    border: 1px solid var(--color-border);
+    background: var(--color-background);
+    color: var(--color-foreground);
+  }
+  
+  .btn-secondary:hover {
+    background: var(--color-hover);
+  }
+
+  .btn-lg {
+    padding: var(--space-4) var(--space-8);
+    font-size: var(--font-size-lg);
+  }
+
+  .btn-sm {
+    padding: var(--space-2) var(--space-4);
+    font-size: var(--font-size-sm);
+  }
+  
+  .card {
+    background: var(--color-card);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+    overflow: hidden;
+  }
+
+  .card:hover {
+    box-shadow: var(--shadow-md);
+  }
+
+  .card-header {
+    padding: var(--space-6);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .card-content {
+    padding: var(--space-6);
+  }
+
+  .card-title {
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-semibold);
+    margin-bottom: var(--space-2);
+  }
+
+  .card-description {
+    color: var(--color-muted-foreground);
+    font-size: var(--font-size-base);
+  }
+
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    padding: var(--space-1) var(--space-3);
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-medium);
+    border-radius: var(--radius-sm);
+    background: var(--color-secondary);
+    color: var(--color-secondary-foreground);
+  }
+
+  /* Focus states for accessibility */
+  .btn:focus-visible,
+  .card:focus-visible {
+    outline: 2px solid var(--color-ring);
+    outline-offset: 2px;
+  }
+}
+
+/* Utility Layer */
+@layer utilities {
+  .text-gradient {
+    background: linear-gradient(135deg, 
+      lch(65% 90 260), 
+      lch(70% 85 300)
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .bg-mesh {
+    background: 
+      radial-gradient(at 40% 20%, lch(65% 90 260 / 0.3) 0px, transparent 50%),
+      radial-gradient(at 80% 0%, lch(70% 85 300 / 0.3) 0px, transparent 50%),
+      radial-gradient(at 0% 50%, lch(75% 80 150 / 0.3) 0px, transparent 50%);
+  }
+
+  /* Skip link accessibility */
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  .sr-only:focus {
+    position: static;
+    width: auto;
+    height: auto;
+    padding: var(--space-2) var(--space-4);
+    margin: 0;
+    overflow: visible;
+    clip: auto;
+    white-space: normal;
+  }
+
+  .not-sr-only:focus {
+    position: static;
+    width: auto;
+    height: auto;
+    padding: var(--space-2) var(--space-4);
+    margin: 0;
+    overflow: visible;
+    clip: auto;
+    white-space: normal;
+  }
+}
