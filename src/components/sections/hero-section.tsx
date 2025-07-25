@@ -20,6 +20,7 @@ export function HeroSection() {
   return (
     <section 
       ref={ref}
+      id="hero"
       className="relative min-h-screen flex items-center justify-center overflow-hidden bg-background"
     >
       {/* Animated Mesh Gradient Background */}

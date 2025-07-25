@@ -42,7 +42,7 @@ const teamMembers = [
 
 export function TeamSection() {
   return (
-    <SectionWrapper className="py-20 bg-background" stagger>
+    <SectionWrapper className="py-20 bg-background" id="team" stagger>
       <div className="container mx-auto px-6">
         <motion.div className="text-center mb-16" variants={fadeInUp}>
           <h2 className="text-3xl md:text-4xl font-bold mb-4">
