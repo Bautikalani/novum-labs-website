@@ -1,0 +1,1 @@
+export { LavaLampBackground } from './LavaLampBackground'

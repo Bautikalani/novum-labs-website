@@ -32,37 +32,53 @@ section {
 ### Core Palette
 ```css
 :root {
-  /* Primary Colors */
-  --color-background: lch(5% 0 0);        /* Near black */
-  --color-foreground: lch(98% 0 0);       /* Near white */
-  --color-muted: lch(45% 0 0 / 0.7);      /* Muted text */
+  /* Linear's Core Background Colors */
+  --color-background: lch(4.7% 0.6 265);     /* Linear's Midnight Black #0F0F10 */
+  --color-foreground: lch(94.4% 1.3 265);    /* Linear's Near White #EEEFF1 */
+  --color-muted: lch(94.4% 1.3 265 / 0.85);  /* 85% opacity variation */
   
-  /* Accent Colors (Linear-inspired) */
-  --color-accent-blue: lch(65% 90 260);    /* Primary accent */
-  --color-accent-purple: lch(70% 85 300);  /* Secondary accent */
-  --color-accent-green: lch(75% 80 150);   /* Success states */
-  --color-accent-orange: lch(75% 85 60);   /* Warning states */
+  /* Linear's Surface Elevation Hierarchy */
+  --color-surface-1: lch(4.7% 0.6 265);      /* Base level */
+  --color-surface-2: lch(7.5% 0.6 265);      /* Dark Charcoal #151516 */
+  --color-surface-3: lch(10% 0.8 265);       /* Elevated surfaces */
+  --color-surface-4: lch(12.5% 1.0 265);     /* Higher elevation */
+  --color-surface-5: lch(15% 1.2 265);       /* Highest elevation */
+  
+  /* Linear's Accent Colors */
+  --color-accent-blue: lch(41% 35.7 262);    /* Signature Blue #475BA1 */
+  --color-accent-coral: lch(53.7% 51.7 15);  /* Coral Red #D25E65 */
+  --color-accent-rose: lch(45.2% 45.8 348);  /* Rose Purple */
+  --color-accent-green: lch(67.9% 53.5 153); /* Success green */
+  
+  /* Linear's Gradient Components */
+  --gradient-blue: lch(67.9% 53.5 239);
+  --gradient-green: lch(86.7% 70.9 153);
+  --gradient-cyan: lch(95.2% 29.1 192);
+  --gradient-pink: lch(65.5% 79.3 338);
   
   /* UI Colors */
-  --color-border: lch(15% 0 0 / 0.2);     /* Subtle borders */
-  --color-surface: lch(10% 0 0);          /* Card backgrounds */
-  --color-hover: lch(12% 0 0);            /* Hover states */
+  --color-border: lch(7.5% 0.6 265 / 0.3);   /* Subtle borders */
+  --color-surface: lch(7.5% 0.6 265);        /* Card backgrounds */
+  --color-hover: lch(12.5% 1.0 265);         /* Hover states */
 }
 ```
 
 ### Gradient System
 ```css
-/* Primary gradient (hero, CTAs) */
---gradient-primary: linear-gradient(135deg, 
-  var(--color-accent-blue), 
-  var(--color-accent-purple)
+/* Linear's signature gradient (hero, CTAs) */
+--gradient-linear: linear-gradient(135deg, 
+  var(--gradient-blue),     /* lch(67.9% 53.5 239) */
+  var(--gradient-green),    /* lch(86.7% 70.9 153) */
+  var(--gradient-cyan),     /* lch(95.2% 29.1 192) */
+  var(--gradient-pink)      /* lch(65.5% 79.3 338) */
 );
 
-/* Mesh gradient (backgrounds) */
+/* Linear's mesh gradient (backgrounds) */
 --gradient-mesh: 
-  radial-gradient(at 40% 20%, var(--color-accent-blue) 0px, transparent 50%),
-  radial-gradient(at 80% 0%, var(--color-accent-purple) 0px, transparent 50%),
-  radial-gradient(at 0% 50%, var(--color-accent-green) 0px, transparent 50%);
+  radial-gradient(at 40% 20%, var(--gradient-blue) 0px, transparent 50%),
+  radial-gradient(at 80% 0%, var(--gradient-green) 0px, transparent 50%),
+  radial-gradient(at 0% 50%, var(--gradient-cyan) 0px, transparent 50%),
+  radial-gradient(at 60% 80%, var(--gradient-pink) 0px, transparent 50%);
 ```
 
 ## 📐 Typography System

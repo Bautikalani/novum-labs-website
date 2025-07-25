@@ -1,36 +1,54 @@
 @import "tailwindcss";
 
 @theme {
-  /* Base Theme Colors */
-  --color-background: lch(5% 0 0);
-  --color-foreground: lch(98% 0 0);
-  --color-primary: lch(65% 90 260);
-  --color-primary-foreground: lch(98% 0 0);
-  --color-secondary: lch(15% 0 0);
-  --color-secondary-foreground: lch(98% 0 0);
-  --color-accent: lch(12% 0 0);
-  --color-accent-foreground: lch(98% 0 0);
-  --color-muted: lch(15% 0 0);
-  --color-muted-foreground: lch(45% 0 0 / 0.7);
-  --color-border: lch(15% 0 0 / 0.2);
-  --color-input: lch(15% 0 0);
-  --color-ring: lch(65% 90 260);
-  --color-card: lch(10% 0 0);
-  --color-card-foreground: lch(98% 0 0);
-  --color-popover: lch(10% 0 0);
-  --color-popover-foreground: lch(98% 0 0);
-  --color-destructive: lch(55% 85 30);
-  --color-destructive-foreground: lch(98% 0 0);
+  /* Linear's Core Colors */
+  --color-background: lch(4.7% 0.6 265);
+  --color-foreground: lch(94.4% 1.3 265);
+  --color-primary: lch(41% 35.7 262);
+  --color-primary-foreground: lch(94.4% 1.3 265);
+  
+  /* Linear's Surface Elevation System */
+  --color-secondary: lch(7.5% 0.6 265);
+  --color-secondary-foreground: lch(94.4% 1.3 265);
+  --color-accent: lch(10% 0.8 265);
+  --color-accent-foreground: lch(94.4% 1.3 265);
+  --color-muted: lch(7.5% 0.6 265);
+  --color-muted-foreground: lch(94.4% 1.3 265 / 0.85);
+  
+  /* Linear's Interactive States */
+  --color-border: lch(7.5% 0.6 265 / 0.3);
+  --color-input: lch(10% 0.8 265);
+  --color-ring: lch(41% 35.7 262);
+  --color-card: lch(7.5% 0.6 265);
+  --color-card-foreground: lch(94.4% 1.3 265);
+  --color-popover: lch(10% 0.8 265);
+  --color-popover-foreground: lch(94.4% 1.3 265);
+  --color-destructive: lch(53.7% 51.7 15);
+  --color-destructive-foreground: lch(94.4% 1.3 265);
+  
+  /* Linear's Text Opacity Variations */
+  --color-text-high: lch(94.4% 1.3 265);      /* 100% opacity */
+  --color-text-medium: lch(94.4% 1.3 265 / 0.85); /* 85% opacity */
+  --color-text-low: lch(94.4% 1.3 265 / 0.60);    /* 60% opacity */
+  --color-text-subtle: lch(94.4% 1.3 265 / 0.40); /* 40% opacity */
+  --color-text-ghost: lch(94.4% 1.3 265 / 0.30);  /* 30% opacity */
 
-  /* Custom Accent Colors */
-  --color-accent-blue: lch(65% 90 260);
-  --color-accent-purple: lch(70% 85 300);
-  --color-accent-green: lch(75% 80 150);
-  --color-accent-orange: lch(75% 85 60);
+  /* Linear's Accent Colors */
+  --color-accent-blue: lch(41% 35.7 262);
+  --color-accent-coral: lch(53.7% 51.7 15);
+  --color-accent-rose: lch(45.2% 45.8 348);
+  --color-accent-green: lch(67.9% 53.5 153);
 
+  /* Linear's Surface Hierarchy */
+  --color-surface-1: lch(4.7% 0.6 265);
+  --color-surface-2: lch(7.5% 0.6 265);
+  --color-surface-3: lch(10% 0.8 265);
+  --color-surface-4: lch(12.5% 1.0 265);
+  --color-surface-5: lch(15% 1.2 265);
+  
   /* UI Colors */
-  --color-surface: lch(10% 0 0);
-  --color-hover: lch(12% 0 0);
+  --color-surface: lch(7.5% 0.6 265);
+  --color-hover: lch(12.5% 1.0 265);
 }
 
 /* Design System Tokens - DESIGN.md Sections 4-5 */
@@ -95,20 +113,38 @@
   }
 }
 
-/* Gradient System */
-.gradient-primary {
+/* Linear's Signature Gradient System */
+.gradient-linear {
   background: linear-gradient(135deg, 
-    var(--color-accent-blue), 
-    var(--color-accent-purple)
+    lch(67.9% 53.5 239),  /* Gradient Blue */
+    lch(86.7% 70.9 153),  /* Gradient Green */  
+    lch(95.2% 29.1 192),  /* Gradient Cyan */
+    lch(65.5% 79.3 338)   /* Gradient Pink */
   );
 }
 
 .gradient-mesh {
   background: 
-    radial-gradient(at 40% 20%, var(--color-accent-blue) 0px, transparent 50%),
-    radial-gradient(at 80% 0%, var(--color-accent-purple) 0px, transparent 50%),
-    radial-gradient(at 0% 50%, var(--color-accent-green) 0px, transparent 50%);
+    radial-gradient(at 40% 20%, lch(67.9% 53.5 239) 0px, transparent 50%),
+    radial-gradient(at 80% 0%, lch(86.7% 70.9 153) 0px, transparent 50%),
+    radial-gradient(at 0% 50%, lch(95.2% 29.1 192) 0px, transparent 50%),
+    radial-gradient(at 60% 80%, lch(65.5% 79.3 338) 0px, transparent 50%);
 }
+
+/* Linear's Interactive State Utilities */
+.surface-elevated {
+  background: lch(7.5% 0.6 265);
+  border: 1px solid lch(7.5% 0.6 265 / 0.3);
+}
+
+.surface-hover {
+  background: lch(12.5% 1.0 265);
+}
+
+.text-linear-high { color: lch(94.4% 1.3 265); }
+.text-linear-medium { color: lch(94.4% 1.3 265 / 0.85); }
+.text-linear-low { color: lch(94.4% 1.3 265 / 0.60); }
+.text-linear-subtle { color: lch(94.4% 1.3 265 / 0.40); }
 
 /* Global Styles */
 @layer base {

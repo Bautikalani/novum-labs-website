@@ -4,40 +4,49 @@
  */
 
 export const colors = {
-  // Base colors (LCH format matching DESIGN.md)
-  background: 'lch(18% 0 0)',        // Dark background
-  foreground: 'lch(95% 0 0)',        // High contrast text
+  // Linear's Exact Values
+  background: 'lch(4.7% 0.6 265)',     // Midnight Black
+  foreground: 'lch(94.4% 1.3 265)',    // Near White
   
-  // Text variations
-  text: {
-    primary: 'lch(95% 0 0)',         // Same as foreground
-    secondary: 'lch(70% 0 0 / 0.7)', // Muted text
-    muted: 'lch(60% 0 0 / 0.5)',     // Even more muted
+  // Surface Elevation Hierarchy
+  surface: {
+    1: 'lch(4.7% 0.6 265)',  // Base
+    2: 'lch(7.5% 0.6 265)',  // Dark Charcoal
+    3: 'lch(10% 0.8 265)',   // Elevated
+    4: 'lch(12.5% 1.0 265)', // Higher
+    5: 'lch(15% 1.2 265)',   // Highest
   },
   
-  // Accent colors (LCH for vibrant, consistent colors)
+  // Linear's Signature Colors
   accent: {
-    primary: 'lch(70% 90 230)',      // Vibrant blue (accent-1)
-    secondary: 'lch(65% 80 280)',    // Purple (accent-2)
-    green: 'lch(65% 85 142)',        // Success green
-    orange: 'lch(70% 75 70)',        // Warning orange
-    red: 'lch(60% 85 25)',           // Error red
+    blue: 'lch(41% 35.7 262)',    // Signature Blue
+    coral: 'lch(53.7% 51.7 15)',  // Coral Red
+    rose: 'lch(45.2% 45.8 348)',  // Rose Purple
+    green: 'lch(67.9% 53.5 153)', // Success Green
   },
   
-  // Gradient combinations (using LCH for smooth transitions)
+  // Text Opacity System
+  text: {
+    high: 'lch(94.4% 1.3 265)',         // 100%
+    medium: 'lch(94.4% 1.3 265 / 0.85)', // 85%
+    low: 'lch(94.4% 1.3 265 / 0.60)',    // 60%
+    subtle: 'lch(94.4% 1.3 265 / 0.40)', // 40%
+    ghost: 'lch(94.4% 1.3 265 / 0.30)',  // 30%
+  },
+  
+  // Linear's Gradient System
   gradients: {
-    blurple: 'linear-gradient(135deg, lch(70% 90 230), lch(65% 80 280))',
-    greenBlue: 'linear-gradient(135deg, lch(65% 85 142), lch(70% 90 230))',
-    orangePurple: 'linear-gradient(135deg, lch(70% 75 70), lch(65% 80 280))',
-    mesh: `radial-gradient(at 40% 20%, lch(70% 90 230) 0px, transparent 50%),
-           radial-gradient(at 80% 0%, lch(65% 80 280) 0px, transparent 50%),
-           radial-gradient(at 0% 50%, lch(65% 85 142) 0px, transparent 50%)`,
+    linear: 'linear-gradient(135deg, lch(67.9% 53.5 239), lch(86.7% 70.9 153), lch(95.2% 29.1 192), lch(65.5% 79.3 338))',
+    mesh: `radial-gradient(at 40% 20%, lch(67.9% 53.5 239) 0px, transparent 50%),
+           radial-gradient(at 80% 0%, lch(86.7% 70.9 153) 0px, transparent 50%),
+           radial-gradient(at 0% 50%, lch(95.2% 29.1 192) 0px, transparent 50%),
+           radial-gradient(at 60% 80%, lch(65.5% 79.3 338) 0px, transparent 50%)`,
   },
   
-  // UI elements (neutral grays in LCH)
-  border: 'lch(25% 0 0)',            // Subtle border
-  card: 'lch(20% 0 0)',              // Card background
-  hover: 'lch(30% 0 0)',             // Hover state
+  // UI elements with Linear's hierarchy
+  border: 'lch(7.5% 0.6 265 / 0.3)',     // Subtle border
+  card: 'lch(7.5% 0.6 265)',             // Card background
+  hover: 'lch(12.5% 1.0 265)',           // Hover state
 }
 
 // CSS custom properties for runtime theming (LCH values)
