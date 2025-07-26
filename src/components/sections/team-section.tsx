@@ -15,7 +15,7 @@ const teamMembers = [
     name: "Bautista Kalani Giesenow",
     role: "Chief Executive Officer", 
     linkedin: "",
-    image: "/images/team-placeholder-1.jpg"
+    image: "/images/kala-headshot-square.JPG"
   },
   {
     id: 2,
