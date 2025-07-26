@@ -1,146 +1,179 @@
-# INIT-ASSIGNMENT-LAVA-LAMP-EFFECT.md — Subtle Ambient Background Animation
+# INIT-ASSIGNMENT.md — Layout Margins Redesign
 
 ## Task Metadata
-**Task ID:** POLISH-2025-01-24-001  
+**Task ID:** LAYOUT-2025-01-26-001  
 **Priority:** High  
-**Type:** Animation  
-**Estimated Impact:** Moderate  
-**Target Completion:** 90 minutes
+**Type:** Layout  
+**Estimated Impact:** Significant  
+**Target Completion:** 45 minutes
 
 ## Task Description
 **One-line summary:**  
-Add a subtle, premium lava lamp-style ambient effect to enhance the dark background with sophisticated movement.
+Tighten layout margins and content width to match Linear.app's precise, focused spacing system
 
 **Detailed requirements:**  
-- Current state: Plain black background (`lch(18% 0 0)`) feels static and lacks visual interest
-- Desired outcome: Subtle floating gradient blobs that slowly morph and drift, creating gentle ambient movement
-- Success criteria: 
-  - Effect remains understated and professional (not distracting from content)
-  - Maintains premium aesthetic suitable for high-ticket B2B clients
-  - Performance-optimized with smooth 60fps animation
-  - Respects user motion preferences
-- Constraints: Must not interfere with text readability or existing gradient elements
+- Current state: Generic container with standard margins/padding
+- Desired outcome: Linear-style tight margins that create focus and sophistication
+- Success criteria: All content sections use consistent, tighter spacing that matches Linear's approach
+- Constraints: Maintain readability and responsive behavior across all breakpoints
 
 ## Target Component/Section
 **Primary target:**  
-- [x] Global: Background effect visible across all sections
-- [ ] Component: `src/components/layout/RootLayout.tsx`
-- [ ] Page: All pages (Landing, Playground, Book)
+- [x] Global: `Layout | Container spacing`
 
 **Specific elements:**  
-- Root layout background layer
-- New component: `src/components/effects/LavaLampBackground.tsx`
-- CSS custom properties for effect configuration
-- Possible canvas or CSS-only implementation
+- Global container/wrapper max-width
+- Section horizontal padding
+- Responsive breakpoint adjustments
+- Vertical spacing between sections
+- Content area constraints
 
 ## Expected Outcomes
 ### Visual Changes
-- [x] Subtle floating orbs with soft gradient transitions (using existing accent colors)
-- [x] Slow, organic movement patterns (15-30 second animation loops)
-- [x] Very low opacity (5-10%) to maintain text contrast
-- [x] Gaussian blur for soft edges and depth
-- [x] Multiple layers for depth perception
+- [x] Container max-width reduced from default to 1200px (Linear-style)
+- [x] Desktop side margins: 32px (2rem) instead of current wider padding
+- [x] Mobile side margins: 20px (1.25rem) for better mobile real estate usage
+- [x] Tablet margins: 24px (1.5rem) as intermediate step
+- [x] Section vertical spacing: 80-120px (5-7.5rem) for better rhythm
+- [x] Tighter prose max-width: ~65ch for optimal readability
 
 ### Behavioral Changes
-- [x] Continuous ambient animation (GPU-accelerated)
-- [x] Pauses when tab is not visible (performance optimization)
-- [x] Respects `prefers-reduced-motion` media query
-- [x] No interaction with mouse movement (purely ambient)
+- [x] Content feels more focused and intentional
+- [x] Better visual hierarchy through precise spacing
+- [x] Smooth responsive transitions between breakpoints
+- [x] Consistent spacing across all page sections
 
 ### Performance Impact
 - [x] No performance regression
-- [x] Maintains 60fps animations
+- [x] No JavaScript changes (pure CSS)
 - [x] Lighthouse score remains 90+
-- [x] Bundle size increase < 3KB (if using CSS-only approach)
+- [x] Zero increase in bundle size
 
 ## Quality Gates
 ### Pre-execution Checks
-- [x] Current implementation reviewed
-- [x] Design tokens from DESIGN.md verified (LCH colors)
-- [x] Animation patterns from examples/ referenced
-- [x] Research modern lava lamp implementations (CSS vs Canvas)
+- [x] Measure Linear.app's exact container dimensions
+- [x] Document current spacing values in codebase
+- [x] Verify responsive breakpoint strategy
+- [x] Check all sections that will be affected
 
 ### Post-execution Validation
+- [x] All sections use new container consistently
+- [x] Responsive behavior verified (320px to 4K)
+- [x] Content remains readable at all sizes
+- [x] No horizontal scroll at any breakpoint
 - [x] Visual regression testing passed
-- [x] Responsive behavior verified (scales appropriately)
-- [x] Dark theme rendering correct
-- [x] WCAG AA contrast maintained (text remains readable)
-- [x] Animation performance at 60fps
-- [x] No console errors or warnings
-- [x] CPU usage remains low (< 5% increase)
+- [x] Typography maintains proper measure (line length)
 
 ## Files Affected Checklist
 ### Likely to modify:
-- [x] `src/app/layout.tsx` (add background component)
-- [x] `src/components/effects/LavaLampBackground.tsx` (new component)
-- [x] `src/styles/globals.css` (CSS variables for configuration)
-- [x] `tailwind.config.ts` (potential new animation utilities)
+- [x] `src/app/globals.css` (CSS custom properties for spacing)
+- [x] `src/components/layout/Container.tsx` (create new component)
+- [x] `tailwind.config.ts` (container configuration)
 
 ### Potentially impacted (verify):
-- [x] Hero section (ensure mesh gradient still visible)
-- [x] Demo cards (verify hover effects work correctly)
-- [x] Performance metrics
-- [x] Mobile rendering
+- [x] All section components (must update to use new Container)
+- [x] Header/Navigation (ensure alignment with content)
+- [x] Footer (ensure alignment with content)
+- [x] Any full-width elements (hero backgrounds, etc.)
 
 ## Implementation Notes
 ### Approach:
-CSS-only implementation using multiple gradient layers with animation keyframes. This approach is lighter than canvas and maintains better performance. Fallback to static gradients for reduced motion preference.
+Create a reusable Container component that enforces Linear-style margins globally. Update CSS custom properties for consistent spacing values.
 
-### Animation Details:
-- Duration: 15-30s per blob rotation cycle
-- Easing: `cubic-bezier(0.45, 0.05, 0.55, 0.95)` (smoother than standard)
-- Trigger: Auto-start on page load
-- Library: Pure CSS (no JS required for basic effect)
-
-### Design System Alignment:
-- Colors: 
-  - `--accent-1: lch(70% 90 230)` at 5% opacity
-  - `--accent-2: lch(65% 80 280)` at 5% opacity
-  - Potential third color from green accent at 3% opacity
-- Blur: 80-120px gaussian blur
-- Movement: Transform translate3d for GPU acceleration
-
-## Context & References
-### Design Inspiration:
-- [x] Linear: Subtle gradient overlays in dashboard backgrounds
-- [ ] CoLab: [N/A - focus on subtle ambience]
-- [x] Stripe: Gradient orb on homepage (but more subtle)
-- [x] Vercel: Geist design system's ambient backgrounds
-
-### Related Examples:
-- [x] Modern implementations: shadergradient.co (but simpler)
-- [x] CSS-only approach: gradient animation with multiple layers
-- [x] Performance pattern: will-change and transform3d optimization
-
-### Documentation Links:
-- [x] CSS Gradients: radial-gradient with animation
-- [x] Performance: CSS containment and will-change
-- [x] Accessibility: prefers-reduced-motion implementation
-
-## Additional Context
-**Key considerations for high-ticket B2B:**
-- Effect must enhance credibility, not diminish it
-- Subtlety is paramount - "felt but not seen"
-- Should evoke innovation and sophistication
-- Must not distract from content or CTAs
-- Consider A/B testing opacity levels (5% vs 8% vs 10%)
-
-**Technical approach options:**
-1. **CSS-only** (recommended): Multiple animated radial gradients
-2. **Canvas 2D**: More control but heavier performance
-3. **WebGL**: Overkill for this use case
-4. **SVG filters**: Good middle ground but more complex
-
-**Proposed CSS structure:**
+### Spacing Specifications:
 ```css
-.lava-lamp-bg {
-  --blob-1-size: 40vw;
-  --blob-2-size: 60vw;
-  --blob-3-size: 50vw;
-  --animation-duration: 20s;
-  --opacity: 0.05;
+/* Global spacing variables */
+:root {
+  --container-max-width: 1200px;    /* Linear-inspired */
+  --container-padding-desktop: 2rem;  /* 32px */
+  --container-padding-tablet: 1.5rem; /* 24px */
+  --container-padding-mobile: 1.25rem;/* 20px */
+  --section-spacing-lg: 7.5rem;      /* 120px */
+  --section-spacing-md: 5rem;        /* 80px */
+  --section-spacing-sm: 3rem;        /* 48px */
+}
+
+/* Container implementation */
+.container {
+  width: 100%;
+  max-width: var(--container-max-width);
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: var(--container-padding-mobile);
+  padding-right: var(--container-padding-mobile);
+}
+
+@media (min-width: 640px) {
+  .container {
+    padding-left: var(--container-padding-tablet);
+    padding-right: var(--container-padding-tablet);
+  }
+}
+
+@media (min-width: 1024px) {
+  .container {
+    padding-left: var(--container-padding-desktop);
+    padding-right: var(--container-padding-desktop);
+  }
 }
 ```
 
+### Responsive Strategy:
+- **Mobile (< 640px)**: 20px margins, full-width content
+- **Tablet (640px - 1024px)**: 24px margins, constrained width
+- **Desktop (> 1024px)**: 32px margins, max 1200px width
+- **Large screens (> 1280px)**: Content stays centered at 1200px
+
+### Design System Alignment:
+- Follow 8px grid system (margins are multiples of 8)
+- Maintain consistent vertical rhythm
+- Ensure optical alignment (not just mathematical)
+
+## Context & References
+### Linear.app Analysis:
+- Container max-width: ~1184px actual content width
+- Side padding: 32px (2rem) on desktop
+- Clean breaks between sections
+- Generous but purposeful whitespace
+- Content feels "held" rather than floating
+
+### Key Measurements:
+```
+Linear.app (measured):
+- Viewport: 1440px
+- Container: 1184px (including padding)
+- Side margins: 128px each (auto-centered)
+- Content width: 1120px (after padding)
+- Effective padding: 32px each side
+
+Our target:
+- Max-width: 1200px
+- Padding: 32px (desktop)
+- Content width: 1136px
+- Auto margins for centering
+```
+
+### Implementation Priority:
+1. Create Container component
+2. Update global CSS variables
+3. Apply Container to all sections
+4. Verify responsive behavior
+5. Fine-tune vertical spacing
+
+## Additional Context
+**Why this matters:**
+- Tighter margins create focus and premium feel
+- Consistent spacing builds trust and professionalism
+- Linear's approach makes content feel intentional, not accidental
+- Better use of screen real estate on all devices
+
+**Critical sections to update:**
+- Hero section (maintain full-width background)
+- All content sections (demos, process, team, CTA)
+- Navigation (align with content margins)
+- Footer (align with content margins)
+
+**Note:** This is purely a spacing/layout update. No changes to colors, typography, or component functionality. Focus is 100% on achieving Linear's precise, intentional spacing system.
+
 ---
-*Ready for implementation. This enhancement will add sophisticated ambience while maintaining Novum Labs' premium, professional aesthetic.*
+*Instructions: This task creates a more focused, premium layout through precise margin control. The goal is to match Linear's sophisticated spacing system that makes content feel intentional and well-crafted.*

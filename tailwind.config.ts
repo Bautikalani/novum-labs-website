@@ -63,7 +63,22 @@ const config: Config = {
           radial-gradient(at 0% 50%, lch(95.2% 29.1 192) 0px, transparent 50%),
           radial-gradient(at 60% 80%, lch(65.5% 79.3 338) 0px, transparent 50%)
         `,
-      }
+      },
+      
+      container: {
+        center: true,
+        padding: {
+          DEFAULT: '1.25rem',  // 20px mobile
+          sm: '1.5rem',        // 24px tablet
+          lg: '2rem',          // 32px desktop
+        },
+        screens: {
+          sm: '640px',
+          md: '768px', 
+          lg: '1024px',
+          xl: '1200px',  // Max width
+        },
+      },
     },
   },
   plugins: [],

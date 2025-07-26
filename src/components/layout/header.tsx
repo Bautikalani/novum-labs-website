@@ -3,6 +3,7 @@
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { smoothScrollTo } from '@/lib/smooth-scroll'
+import { Container } from '@/components/layout/Container'
 
 const navigationItems = [
   { name: 'Demos', id: 'demos' },
@@ -18,7 +19,7 @@ export function Header() {
 
   return (
     <header className="fixed top-0 w-full z-50 border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="container flex h-16 items-center justify-between">
+      <Container className="flex h-16 items-center justify-between">
         <div className="flex items-center space-x-2">
           <h1 className="text-xl font-bold">
             <button 
@@ -56,7 +57,7 @@ export function Header() {
             Book Call
           </Button>
         </nav>
-      </div>
+      </Container>
     </header>
   )
 }

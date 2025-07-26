@@ -5,6 +5,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Badge } from '@/components/ui/badge'
 import { SectionWrapper } from '@/components/animated/section-wrapper'
 import { fadeInUp, cardHover } from '@/lib/motion-config'
+import { Container } from '@/components/layout/Container'
 
 interface DemoData {
   id: number;
@@ -56,8 +57,8 @@ const demos: DemoData[] = [
 
 export function DemosSection() {
   return (
-    <SectionWrapper className="py-20 bg-background" id="demos" stagger>
-      <div className="container mx-auto px-6">
+    <SectionWrapper className="py-12 sm:py-20 lg:py-[7.5rem] bg-background" id="demos" stagger>
+      <Container>
         <motion.div className="text-center mb-16" variants={fadeInUp}>
           <h2 className="text-3xl md:text-4xl font-bold mb-4">
             See Our AI Solutions in Action
@@ -136,7 +137,7 @@ export function DemosSection() {
             </motion.div>
           ))}
         </div>
-      </div>
+      </Container>
     </SectionWrapper>
   )
 }

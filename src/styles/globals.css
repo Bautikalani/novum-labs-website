@@ -97,8 +97,14 @@
     
     /* Container System */
     --container-max: 1200px;
-    --container-padding: var(--space-4);
-    --container-padding-lg: var(--space-6);
+    --container-padding-mobile: 1.25rem;  /* 20px */
+    --container-padding-tablet: 1.5rem;   /* 24px */  
+    --container-padding-desktop: 2rem;    /* 32px */
+    
+    /* Section Spacing System */
+    --section-spacing-mobile: 3rem;    /* 48px */
+    --section-spacing-tablet: 5rem;    /* 80px */
+    --section-spacing-desktop: 7.5rem; /* 120px */
     
     /* Component Tokens */
     --radius-sm: 0.375rem;

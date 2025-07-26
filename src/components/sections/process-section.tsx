@@ -5,6 +5,7 @@ import { Card, CardContent } from '@/components/ui/card'
 import { ArrowRight } from 'lucide-react'
 import { SectionWrapper } from '@/components/animated/section-wrapper'
 import { fadeInUp } from '@/lib/motion-config'
+import { Container } from '@/components/layout/Container'
 
 const processSteps = [
   {
@@ -35,8 +36,8 @@ const processSteps = [
 
 export function ProcessSection() {
   return (
-    <SectionWrapper className="py-20 bg-background" id="process" stagger>
-      <div className="container mx-auto px-6">
+    <SectionWrapper className="py-12 sm:py-20 lg:py-[7.5rem] bg-background" id="process" stagger>
+      <Container>
         <motion.div className="text-center mb-16" variants={fadeInUp}>
           <h2 className="text-3xl md:text-4xl font-bold mb-4">
             How We Transform Your Business
@@ -100,7 +101,7 @@ export function ProcessSection() {
             </motion.div>
           ))}
         </div>
-      </div>
+      </Container>
     </SectionWrapper>
   )
 }

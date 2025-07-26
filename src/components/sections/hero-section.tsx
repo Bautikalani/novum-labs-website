@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button'
 import Link from 'next/link'
 import { buttonMagnetic, fadeInUp } from '@/lib/motion-config'
 import { useRef } from 'react'
+import { Container } from '@/components/layout/Container'
 
 export function HeroSection() {
   const ref = useRef<HTMLElement>(null)
@@ -53,7 +54,7 @@ export function HeroSection() {
       />
       
       {/* Content */}
-      <div className="relative z-10 container mx-auto px-6 text-center">
+      <Container className="relative z-10 text-center">
         <motion.div 
           className="max-w-4xl mx-auto space-y-8"
           variants={fadeInUp}
@@ -95,7 +96,7 @@ export function HeroSection() {
             </motion.div>
           </motion.div>
         </motion.div>
-      </div>
+      </Container>
     </section>
   )
 }

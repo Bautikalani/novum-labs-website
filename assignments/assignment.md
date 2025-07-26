@@ -1,287 +1,265 @@
-# Assignment: Subtle Lava Lamp Background Effect
+# Assignment: Layout Margins Redesign — Linear-style Tight Spacing
 Generated from: INIT-ASSIGNMENT.md
-Date: 2025-01-25T00:00:00Z
-Task ID: POLISH-2025-01-24-001
+Date: 2025-01-26
+Task ID: LAYOUT-2025-01-26-001
+Git Commit: e5c5e9e
 
 ## Execution Summary
-Add a sophisticated lava lamp-style ambient effect to the global background using CSS-only animations with radial gradients. The effect will create subtle floating blobs that slowly morph and drift across the dark background, enhancing the premium aesthetic without distracting from content.
+Transform the Novum Labs website from generic container spacing to Linear.app's precise, focused layout system. This requires creating a reusable Container component, updating CSS custom properties, and applying consistent spacing across all sections. The changes will make content feel intentional and premium through tighter margins while maintaining responsive behavior.
 
 ## Detailed Implementation
 
-### 1. Create Lava Lamp Background Component
-- **File**: `src/components/effects/LavaLampBackground.tsx` (NEW)
-- **Changes**: Create new component with CSS-only animated gradients
+### 1. Create Container Component
+- **File**: `src/components/layout/Container.tsx` (NEW)
+- **Changes**: Create new component with Linear-inspired spacing
 - **Code**:
 ```typescript
-export function LavaLampBackground() {
+interface ContainerProps {
+  children: React.ReactNode
+  className?: string
+  as?: keyof JSX.IntrinsicElements
+}
+
+export function Container({ 
+  children, 
+  className = '', 
+  as: Component = 'div' 
+}: ContainerProps) {
   return (
-    <div className="lava-lamp-container" aria-hidden="true">
-      <div className="lava-blob lava-blob-1" />
-      <div className="lava-blob lava-blob-2" />
-      <div className="lava-blob lava-blob-3" />
-    </div>
+    <Component 
+      className={`
+        w-full max-w-[1200px] mx-auto
+        px-5 sm:px-6 lg:px-8
+        ${className}
+      `.trim()}
+    >
+      {children}
+    </Component>
   )
 }
 ```
 
-### 2. Update Global Styles for Lava Effect
+### 2. Update Global CSS Variables
 - **File**: `src/styles/globals.css`
-- **Changes**: Add lava lamp CSS animation classes after line 142
+- **Changes**: Update container system variables (lines 98-101)
 - **Code**:
 ```css
-/* Lava Lamp Background Effect */
-@layer components {
-  .lava-lamp-container {
-    position: fixed;
-    inset: 0;
-    overflow: hidden;
-    pointer-events: none;
-    z-index: -1;
-  }
-  
-  .lava-blob {
-    position: absolute;
-    border-radius: 50%;
-    filter: blur(80px);
-    opacity: 0.05;
-    animation-timing-function: cubic-bezier(0.45, 0.05, 0.55, 0.95);
-    will-change: transform;
-  }
-  
-  .lava-blob-1 {
-    width: 40vw;
-    height: 40vw;
-    background: radial-gradient(circle, var(--color-accent-blue) 0%, transparent 70%);
-    top: -20%;
-    left: -10%;
-    animation: blob-float-1 25s infinite;
-  }
-  
-  .lava-blob-2 {
-    width: 60vw;
-    height: 60vw;
-    background: radial-gradient(circle, var(--color-accent-purple) 0%, transparent 70%);
-    top: 50%;
-    right: -20%;
-    animation: blob-float-2 30s infinite;
-  }
-  
-  .lava-blob-3 {
-    width: 50vw;
-    height: 50vw;
-    background: radial-gradient(circle, var(--color-accent-green) 0%, transparent 70%);
-    bottom: -30%;
-    left: 20%;
-    animation: blob-float-3 20s infinite;
-  }
-  
-  @keyframes blob-float-1 {
-    0%, 100% {
-      transform: translate(0, 0) scale(1) rotate(0deg);
-    }
-    25% {
-      transform: translate(10vw, 15vh) scale(1.1) rotate(90deg);
-    }
-    50% {
-      transform: translate(-5vw, 20vh) scale(0.9) rotate(180deg);
-    }
-    75% {
-      transform: translate(15vw, -10vh) scale(1.05) rotate(270deg);
-    }
-  }
-  
-  @keyframes blob-float-2 {
-    0%, 100% {
-      transform: translate(0, 0) scale(1) rotate(0deg);
-    }
-    33% {
-      transform: translate(-20vw, -15vh) scale(0.95) rotate(120deg);
-    }
-    66% {
-      transform: translate(-10vw, 10vh) scale(1.08) rotate(240deg);
-    }
-  }
-  
-  @keyframes blob-float-3 {
-    0%, 100% {
-      transform: translate(0, 0) scale(1) rotate(0deg);
-    }
-    20% {
-      transform: translate(15vw, -20vh) scale(1.15) rotate(72deg);
-    }
-    40% {
-      transform: translate(-10vw, -5vh) scale(0.85) rotate(144deg);
-    }
-    60% {
-      transform: translate(5vw, 15vh) scale(1.1) rotate(216deg);
-    }
-    80% {
-      transform: translate(-15vw, 5vh) scale(0.95) rotate(288deg);
-    }
-  }
-  
-  /* Reduced motion support */
-  @media (prefers-reduced-motion: reduce) {
-    .lava-blob {
-      animation: none;
-      opacity: 0.03;
-    }
-  }
-  
-  /* Performance optimization for mobile */
-  @media (max-width: 768px) {
-    .lava-blob {
-      filter: blur(60px);
-    }
-    
-    .lava-blob-1 {
-      animation-duration: 35s;
-    }
-    
-    .lava-blob-2 {
-      animation-duration: 40s;
-    }
-    
-    .lava-blob-3 {
-      display: none; /* Remove third blob on mobile for performance */
-    }
-  }
-}
+/* Old (lines 98-101): */
+--container-max: 1200px;
+--container-padding: var(--space-4);
+--container-padding-lg: var(--space-6);
+
+/* New: */
+--container-max: 1200px;
+--container-padding-mobile: 1.25rem;  /* 20px */
+--container-padding-tablet: 1.5rem;   /* 24px */  
+--container-padding-desktop: 2rem;    /* 32px */
 ```
 
-### 3. Add Component to Root Layout
-- **File**: `src/app/layout.tsx`
-- **Changes**: Import and add LavaLampBackground component after line 5, then add component after body tag
+### 3. Update Tailwind Configuration
+- **File**: `tailwind.config.ts`
+- **Changes**: Add container configuration after line 66
 - **Code**:
 ```typescript
-// After line 5, add:
-import { LavaLampBackground } from '@/components/effects/LavaLampBackground'
-
-// After line 25 (inside body tag, before skip link):
-        <LavaLampBackground />
+// Add after line 66 (after backgroundImage)
+container: {
+  center: true,
+  padding: {
+    DEFAULT: '1.25rem',  // 20px mobile
+    sm: '1.5rem',        // 24px tablet
+    lg: '2rem',          // 32px desktop
+  },
+  screens: {
+    sm: '640px',
+    md: '768px', 
+    lg: '1024px',
+    xl: '1200px',  // Max width
+  },
+},
 ```
 
-### 4. Export Component from Index
-- **File**: `src/components/effects/index.ts` (NEW if doesn't exist)
-- **Changes**: Create barrel export for effects components
+### 4. Update Hero Section
+- **File**: `src/components/sections/hero-section.tsx`
+- **Changes**: Replace container div (line 56)
 - **Code**:
-```typescript
-export { LavaLampBackground } from './LavaLampBackground'
+```tsx
+// Old (line 56):
+<div className="relative z-10 container mx-auto px-6 text-center">
+
+// New:
+<Container className="relative z-10 text-center">
+```
+- **Import**: Add at top after line 6:
+```tsx
+import { Container } from '@/components/layout/Container'
 ```
 
-### 5. Update Background Color for Better Contrast
+### 5. Update Demos Section
+- **File**: `src/components/sections/demos-section.tsx`
+- **Changes**: Replace container div (line 60)
+- **Code**:
+```tsx
+// Old (line 60):
+<div className="container mx-auto px-6">
+
+// New:
+<Container>
+```
+- **Import**: Add after existing imports
+
+### 6. Update Process Section  
+- **File**: `src/components/sections/process-section.tsx`
+- **Changes**: Replace container div (line 39)
+- **Code**:
+```tsx
+// Old (line 39):
+<div className="container mx-auto px-6">
+
+// New:
+<Container>
+```
+- **Import**: Add after existing imports
+
+### 7. Update Team Section
+- **File**: `src/components/sections/team-section.tsx`
+- **Changes**: Replace container div (line 46)
+- **Code**:
+```tsx
+// Old (line 46):
+<div className="container mx-auto px-6">
+
+// New:
+<Container>
+```
+- **Import**: Add after existing imports
+
+### 8. Update CTA Section
+- **File**: `src/components/sections/cta-section.tsx`
+- **Changes**: Replace container div (line 17)
+- **Code**:
+```tsx
+// Old (line 17):
+<div className="container mx-auto px-6">
+
+// New:
+<Container>
+```
+- **Import**: Add after existing imports
+
+### 9. Update Header Component
+- **File**: `src/components/layout/header.tsx`
+- **Changes**: Replace container class (line 21)
+- **Code**:
+```tsx
+// Old (line 21):
+<div className="container flex h-16 items-center justify-between">
+
+// New:
+<Container className="flex h-16 items-center justify-between">
+```
+- **Import**: Add after existing imports
+
+### 10. Add Section Spacing Variables
 - **File**: `src/styles/globals.css`
-- **Changes**: Update line 5 to use the darker background from DESIGN.md
+- **Changes**: Add section spacing variables after line 101
 - **Code**:
 ```css
-  --color-background: lch(5% 0 0);  /* Changed from 18% to 5% for deeper black */
+/* Section Spacing System */
+--section-spacing-mobile: 3rem;    /* 48px */
+--section-spacing-tablet: 5rem;    /* 80px */
+--section-spacing-desktop: 7.5rem; /* 120px */
 ```
+
+### 11. Update Section Padding Classes
+- **Files**: All section components
+- **Changes**: Update py-20 md:py-32 to use new spacing
+- **Pattern**: Replace `py-20 md:py-32` with `py-12 sm:py-20 lg:py-[7.5rem]`
 
 ## Validation Protocol
 
 ### Performance Metrics
-- [ ] **FPS Check**: Open Chrome DevTools > Performance > Record while scrolling
-  - Target: 60fps maintained
-  - Actual: _________
-- [ ] **Paint Time**: Check frame rendering time
-  - Target: < 16ms per frame
-  - Actual: _________
-- [ ] **GPU Memory**: Chrome Task Manager > GPU Process
-  - Target: < 50MB increase
-  - Actual: _________
+- [ ] Lighthouse score remains 90+ on all metrics
+- [ ] No layout shift when resizing viewport
+- [ ] Smooth transitions between breakpoints
+- [ ] Zero horizontal scroll at any viewport width
 
 ### Visual Verification
-- [ ] **Opacity Levels**: Blobs barely visible (5% opacity)
-- [ ] **Blur Quality**: Soft edges with 80px blur
-- [ ] **Animation Smoothness**: No stuttering or jumping
-- [ ] **Color Accuracy**: Uses exact LCH values from design tokens
-- [ ] **Mobile Appearance**: Two blobs only, smooth animation
+- [ ] Container max-width: exactly 1200px on desktop
+- [ ] Desktop margins: 32px (2rem) on each side
+- [ ] Tablet margins: 24px (1.5rem) on each side  
+- [ ] Mobile margins: 20px (1.25rem) on each side
+- [ ] Content width at 1440px viewport: ~1136px (1200px - 64px)
+- [ ] All sections align perfectly with header navigation
+- [ ] Footer aligns with content margins
 
-### Cross-Browser Testing
-- [ ] **Chrome 120+**: Full effect working
-- [ ] **Safari 17+**: GPU acceleration enabled
-- [ ] **Firefox 120+**: No visual artifacts
-- [ ] **Edge**: Consistent with Chrome
+### Responsive Testing
+- [ ] Mobile (320px): 20px margins, full-width content
+- [ ] Mobile (375px): 20px margins maintained
+- [ ] Tablet (768px): 24px margins applied
+- [ ] Desktop (1024px): 32px margins applied
+- [ ] Wide (1440px): Content centered at 1200px max
+- [ ] Ultra-wide (2560px): Content remains at 1200px
 
-### Accessibility
-- [ ] **Text Contrast**: WCAG AA maintained over effect
-- [ ] **Motion Preference**: Effect disabled when `prefers-reduced-motion`
-- [ ] **Screen Reader**: aria-hidden="true" prevents announcement
-- [ ] **Keyboard Navigation**: No interference with focus states
+### Component Consistency
+- [ ] Header logo aligns with section content
+- [ ] Navigation items align with content edge
+- [ ] All sections use Container component
+- [ ] No sections have custom container styles
+- [ ] Hero content respects new constraints
 
-### Performance Budget
-- [ ] **Lighthouse Score**: Remains 90+
-- [ ] **CSS Size**: < 3KB additional
-- [ ] **CPU Usage**: < 5% increase during animation
-- [ ] **Bundle Impact**: No JavaScript added
+### Typography Measure
+- [ ] Prose content max-width: ~65ch maintained
+- [ ] Readability preserved at all breakpoints
+- [ ] No text extends full container width
 
 ## Rollback Plan
+
 If issues arise:
 
-1. **Remove component from layout**:
-   ```typescript
-   // Comment out in src/app/layout.tsx:
-   // <LavaLampBackground />
-   ```
+1. **Revert Container Component**
+   - Delete `src/components/layout/Container.tsx`
+   - Remove all Container imports from sections
 
-2. **Disable animations via CSS**:
-   ```css
-   .lava-blob {
-     animation: none !important;
-     opacity: 0.03;
-   }
-   ```
+2. **Restore Original Classes**  
+   - Replace all `<Container>` with `<div className="container mx-auto px-6">`
+   - Revert header.tsx line 21 change
 
-3. **Full removal**:
-   - Delete `src/components/effects/LavaLampBackground.tsx`
-   - Remove CSS from `globals.css`
-   - Remove import from `layout.tsx`
+3. **Reset CSS Variables**
+   - Restore original container variables in globals.css
+   - Remove section spacing variables
+
+4. **Remove Tailwind Config**
+   - Remove container configuration from tailwind.config.ts
 
 ## Expected Outcome
 
 ### Visual Changes
-- Subtle floating orbs drift across the background
-- Very low opacity maintains professional aesthetic
-- Slow, organic movement creates ambient life
-- Colors from accent palette add brand consistency
+- ✅ Tighter, more focused content presentation
+- ✅ Linear.app-style premium spacing feel
+- ✅ Better screen real estate usage on all devices
+- ✅ Consistent alignment across all sections
+- ✅ Professional, intentional layout rhythm
 
-### Technical Impact
-- Pure CSS implementation (no JS overhead)
-- GPU-accelerated transforms for smooth performance
-- Responsive adjustments for optimal mobile experience
-- Graceful degradation for reduced motion preference
+### Behavioral Changes  
+- ✅ Smoother responsive transitions
+- ✅ Content feels "held" not floating
+- ✅ Clear visual hierarchy through spacing
+- ✅ Better readability with constrained width
 
-### Success Metrics
-- User feedback: "Sophisticated, not distracting"
-- Performance: No measurable impact on Core Web Vitals
-- Engagement: Subtle enhancement to premium perception
-- Accessibility: Full compliance maintained
+### Technical Benefits
+- ✅ Single source of truth for container styles
+- ✅ Easier to maintain consistent spacing
+- ✅ Responsive behavior centralized
+- ✅ Future-proof for additional breakpoints
 
-## Additional Notes
+## Critical Success Factors
 
-### Alternative Implementations Considered
-1. **Canvas 2D**: More control but heavier performance impact
-2. **WebGL**: Overkill for simple gradient blobs
-3. **SVG Filters**: Good option but more complex setup
-4. **CSS-only**: ✅ Chosen for simplicity and performance
-
-### Future Enhancements
-- Add subtle opacity pulsing to blobs
-- Implement mouse-aware drift (Phase 4)
-- Create preset themes for different moods
-- Add configuration panel for client customization
-
-### Testing Commands
-```bash
-# Run performance tests
-npm run lighthouse
-
-# Check bundle size
-npm run analyze
-
-# Validate accessibility
-npm run test:a11y
-```
+1. **Pixel-Perfect Alignment**: Every section must align exactly
+2. **No Visual Regression**: Existing content must not break
+3. **Performance Maintained**: Zero impact on Core Web Vitals
+4. **Responsive Excellence**: Smooth transitions at all breakpoints
+5. **Code Clarity**: Container component must be self-documenting
 
 ---
-*This assignment provides surgical implementation details for adding a premium lava lamp effect while maintaining Novum Labs' high-performance standards.*
+
+*This assignment transforms generic spacing into Linear's sophisticated margin system through surgical, component-based changes that maintain Novum Labs' premium standards.*

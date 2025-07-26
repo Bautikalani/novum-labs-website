@@ -7,14 +7,15 @@ import { Card, CardContent } from '@/components/ui/card'
 import { SectionWrapper } from '@/components/animated/section-wrapper'
 import { BookingModal } from '@/components/booking/booking-modal'
 import { fadeInUp, buttonMagnetic } from '@/lib/motion-config'
+import { Container } from '@/components/layout/Container'
 
 export function CTASection() {
   const [isBookingOpen, setIsBookingOpen] = useState(false)
 
   return (
     <>
-      <SectionWrapper className="py-20 bg-background" id="book-call">
-        <div className="container mx-auto px-6">
+      <SectionWrapper className="py-12 sm:py-20 lg:py-[7.5rem] bg-background" id="book-call">
+        <Container>
           <motion.div
             className="max-w-4xl mx-auto"
             variants={fadeInUp}
@@ -52,7 +53,7 @@ export function CTASection() {
               </CardContent>
             </Card>
           </motion.div>
-        </div>
+        </Container>
       </SectionWrapper>
       
       <BookingModal 

@@ -8,6 +8,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { SectionWrapper } from '@/components/animated/section-wrapper'
 import { fadeInUp } from '@/lib/motion-config'
+import { Container } from '@/components/layout/Container'
 
 const teamMembers = [
   {
@@ -42,8 +43,8 @@ const teamMembers = [
 
 export function TeamSection() {
   return (
-    <SectionWrapper className="py-20 bg-background" id="team" stagger>
-      <div className="container mx-auto px-6">
+    <SectionWrapper className="py-12 sm:py-20 lg:py-[7.5rem] bg-background" id="team" stagger>
+      <Container>
         <motion.div className="text-center mb-16" variants={fadeInUp}>
           <h2 className="text-3xl md:text-4xl font-bold mb-4">
             Meet Our Team
@@ -110,7 +111,7 @@ export function TeamSection() {
             </motion.div>
           ))}
         </div>
-      </div>
+      </Container>
     </SectionWrapper>
   )
 }
