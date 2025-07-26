@@ -22,7 +22,7 @@ const teamMembers = [
     name: "Alessandro Donato Pascali",
     role: "Chief Growth Officer",
     linkedin: "",
-    image: "/images/team-placeholder-2.jpg"
+    image: "/images/ale-headshot-square.jpeg"
   },
   {
     id: 3,
