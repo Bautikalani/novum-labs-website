@@ -22,7 +22,7 @@
 ```bash
 /commit-git          # Commit only (default)
 /commit-git commit   # Commit only (explicit)
-/commit-git push     # Commit and push
+/commit-git push     # Commit and push (NOT AS ORIGIN)
 ```
 
 ## Execution Flow
