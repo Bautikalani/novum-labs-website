@@ -1,6 +1,5 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
-import { JourneyLine } from '@/components/layout/journey-line'
 import '../styles/globals.css'
 
 const inter = Inter({ 
@@ -26,7 +25,6 @@ export default function RootLayout({
         <a href="#main-content" className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 z-50 px-4 py-2 bg-foreground text-background rounded-md">
           Skip to main content
         </a>
-        <JourneyLine />
         {children}
       </body>
     </html>
