@@ -48,6 +48,7 @@
     "@types/react": "^19.1.8",
     "@types/react-dom": "^19.1.6",
     "html-validate": "^9.7.1",
+    "puppeteer": "^24.15.0",
     "typescript": "5.7"
   }
 }

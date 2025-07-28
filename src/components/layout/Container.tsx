@@ -14,8 +14,8 @@ export function Container({
   return (
     <Component 
       className={`
-        w-full max-w-[1200px] mx-auto
-        px-5 sm:px-6 lg:px-8
+        w-full max-w-[var(--container-max)] mx-auto
+        px-[var(--container-padding-mobile)] sm:px-[var(--container-padding-tablet)] lg:px-[var(--container-padding-desktop)]
         ${className}
       `.trim()}
     >
