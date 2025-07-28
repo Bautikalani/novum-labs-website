@@ -12,11 +12,11 @@ Build a cutting-edge AI consultancy website that showcases technical excellence 
 - **Manual research only for design inspiration** — Linear.app and CoLab patterns are stored in `/research/design-inspiration/`
 - **Use context7 mcp for documentation**
 
-### Phase-Driven Development
-- **Always check PHASES.md** for current phase and constraints
-- **Never skip phases** — Each phase has specific validation gates
-- **Phase progression is intentional** — Structure → Style → Motion
-- **Validation is mandatory** — Run checks in `/validation/` before considering phase complete
+### Layer-Driven Development
+- **Always check LAYERS.md** for current development approach
+- **Work on any layer** based on task requirements
+- **Validation is smart** — Only test what's affected
+- **Quality gates remain** — Standards don't change
 
 ### TypeScript First
 - **Use TypeScript exclusively** — No JavaScript files except for configuration
