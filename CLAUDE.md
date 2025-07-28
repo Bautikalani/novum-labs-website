@@ -10,13 +10,18 @@ Build a cutting-edge AI consultancy website that showcases technical excellence 
 - **Use `context7` for library-specific information** — Request documentation when implementing features that require external APIs
 - **Trust Context7 versions** — The documentation provided is version-accurate for our tech stack
 - **Manual research only for design inspiration** — Linear.app and CoLab patterns are stored in `/research/design-inspiration/`
-- **Use context7 mcp for documentation**
 
 ### Layer-Driven Development
-- **Always check LAYERS.md** for current development approach
-- **Work on any layer** based on task requirements
-- **Validation is smart** — Only test what's affected
-- **Quality gates remain** — Standards don't change
+- **Always check LAYERS.md** for development approach — Work on any layer based on need
+- **Layers are concurrent** — Foundation, Design, Experience, and Quality layers can be modified simultaneously
+- **Smart validation only** — Tests run only for affected layers, not everything
+- **Quality gates remain** — Standards don't change, just the workflow flexibility
+
+### Agent-First Workflow
+- **Agents are specialists** — Each agent has deep expertise in their domain
+- **Natural handoffs** — Agents pass context and collaborate automatically
+- **Continuous validation** — QA Engineer monitors all changes in real-time
+- **Trust agent expertise** — Let specialists make decisions in their domains
 
 ### TypeScript First
 - **Use TypeScript exclusively** — No JavaScript files except for configuration
@@ -124,15 +129,15 @@ export function HeroSection() {
 ### Testing Philosophy
 - **Type safety is first test** — TypeScript catches many bugs
 - **Integration over unit** — Test user flows, not implementation
-- **Visual regression** — Prevent style breaks between phases
+- **Visual regression** — Prevent style breaks between layers
 - **Performance monitoring** — Continuous Core Web Vitals tracking
 
 ## 🚫 Anti-Patterns to Avoid
 
 ### Never Do This
-- ❌ Skip validation between phases
+- ❌ Skip validation between changes
 - ❌ Use `any` without comment justification
-- ❌ Implement features not in current phase
+- ❌ Work outside the layer system
 - ❌ Web scrape when Context7 can provide
 - ❌ Hardcode values that should be tokens
 - ❌ Create files over 300 lines
@@ -140,42 +145,40 @@ export function HeroSection() {
 - ❌ Animate without performance testing
 
 ### Always Do This
-- ✅ Check PHASES.md before implementing
-- ✅ Run validation/ checks before phase transition
+- ✅ Let agents handle their specialties
+- ✅ Run validation continuously
 - ✅ Use design tokens from examples/
 - ✅ Request Context7 documentation for APIs
-- ✅ Follow ASCII wireframe exactly in Phase 1
 - ✅ Test on real mobile devices
 - ✅ Consider reduced motion preferences
 - ✅ Document non-obvious decisions
+- ✅ Trust the workflow process
 
-## 🤖 AI Assistant Behavior
+## 🤖 Agent Collaboration Principles
 
-### Context7 Usage Pattern
+### Agent Expertise Domains
 ```typescript
-// When implementing a Next.js feature:
-// "I need to implement dynamic routes in Next.js 15.4.1"
-// → Use context7 to get app router documentation
-
-// When implementing animations:
-// "I need to create scroll-triggered animations"
-// → Use context7 for Motion/Framer Motion docs
-
-// For design patterns:
-// → Check examples/ and research/design-inspiration/
+const AGENT_DOMAINS = {
+  "ui-designer": ["visual design", "design systems", "user experience"],
+  "frontend-dev": ["implementation", "logic", "state management"],
+  "qa-engineer": ["testing", "validation", "quality assurance"],
+  "tech-lead": ["architecture", "decisions", "best practices"],
+  "project-manager": ["planning", "coordination", "task breakdown"],
+  "performance-engineer": ["optimization", "metrics", "speed"]
+} as const;
 ```
 
-### Decision Making
-1. **Phase constraints override everything** — Even good ideas wait for appropriate phase
-2. **Validation gates are binary** — Pass or fail, no partial credit
-3. **Performance budgets are ceilings** — Not targets to hit but limits to stay under
-4. **When uncertain, choose simpler** — Complexity must justify itself
+### Agent Handoff Protocol
+1. **Clear context passing** — Each agent provides summary for next
+2. **Respect specializations** — Don't override expert decisions
+3. **Validation between handoffs** — QA checks all transitions
+4. **Document decisions** — Important choices recorded
 
-### Communication Style
-- **Be specific about phase constraints** when declining requests
-- **Suggest phase-appropriate alternatives** when features are premature
-- **Cite specific validation requirements** when explaining decisions
-- **Reference design tokens by name** for consistency
+### Continuous Validation Rules
+- **After every save** — Relevant validation runs automatically
+- **Blocking on errors** — Can't proceed with failing validation
+- **Smart detection** — Only affected layers tested
+- **Immediate feedback** — Results within 3 seconds
 
 ## 🎯 Success Definition
 
@@ -188,9 +191,25 @@ The Novum Labs website succeeds when:
 
 ## 📝 Implementation Notes
 
-### Tailwind and PostCSS Management
-- Manage the latest versions of Tailwind CSS with PostCSS to avoid common compatibility pitfalls
+### Working with Layers
+- **Foundation Layer**: Core functionality and structure
+- **Design Layer**: Visual design and styling
+- **Experience Layer**: Animations and interactions
+- **Quality Layer**: Testing and standards
+
+### Agent-Driven Development
+- Start with `/plan` for any new work
+- Trust agent expertise in their domains
+- Use `/status` to track progress
+- Commit often with `/commit`
+- Deploy confidently with `/deploy`
+
+### Validation as Safety Net
+- Validation runs automatically
+- Errors block progress (good thing!)
+- Fix immediately when issues found
+- Quality maintained throughout
 
 ---
 
-*This document defines the unchanging principles that guide every decision in the Novum Labs website project. For phase-specific guidance, see PHASES.md. For design specifications, see DESIGN.md. For implementation details, see INITIAL.md.*
+*This document defines the unchanging principles that guide every decision in the Novum Labs website project. For layer specifications, see LAYERS.md. For design specifications, see DESIGN.md. For workflow details, see README.md.*
