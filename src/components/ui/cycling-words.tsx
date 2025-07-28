@@ -68,7 +68,7 @@ export function CyclingWords({
             y: prefersReducedMotion ? 0 : '100%' 
           }}
           transition={{
-            duration: prefersReducedMotion ? 0 : 0.5,
+            duration: prefersReducedMotion ? 0 : durations.slow,
             ease: easings.smooth,
           }}
           className="absolute inset-0 flex items-center"

@@ -14,7 +14,7 @@ interface AnimatedNumberProps {
 
 export function AnimatedNumber({
   value,
-  duration = 2,
+  duration = 2.5,
   className = '',
   prefix = '',
   suffix = '',
@@ -26,9 +26,9 @@ export function AnimatedNumber({
   
   const motionValue = useMotionValue(0)
   const springValue = useSpring(motionValue, { 
-    damping: 25, 
-    stiffness: 100,
-    mass: 0.5
+    damping: 30,      // Increased from 25 for smoother, less bouncy animation
+    stiffness: 60,    // Reduced from 100 for more relaxed movement
+    mass: 0.8        // Increased from 0.5 for heavier, more deliberate feel
   })
   const [displayValue, setDisplayValue] = useState(0)
 
@@ -57,7 +57,7 @@ export function AnimatedNumber({
       className={className}
       initial={{ opacity: 0, y: 20 }}
       animate={isInView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.6, delay: 0.2 }}
+      transition={{ duration: 0.8, delay: 0.3 }}  // Slower entry animation
     >
       {prefix}{formatNumber(displayValue)}{suffix}
     </motion.span>
@@ -69,7 +69,7 @@ export function useAnimatedNumbers(values: number[], options?: {
   duration?: number
   staggerDelay?: number
 }) {
-  const { duration = 2, staggerDelay = 0.1 } = options || {}
+  const { duration = 2.5, staggerDelay = 0.15 } = options || {}  // Slower defaults
   
   return values.map((value, index) => ({
     value,

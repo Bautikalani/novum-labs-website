@@ -17,7 +17,7 @@ export function TextReveal({
   children,
   className = '',
   delay = 0,
-  duration = 0.6,
+  duration = 0.8,
   direction = 'up',
   stagger = false,
   once = true
@@ -37,7 +37,7 @@ export function TextReveal({
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: stagger ? 0.1 : 0,
+        staggerChildren: stagger ? 0.15 : 0,
         delayChildren: delay
       }
     }
@@ -99,7 +99,7 @@ export function CharacterReveal({
   text,
   className = '',
   delay = 0,
-  duration = 0.05
+  duration = 0.08
 }: {
   text: string
   className?: string

@@ -7,12 +7,13 @@ export const easings = {
   in: [0.87, 0, 0.13, 1],
 } as const
 
-// Duration constants from DESIGN.md
+// Duration constants from DESIGN.md - Balanced for performance and premium feel
 export const durations = {
-  fast: 0.2,
-  normal: 0.3,
-  slow: 0.5,
-  slower: 0.8,
+  fast: 0.2,      // Keep fast for micro-interactions
+  normal: 0.4,    // Balanced for deliberate feel with good performance
+  slow: 0.6,      // Premium transitions without blocking
+  slower: 0.9,    // Very relaxed animations
+  relaxed: 1.1,   // Extremely slow, premium animations
 } as const
 
 // Scroll-triggered reveal animation (CoLab-inspired)
@@ -34,13 +35,13 @@ export const fadeInUp: Variants = {
   },
 }
 
-// Staggered children animation
+// Staggered children animation - Slower for more premium feel
 export const staggerChildren: Variants = {
   hidden: {},
   visible: {
     transition: {
-      staggerChildren: 0.1,
-      delayChildren: 0.2,
+      staggerChildren: 0.15,  // Increased from 0.1s for more deliberate reveals
+      delayChildren: 0.3,     // Increased from 0.2s for more anticipation
     },
   },
 }
@@ -76,11 +77,44 @@ export const buttonMagnetic: Variants = {
   },
 }
 
+// Transform-based focus animation for hero heading (performance optimized)
+export const blurToFocus: Variants = {
+  hidden: {
+    opacity: 0,
+    scale: 1.02,      // Subtle scale instead of blur for better performance
+    y: 10,            // Small vertical movement for focus effect
+    transition: {
+      duration: durations.fast,
+    },
+  },
+  visible: {
+    opacity: 1,
+    scale: 1,
+    y: 0,
+    transition: {
+      duration: 1, // Keep 1 second as requested
+      ease: easings.out,
+    },
+  },
+}
+
 // Performance optimization settings
 export const optimizedMotionConfig = {
-  // Use GPU acceleration
-  style: { willChange: 'transform, opacity' },
+  // Use GPU acceleration with containment
+  style: { 
+    willChange: 'transform, opacity',
+    contain: 'layout style paint'  // Add containment for better performance
+  },
   // Enable hardware acceleration
   transformTemplate: ({ x, y, scale }: any) => 
-    `translate3d(${x}, ${y}, 0) scale(${scale})`,
+    `translate3d(${x || 0}px, ${y || 0}px, 0) scale(${scale || 1})`,
+}
+
+// Performance optimization for transform animations (replaces filter config)
+export const transformMotionConfig = {
+  // Use GPU acceleration for transform effects
+  style: { 
+    willChange: 'transform, opacity',
+    contain: 'layout style paint'
+  },
 }

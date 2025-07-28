@@ -1,22 +1,28 @@
 'use client'
 
-import { motion, useScroll, useTransform } from 'motion/react'
+import { motion, useScroll, useTransform, useReducedMotion } from 'motion/react'
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
-import { buttonMagnetic, fadeInUp } from '@/lib/motion-config'
+import { buttonMagnetic, fadeInUp, blurToFocus, transformMotionConfig } from '@/lib/motion-config'
 import { useRef } from 'react'
 import { Container } from '@/components/layout/Container'
+import { GradientMeshBackground } from '@/components/backgrounds/gradient-mesh-background'
 
 export function HeroSection() {
   const ref = useRef<HTMLElement>(null)
+  const shouldReduceMotion = useReducedMotion()
+  
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ["start start", "end start"]
   })
   
-  // Parallax effect for background elements
-  const y = useTransform(scrollYProgress, [0, 1], ['0%', '30%'])
-  const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0])
+  // Parallax effect for background gradient
+  const y = useTransform(scrollYProgress, [0, 1], ['0%', '20%'])
+  const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0.3])
+
+  // Create reduced motion variant for blur animation
+  const headingVariants = shouldReduceMotion ? fadeInUp : blurToFocus
 
   return (
     <section 
@@ -24,34 +30,18 @@ export function HeroSection() {
       id="hero"
       className="relative min-h-screen flex items-center justify-center overflow-hidden bg-background"
     >
-      
-      {/* Floating Elements */}
+      {/* Linear-style Animated Gradient Mesh Background */}
       <motion.div
-        className="absolute top-1/4 left-1/4 w-2 h-2 rounded-full bg-accent-blue/30"
-        animate={{
-          y: [-10, 10, -10],
-          opacity: [0.3, 0.7, 0.3],
-        }}
-        transition={{
-          duration: 4,
-          repeat: Infinity,
-          ease: "easeInOut"
-        }}
-      />
-      
-      <motion.div
-        className="absolute top-1/3 right-1/3 w-1 h-1 rounded-full bg-accent-purple/40"
-        animate={{
-          y: [10, -10, 10],
-          opacity: [0.4, 0.8, 0.4],
-        }}
-        transition={{
-          duration: 3,
-          repeat: Infinity,
-          ease: "easeInOut",
-          delay: 1,
-        }}
-      />
+        style={{ y, opacity }}
+        className="absolute inset-0"
+      >
+        <GradientMeshBackground 
+          variant="hero"
+          opacity={0.4}
+          blur={120}
+          animate={true}
+        />
+      </motion.div>
       
       {/* Content */}
       <Container className="relative z-10 text-center">
@@ -63,7 +53,8 @@ export function HeroSection() {
         >
           <motion.h1 
             className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight leading-tight"
-            variants={fadeInUp}
+            variants={headingVariants}
+            {...(shouldReduceMotion ? {} : transformMotionConfig)}
           >
             Build AI solutions that{' '}
             <span className="bg-gradient-primary bg-clip-text text-transparent">
@@ -84,13 +75,13 @@ export function HeroSection() {
             variants={fadeInUp}
           >
             <motion.div variants={buttonMagnetic} whileHover="hover" whileTap="tap">
-              <Button asChild size="lg" className="min-w-[180px]">
+              <Button asChild size="lg" className="min-w-[11.25rem]">
                 <Link href="#demos">See Live Demos</Link>
               </Button>
             </motion.div>
             
             <motion.div variants={buttonMagnetic} whileHover="hover" whileTap="tap">
-              <Button asChild variant="outline" size="lg" className="min-w-[180px]">
+              <Button asChild variant="outline" size="lg" className="min-w-[11.25rem]">
                 <Link href="#book-call">Book Discovery Call</Link>
               </Button>
             </motion.div>
