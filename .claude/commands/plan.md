@@ -1,107 +1,319 @@
-# Plan Command
+# Improved /plan Command
 
-Breaks down any feature request, bug fix, or task into actionable items using the project-manager agent.
+The `/plan` command is the primary entry point for all development work. It orchestrates a complete workflow from request to validated implementation.
 
-## Usage
+## Command Structure
 
 ```
 /plan [description]
 ```
 
-## Arguments
+## Execution Flow
 
-- `description` (required): Natural language description of what needs to be done
-
-## Examples
-
-```bash
-/plan add testimonials section to the homepage with 3 rotating quotes
-/plan fix mobile navigation menu not closing when clicking outside
-/plan optimize bundle size - currently at 180KB need to get under 150KB
-/plan implement dark mode toggle in header
+### 1. **Parse and Analyze Request**
+```javascript
+function executePlan(description) {
+  // Extract key requirements
+  const requirements = analyzeRequest(description);
+  
+  // Determine if we need Context7 or shadcn documentation
+  if (requiresAPIInfo(requirements)) {
+    await searchContext7(requirements.apis);
+  }
+  
+  if (requiresComponentInfo(requirements)) {
+    await searchShadcnComponents(requirements.uiElements);
+  }
+}
 ```
 
-## Execution Process
+### 2. **Invoke Project Orchestrator**
+The project-orchestrator agent is invoked with:
+- Clear requirements
+- Available documentation
+- Context from research
 
-1. **Parse Request**
-   - Extract the core requirement from description
-   - Identify implicit needs (e.g., "testimonials" implies design + data structure + animation)
-   - Determine scope and complexity
+```javascript
+await Task.invoke("project-orchestrator", {
+  action: "Create development plan",
+  requirements: parsedRequirements,
+  context: {
+    shadcnComponents: availableComponents,
+    apiDocs: context7Results,
+    currentProjectState: projectStatus
+  }
+});
+```
 
-2. **Invoke Project Manager**
-   - Pass full description to project-manager agent
-   - Agent analyzes technical requirements
-   - Creates hierarchical task breakdown
+### 3. **Project Orchestrator Creates Task Plan**
+The orchestrator MUST:
+1. Break down into atomic tasks
+2. Explicitly assign each task to an agent
+3. Set clear dependencies
+4. Define success criteria
 
-3. **Task Generation**
-   - Break into atomic, actionable tasks
-   - Assign each task to appropriate agent(s)
-   - Set dependencies between tasks
-   - Estimate complexity (S/M/L)
+Example output:
+```yaml
+Task Plan: Add Testimonials Section
 
-4. **Output Format**
-   ```
-   📋 Plan: Add Testimonials Section
-   
-   Tasks (5):
-   1. [Design] Create testimonial card component design
-      → ui-designer | Size: S | Deps: None
-   
-   2. [Frontend] Implement TestimonialCard component
-      → frontend-dev | Size: M | Deps: Task 1
-   
-   3. [Frontend] Create testimonials data structure
-      → frontend-dev | Size: S | Deps: None
-   
-   4. [Frontend] Add rotation animation logic
-      → frontend-dev | Size: M | Deps: Task 2,3
-   
-   5. [QA] Test testimonials across devices
-      → qa-engineer | Size: S | Deps: Task 4
-   
-   Estimated Time: 4-6 hours
-   Suggested Order: 1 → 3 → 2 → 4 → 5
-   ```
+Phase 1: Research & Design
+  Task 1.1:
+    title: "Research testimonial best practices"
+    assigned_to: "ui-design-authority"
+    tools_needed: ["shadcn-card", "shadcn-carousel"]
+    deliverables: ["Design mockup", "Animation specs"]
+    
+Phase 2: Implementation  
+  Task 2.1:
+    title: "Implement TestimonialCard component"
+    assigned_to: "frontend-developer"
+    dependencies: ["Task 1.1"]
+    validation_criteria: 
+      - TypeScript types defined
+      - Responsive design
+      - Keyboard accessible
+      
+Phase 3: Quality Assurance
+  Task 3.1:
+    title: "Validate testimonials implementation"
+    assigned_to: "quality-guardian"
+    auto_triggered: true
+    dependencies: ["Task 2.1"]
+    blocking: true
+```
 
-## Integration Points
+### 4. **Execute Tasks in Sequence**
 
-- **With Agents**: Automatically assigns tasks to appropriate agents
-- **With TodoWrite**: Creates trackable tasks in the system
-- **With Validation**: Each task includes validation criteria
-- **With Status**: Updates project status as tasks complete
+Each task execution follows this pattern:
+
+```javascript
+async function executeTask(task) {
+  // 1. Agent does the work
+  const result = await Task.invoke(task.assigned_to, {
+    action: task.title,
+    requirements: task.requirements,
+    dependencies: await resolveDependencies(task.dependencies)
+  });
+  
+  // 2. Automatic quality check (if implementation task)
+  if (task.type === 'implementation') {
+    const qaResult = await Task.invoke("quality-guardian", {
+      action: "Validate changes",
+      scope: task.deliverables,
+      silent: true // Only speak if issues found
+    });
+    
+    // 3. Handle QA results
+    if (qaResult.issues) {
+      // Block and request fixes
+      await Task.invoke(task.assigned_to, {
+        action: "Fix issues",
+        issues: qaResult.issues,
+        suggestions: qaResult.fixes
+      });
+      
+      // Re-validate after fixes
+      return executeTask(task);
+    }
+  }
+  
+  // 4. Update task status
+  await updateTaskStatus(task.id, 'completed');
+  
+  // 5. Trigger dependent tasks
+  await triggerDependentTasks(task.id);
+}
+```
+
+### 5. **Quality Guardian Integration**
+
+The quality-guardian runs automatically:
+- After EVERY implementation task
+- Before moving to next phase
+- Silently when all passes
+- Blocks workflow only on issues
+
+```javascript
+const qaProtocol = {
+  afterImplementation: {
+    checks: [
+      "TypeScript compilation",
+      "ESLint critical errors",
+      "Build verification",
+      "Basic functionality"
+    ],
+    timeLimit: "15 seconds",
+    output: "minimal"
+  },
+  
+  beforeDeployment: {
+    checks: [
+      "Full test suite",
+      "Lighthouse scores",
+      "Accessibility audit",
+      "Cross-browser testing"
+    ],
+    timeLimit: "2 minutes",
+    output: "detailed if issues"
+  }
+};
+```
+
+### 6. **Progress Tracking & Communication**
+
+During execution, provide clear status updates:
+
+```
+📋 Executing Plan: Testimonials Section
+
+Phase 1: Design ✅
+├─ Task 1.1: Research complete
+└─ Task 1.2: Mockup approved
+
+Phase 2: Implementation 🔄
+├─ Task 2.1: Component built ✅
+├─ Task 2.2: Data structure ✅
+└─ Task 2.3: Animations ⏳ (in progress)
+   └─ Frontend Dev working...
+
+Phase 3: Quality ⏸️ (waiting)
+
+Time elapsed: 45 minutes
+Estimated remaining: 30 minutes
+```
+
+## Complete Example Flow
+
+User: `/plan add testimonials with rotating quotes and gradient borders`
+
+```yaml
+System Response:
+
+🔍 Researching components...
+- Found: shadcn Card component
+- Found: shadcn Carousel pattern
+- Context7: No API needed
+
+📋 Creating Development Plan...
+
+=== TESTIMONIALS IMPLEMENTATION PLAN ===
+
+Phase 1: Design (20 min)
+→ ui-design-authority
+  • Create testimonial card design
+  • Define gradient system
+  • Specify rotation timing
+
+Phase 2: Implementation (45 min)  
+→ frontend-developer
+  • Build TestimonialCard component
+  • Implement rotation logic
+  • Add gradient borders
+  
+Phase 3: Validation (10 min)
+→ quality-guardian (automatic)
+  • Check all systems
+  • Verify accessibility
+  • Test performance
+
+Starting Phase 1...
+
+---
+
+[20 minutes later]
+
+✅ Phase 1 Complete
+- Design system updated
+- Mockups created
+- Tokens defined
+
+Starting Phase 2...
+
+---
+
+[45 minutes later]
+
+✅ Phase 2 Complete
+- Component implemented
+- TypeScript types added
+- Animations smooth
+
+🔍 Running Quality Checks...
+
+✅ All checks passed
+- No TypeScript errors
+- Accessibility compliant
+- 60fps animations
+
+=== PLAN COMPLETE ===
+
+Ready to commit changes.
+Use /commit to save your work.
+```
 
 ## Error Handling
 
-1. **Vague Requests**
-   ```
-   Error: Request too vague: "make it better"
-   Solution: Please specify what aspect to improve
-   ```
+### When Agents Report Issues
+```javascript
+if (agentResult.status === 'blocked') {
+  console.log(`❌ ${agent} encountered issues:`);
+  console.log(agentResult.issues);
+  
+  // Orchestrator decides next action
+  const resolution = await Task.invoke("project-orchestrator", {
+    action: "resolve-blockage",
+    issue: agentResult,
+    options: [
+      "Assign to different agent",
+      "Break down task further",
+      "Request user clarification"
+    ]
+  });
+}
+```
 
-2. **Scope Too Large**
-   ```
-   Warning: Large scope detected
-   Suggestion: Breaking into multiple phases...
-   Phase 1: [Simplified version]
-   Phase 2: [Additional features]
-   ```
-
-3. **Missing Context**
-   ```
-   Question: Which page/component needs this change?
-   Please specify the location for: [feature]
-   ```
+### When QA Fails
+```javascript
+if (qaResult.criticalIssues) {
+  // Stop everything
+  workflow.pause();
+  
+  // Report to user
+  console.log("🛑 Critical issues found:");
+  qaResult.criticalIssues.forEach(issue => {
+    console.log(`- ${issue.description}`);
+    console.log(`  Fix: ${issue.suggestion}`);
+  });
+  
+  // Wait for fixes before continuing
+  workflow.blockUntilResolved();
+}
+```
 
 ## Best Practices
 
-- Be specific in descriptions
-- Include acceptance criteria when possible
-- Mention technical constraints upfront
-- Reference existing components if building similar features
+1. **Always Research First**
+   - Check shadcn for UI components
+   - Search Context7 for API needs
+   - Review existing codebase
 
-## Notes
+2. **Clear Task Assignment**
+   - Every task explicitly names the agent
+   - Dependencies clearly stated
+   - Success criteria defined
 
-- This command replaces the old `/generate-prp` workflow
-- Tasks are automatically validated as they're completed
-- Project manager agent may ask clarifying questions
-- All tasks follow the layer system (Foundation/Design/Experience/Quality)
+3. **Automatic Quality Gates**
+   - QA runs without being asked
+   - Blocks bad code automatically
+   - Fixes suggested immediately
+
+4. **Progressive Enhancement**
+   - Start with basic functionality
+   - Add enhancements incrementally
+   - Validate at each step
+
+5. **Communication**
+   - Show progress in real-time
+   - Explain what's happening
+   - Estimate time remaining
+
