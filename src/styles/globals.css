@@ -188,3 +188,16 @@
     @apply rounded-lg border bg-card text-card-foreground shadow-sm;
   }
 }
+
+/* Utility Layer */
+@layer utilities {
+  /* Gradient Text Utilities */
+  .bg-gradient-primary {
+    background: linear-gradient(135deg, 
+      lch(67.9% 53.5 239),  /* Gradient Blue */
+      lch(86.7% 70.9 153),  /* Gradient Green */  
+      lch(95.2% 29.1 192),  /* Gradient Cyan */
+      lch(65.5% 79.3 338)   /* Gradient Pink */
+    );
+  }
+}

@@ -7,6 +7,7 @@ import { buttonMagnetic, fadeInUp, blurToFocus, transformMotionConfig } from '@/
 import { useRef } from 'react'
 import { Container } from '@/components/layout/Container'
 import { GradientMeshBackground } from '@/components/backgrounds/gradient-mesh-background'
+import { GradientText } from '@/components/ui/gradient-text'
 
 export function HeroSection() {
   const ref = useRef<HTMLElement>(null)
@@ -56,10 +57,15 @@ export function HeroSection() {
             variants={headingVariants}
             {...(shouldReduceMotion ? {} : transformMotionConfig)}
           >
-            Build AI solutions that{' '}
-            <span className="bg-gradient-primary bg-clip-text text-transparent">
-              transform your business
-            </span>
+            <GradientText className="block">
+              Smarter Ops
+            </GradientText>
+            <GradientText className="block">
+              Leaner Teams
+            </GradientText>
+            <GradientText className="block">
+              Faster Growth
+            </GradientText>
           </motion.h1>
           
           <motion.p 
