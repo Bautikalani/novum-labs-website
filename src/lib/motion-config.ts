@@ -118,3 +118,49 @@ export const transformMotionConfig = {
     contain: 'layout style paint'
   },
 }
+
+// Glass morphism card hover animation with 3D effects
+export const glassCard3D: Variants = {
+  initial: { 
+    scale: 1,
+    rotateX: 0,
+    rotateY: 0,
+    y: 0,
+  },
+  hover: {
+    scale: 1.02,
+    rotateX: 5,
+    rotateY: 3,
+    y: -8,
+    transition: {
+      duration: durations.normal,
+      ease: easings.out,
+    },
+  },
+}
+
+// Glass morphism card hover animation without 3D effects
+export const glassCardFlat: Variants = {
+  initial: { 
+    scale: 1,
+    y: 0,
+  },
+  hover: {
+    scale: 1.02,
+    y: -8,
+    transition: {
+      duration: durations.normal,
+      ease: easings.out,
+    },
+  },
+}
+
+// Performance-optimized glass morphism config
+export const glassMotionConfig = {
+  style: { 
+    willChange: 'transform, opacity, backdrop-filter',
+    contain: 'layout style paint',
+    backfaceVisibility: 'hidden' as const,
+    perspective: '1000px'
+  },
+}
