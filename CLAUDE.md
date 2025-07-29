@@ -1,215 +1,404 @@
 # CLAUDE.md — Novum Labs Website
 
 ## 🎯 Project North Star
-Build a cutting-edge AI consultancy website that showcases technical excellence through sophisticated minimalism. Every decision should reinforce Novum Labs as a premium AI partner capable of transforming businesses.
+
+Build a cutting-edge AI consultancy website that demonstrates technical excellence through sophisticated minimalism. Every decision reinforces Novum Labs as a premium AI partner capable of transforming businesses through elegant, performant solutions.
 
 ## 🏗️ Architecture Principles
 
 ### Context7 MCP is Truth
-- **All documentation comes through Context7 MCP** — Never web scrape for Next.js, React, Tailwind, or Motion documentation
-- **Use `context7` for library-specific information** — Request documentation when implementing features that require external APIs
-- **Trust Context7 versions** — The documentation provided is version-accurate for our tech stack
-- **Manual research only for design inspiration** — Linear.app and CoLab patterns are stored in `/research/design-inspiration/`
+- **All documentation through Context7** — Never web scrape for Next.js, React, Tailwind, or Motion docs
+- **Use `context7` for API specs** — Request documentation when implementing features requiring external APIs
+- **Trust Context7 versions** — Documentation provided is version-accurate for our tech stack
+- **Design research only** — Manual research limited to Linear.app and CoLab patterns in `/research/design-inspiration/`
+
+### Design System First
+- **Tokens before values** — Never hardcode colors, spacing, or typography outside the system
+- **Component hierarchy** — Primary → Secondary → Tertiary → Supporting → Meta
+- **Motion with purpose** — Every animation must guide attention or provide feedback
+- **Performance non-negotiable** — 60fps minimum, prefer transform/opacity animations
 
 ### Layer-Driven Development
-- **Always check LAYERS.md** for development approach — Work on any layer based on need
-- **Layers are concurrent** — Foundation, Design, Experience, and Quality layers can be modified simultaneously
-- **Smart validation only** — Tests run only for affected layers, not everything
-- **Quality gates remain** — Standards don't change, just the workflow flexibility
+- **Check LAYERS.md first** — Understand which layer needs modification
+- **Concurrent development** — Foundation, Design, Experience, and Quality layers work in parallel
+- **Smart validation** — Tests run only for affected layers, not entire codebase
+- **Quality gates enforced** — Standards remain high, workflow stays flexible
 
 ### Agent-First Workflow
-- **Agents are specialists** — Each agent has deep expertise in their domain
-- **Natural handoffs** — Agents pass context and collaborate automatically
-- **Continuous validation** — QA Engineer monitors all changes in real-time
-- **Trust agent expertise** — Let specialists make decisions in their domains
+- **Specialists own decisions** — Each agent has final say in their domain
+- **Natural collaboration** — Agents pass context seamlessly
+- **Continuous validation** — QA monitors all changes in real-time
+- **Trust expertise** — Don't override specialist recommendations
 
-### TypeScript First
-- **Use TypeScript exclusively** — No JavaScript files except for configuration
-- **Strict mode always** — `"strict": true` in tsconfig.json
-- **Type safety over convenience** — Never use `any` unless absolutely necessary with justification
-- **Interfaces over types** — For consistency and better error messages
+### TypeScript Excellence
+- **TypeScript only** — JavaScript limited to unavoidable configs
+- **Strict mode always** — `"strict": true` without exceptions
+- **Type safety paramount** — `any` requires written justification
+- **Interfaces preferred** — Better error messages and consistency
 
 ## 🛠️ Technical Constants
 
 ### Core Stack (Immutable)
 ```typescript
 const TECH_STACK = {
-  framework: "next@15.4.1",      // App Router only
-  ui: "react@19.1",              // Latest stable
-  styles: "tailwindcss@4.1",     // With LCH color space
-  components: "shadcn/ui",       // Radix-based
-  animation: "motion@12.23.6",   // Formerly Framer Motion
-  language: "typescript@5.7",    // Strict mode
-  deployment: "vercel"           // Optimized for Next.js
+  framework: "next@15.4.1",        // App Router architecture
+  ui: "react@19.1",                // Latest stable
+  styles: "tailwindcss@4.1",       // CSS-first with LCH colors
+  components: "shadcn/ui",         // Radix-based, accessible
+  animation: "motion@12.23.6",     // GPU-accelerated animations
+  language: "typescript@5.7",      // Strict mode enforced
+  deployment: "vercel",            // Edge-optimized
+  fonts: ["Inter Variable", "Satoshi Variable", "JetBrains Mono Variable"]
 } as const;
 ```
 
 ### Project Structure (Fixed)
 ```
 src/
-├── app/                 # Next.js App Router pages
-├── components/          # Reusable components
-│   ├── ui/             # shadcn/ui components
-│   ├── sections/       # Page sections
-│   └── layout/         # Layout components
-├── lib/                # Utilities and helpers
-├── styles/             # Global styles
-└── types/              # TypeScript definitions
+├── app/                    # Next.js App Router
+│   ├── layout.tsx         # Root layout with providers
+│   ├── page.tsx           # Home page sections
+│   └── globals.css        # Tailwind imports
+├── components/            
+│   ├── ui/                # shadcn/ui primitives
+│   ├── sections/          # Page section components
+│   ├── layout/            # Header, Footer, etc.
+│   └── interactive/       # Demo components
+├── lib/                   
+│   ├── utils.ts           # Helper functions
+│   ├── constants.ts       # App constants
+│   └── animations.ts      # Motion variants
+├── styles/               
+│   └── tokens.css         # Design tokens
+└── types/                 # TypeScript definitions
 ```
 
 ### Performance Budgets (Non-Negotiable)
-- **Lighthouse Score**: 90+ across all metrics
-- **First Contentful Paint**: < 1.5s
-- **Largest Contentful Paint**: < 2.5s
-- **Cumulative Layout Shift**: < 0.1
-- **Time to Interactive**: < 3s
-- **Bundle Size**: < 150KB JS (gzipped)
-
-## 🎨 Design Philosophy
-
-### Linear-Inspired Minimalism
-- **Every element has purpose** — No decorative additions without functional value
-- **Mathematical relationships** — Spacing, typography follow systematic scales
-- **LCH color space** — Perceptually uniform color generation
-- **Reduction over addition** — Start minimal, add only what's essential
-
-### CoLab-Inspired Functionality
-- **Animation serves user goals** — Never animate for animation's sake
-- **Performance over complexity** — 60fps is mandatory for all animations
-- **Progressive disclosure** — Reveal complexity only when needed
-- **Engineering-first interactions** — Practical over playful
-
-### Dark Theme Foundation
-- **Dark is primary** — Build dark-first, not dark-adapted
-- **Future-ready architecture** — Theme system supports light mode addition
-- **Contrast accessibility** — WCAG AAA where possible, AA minimum
-- **Consistent token usage** — Never hardcode colors outside design system
-
-## 📁 File Organization Rules
-
-### Component Structure
 ```typescript
-// components/sections/hero-section.tsx
-export function HeroSection() {
-  // Component implementation
-}
-
-// Always prefer named exports for components
-// Always use kebab-case for filenames
-// Always colocate related files
+const PERFORMANCE_BUDGETS = {
+  lighthouse: {
+    performance: 95,      // Minimum acceptable
+    accessibility: 95,    // WCAG AA standard
+    bestPractices: 95,   
+    seo: 95,
+    pwa: 90              // Future-ready
+  },
+  metrics: {
+    fcp: 1500,           // First Contentful Paint (ms)
+    lcp: 2500,           // Largest Contentful Paint (ms)
+    cls: 0.1,            // Cumulative Layout Shift
+    fid: 100,            // First Input Delay (ms)
+    ttfb: 600,           // Time to First Byte (ms)
+    tti: 3000            // Time to Interactive (ms)
+  },
+  bundle: {
+    js: 150,             // KB gzipped
+    css: 50,             // KB gzipped
+    images: 500,         // KB per image
+    totalPageWeight: 1000 // KB total
+  }
+} as const;
 ```
 
-### Import Hierarchy
-1. External dependencies
-2. Internal aliases (@/...)
-3. Relative imports
-4. Type imports
+## 🎨 Design Implementation Standards
 
-### Naming Conventions
-- **Files**: `kebab-case.tsx`
-- **Components**: `PascalCase`
-- **Utilities**: `camelCase`
-- **Constants**: `SCREAMING_SNAKE_CASE`
-- **Types/Interfaces**: `PascalCase`
+### Typography Implementation
+```typescript
+// Always use design tokens
+const headingStyles = {
+  h1: "font-display text-4xl font-bold tracking-tight",
+  h2: "font-display text-3xl font-semibold tracking-tight",
+  h3: "font-sans text-2xl font-semibold",
+  body: "font-sans text-base leading-relaxed",
+  code: "font-mono text-sm"
+};
+
+// Never hardcode font sizes
+❌ className="text-[32px]"
+✅ className="text-2xl"
+```
+
+### Color Usage
+```typescript
+// Use semantic color tokens
+const colorUsage = {
+  // Surfaces
+  background: "bg-background",           // Deep black
+  card: "bg-surface-2",                 // Elevated surface
+  hover: "hover:bg-surface-3",          // Interactive state
+  
+  // Text
+  primary: "text-text-primary",          // High emphasis
+  secondary: "text-text-secondary",      // Medium emphasis
+  muted: "text-text-tertiary",          // Low emphasis
+  
+  // Accents
+  cta: "bg-gradient-primary",           // Primary actions
+  highlight: "text-accent-cyan",        // Emphasis
+  success: "text-success"               // Positive feedback
+};
+```
+
+### Spacing Consistency
+```typescript
+// Use spacing scale religiously
+const spacingPatterns = {
+  sectionPadding: "py-20",              // 80px vertical
+  componentPadding: "p-6",              // 24px all sides
+  elementGap: "gap-4",                  // 16px between elements
+  tightGroup: "space-y-2",              // 8px vertical spacing
+  
+  // Responsive adjustments
+  mobilePadding: "p-4 md:p-6",          // Scale with viewport
+  heroSpacing: "pt-24 pb-20"            // Asymmetric for visual flow
+};
+```
+
+## 📁 Development Standards
+
+### Component Patterns
+```typescript
+// 1. Always use function components with TypeScript
+interface ComponentProps {
+  title: string;
+  description?: string;
+  className?: string;
+}
+
+export function Component({ 
+  title, 
+  description, 
+  className 
+}: ComponentProps) {
+  return (
+    <div className={cn("base-styles", className)}>
+      {/* Implementation */}
+    </div>
+  );
+}
+
+// 2. Props interface above component
+// 3. Destructure props in parameters
+// 4. Use cn() for className merging
+// 5. Export named functions
+```
+
+### Import Organization
+```typescript
+// 1. External packages
+import { useState, useEffect } from 'react';
+import { motion } from 'motion/react';
+
+// 2. Internal packages
+import { Button } from '@/components/ui/button';
+import { cn } from '@/lib/utils';
+
+// 3. Types
+import type { ComponentProps } from '@/types';
+
+// 4. Styles (if needed)
+import styles from './component.module.css';
+```
+
+### State Management
+```typescript
+// Prefer local state for component-specific data
+const [isOpen, setIsOpen] = useState(false);
+
+// Use context for cross-component state
+const theme = useTheme();
+
+// Consider URLs for shareable state
+const searchParams = useSearchParams();
+
+// Never store derived state
+❌ const [fullName, setFullName] = useState(`${first} ${last}`);
+✅ const fullName = `${first} ${last}`;
+```
 
 ## ✅ Quality Standards
 
-### Code Quality
-- **ESLint**: Zero warnings policy
-- **Prettier**: Automatic formatting
-- **TypeScript**: No implicit any
-- **Imports**: Sorted and grouped
+### Code Quality Checklist
+- [ ] TypeScript strict mode passing
+- [ ] No `any` types without justification
+- [ ] All props properly typed
+- [ ] Components under 300 lines
+- [ ] Functions under 50 lines
+- [ ] Meaningful variable names
+- [ ] No magic numbers (use constants)
+- [ ] Proper error boundaries
 
-### Accessibility
-- **Semantic HTML**: Proper element usage
-- **ARIA**: Only when semantic HTML insufficient
-- **Keyboard**: Full keyboard navigation
-- **Screen readers**: Tested with NVDA/JAWS
+### Accessibility Checklist
+- [ ] Semantic HTML elements
+- [ ] Proper heading hierarchy
+- [ ] Alt text for images
+- [ ] ARIA labels where needed
+- [ ] Keyboard navigation works
+- [ ] Focus indicators visible
+- [ ] Color contrast passes WCAG AA
+- [ ] Reduced motion respected
 
-### Testing Philosophy
-- **Type safety is first test** — TypeScript catches many bugs
-- **Integration over unit** — Test user flows, not implementation
-- **Visual regression** — Prevent style breaks between layers
-- **Performance monitoring** — Continuous Core Web Vitals tracking
+### Performance Checklist
+- [ ] Images optimized and lazy loaded
+- [ ] Fonts subset and preloaded
+- [ ] Critical CSS inlined
+- [ ] JavaScript code-split
+- [ ] No layout shifts
+- [ ] Animations GPU-accelerated
+- [ ] Bundle size within budget
+- [ ] Lighthouse scores passing
 
 ## 🚫 Anti-Patterns to Avoid
 
 ### Never Do This
-- ❌ Skip validation between changes
-- ❌ Use `any` without comment justification
-- ❌ Work outside the layer system
-- ❌ Web scrape when Context7 can provide
-- ❌ Hardcode values that should be tokens
-- ❌ Create files over 300 lines
-- ❌ Mix concerns in single component
-- ❌ Animate without performance testing
+```typescript
+// ❌ Hardcoded values
+<div style={{ color: '#3b82f6', padding: '24px' }}>
+
+// ❌ Any without justification
+const data: any = fetchData();
+
+// ❌ Inline functions in JSX
+<button onClick={() => doSomething()}>
+
+// ❌ Nested ternaries
+const style = isActive ? isPrimary ? 'primary' : 'secondary' : 'disabled';
+
+// ❌ Direct DOM manipulation
+document.getElementById('thing').style.display = 'none';
+
+// ❌ Ignoring TypeScript errors
+// @ts-ignore
+
+// ❌ Global styles in components
+:global(.my-class) { }
+
+// ❌ Promises without error handling
+fetch('/api').then(r => r.json());
+```
 
 ### Always Do This
-- ✅ Let agents handle their specialties
-- ✅ Run validation continuously
-- ✅ Use design tokens from examples/
-- ✅ Request Context7 documentation for APIs
-- ✅ Test on real mobile devices
-- ✅ Consider reduced motion preferences
-- ✅ Document non-obvious decisions
-- ✅ Trust the workflow process
-
-## 🤖 Agent Collaboration Principles
-
-### Agent Expertise Domains
 ```typescript
-const AGENT_DOMAINS = {
-  "ui-designer": ["visual design", "design systems", "user experience"],
-  "frontend-dev": ["implementation", "logic", "state management"],
-  "qa-engineer": ["testing", "validation", "quality assurance"],
-  "tech-lead": ["architecture", "decisions", "best practices"],
-  "project-manager": ["planning", "coordination", "task breakdown"],
-  "performance-engineer": ["optimization", "metrics", "speed"]
+// ✅ Design tokens
+<div className="text-primary p-6">
+
+// ✅ Proper typing
+const data: UserData = await fetchData();
+
+// ✅ Named functions
+const handleClick = () => doSomething();
+<button onClick={handleClick}>
+
+// ✅ Early returns
+if (!isActive) return 'disabled';
+return isPrimary ? 'primary' : 'secondary';
+
+// ✅ React state
+const [isVisible, setIsVisible] = useState(true);
+
+// ✅ Suppress with reason
+// @ts-expect-error - Third-party library types are incorrect
+externalLib.method();
+
+// ✅ CSS Modules or Tailwind
+className={styles.myClass} or className="my-tailwind-class"
+
+// ✅ Error boundaries
+try {
+  const res = await fetch('/api');
+  return await res.json();
+} catch (error) {
+  console.error('Failed to fetch:', error);
+  return fallbackData;
+}
+```
+
+## 🤖 Agent Collaboration
+
+### Agent Domains
+```typescript
+const AGENT_EXPERTISE = {
+  "ui-designer": {
+    owns: ["visual design", "design tokens", "user experience"],
+    reviews: ["accessibility", "responsive design"],
+    tools: ["Figma", "design systems", "color theory"]
+  },
+  
+  "frontend-dev": {
+    owns: ["implementation", "state management", "API integration"],
+    reviews: ["performance", "code quality"],
+    tools: ["React", "TypeScript", "build tools"]
+  },
+  
+  "qa-engineer": {
+    owns: ["testing", "validation", "quality assurance"],
+    reviews: ["all changes", "user flows"],
+    tools: ["Jest", "Playwright", "Lighthouse"]
+  },
+  
+  "tech-lead": {
+    owns: ["architecture", "technical decisions", "standards"],
+    reviews: ["complex implementations", "new patterns"],
+    tools: ["system design", "best practices"]
+  },
+  
+  "performance-engineer": {
+    owns: ["optimization", "metrics", "monitoring"],
+    reviews: ["bundle size", "runtime performance"],
+    tools: ["webpack analyzer", "Chrome DevTools"]
+  }
 } as const;
 ```
 
-### Agent Handoff Protocol
-1. **Clear context passing** — Each agent provides summary for next
-2. **Respect specializations** — Don't override expert decisions
-3. **Validation between handoffs** — QA checks all transitions
-4. **Document decisions** — Important choices recorded
+### Handoff Protocol
+```typescript
+interface AgentHandoff {
+  from: Agent;
+  to: Agent;
+  context: {
+    summary: string;           // What was done
+    decisions: Decision[];     // Key choices made
+    blockers: string[];       // Issues for next agent
+    validation: TestResult;   // Current test status
+  };
+  artifacts: {
+    files: string[];          // Modified files
+    pr: string;              // Pull request link
+    preview: string;         // Deployment preview
+  };
+}
+```
 
-### Continuous Validation Rules
-- **After every save** — Relevant validation runs automatically
-- **Blocking on errors** — Can't proceed with failing validation
-- **Smart detection** — Only affected layers tested
-- **Immediate feedback** — Results within 3 seconds
+## 🎯 Success Criteria
 
-## 🎯 Success Definition
+### Technical Excellence
+- **Performance**: 95+ Lighthouse scores maintained
+- **Type Safety**: 100% TypeScript coverage, zero `any`
+- **Bundle Size**: Under 150KB JS gzipped
+- **Accessibility**: WCAG AA compliant
+- **Browser Support**: Chrome, Safari, Firefox, Edge latest 2 versions
 
-The Novum Labs website succeeds when:
-1. **Technical Excellence**: 95+ Lighthouse scores prove our capability
-2. **Design Sophistication**: Linear-inspired minimalism creates premium perception
-3. **Functional Delight**: CoLab-inspired interactions engage without overwhelming
-4. **Future Readiness**: Architecture supports growth without refactoring
-5. **Team Pride**: The website represents our best work
+### Design Sophistication
+- **Visual Hierarchy**: Clear 5-level system implemented
+- **Motion Design**: All animations serve user goals
+- **Consistency**: 100% design token usage
+- **Responsive**: Flawless experience 320px to 4K
+- **Dark Theme**: Optimized contrast and readability
 
-## 📝 Implementation Notes
+### Developer Experience
+- **Onboarding**: New devs productive in < 1 day
+- **Documentation**: Self-documenting code + guides
+- **Tooling**: Fast builds, instant feedback
+- **Patterns**: Consistent, predictable, reusable
+- **Collaboration**: Clear ownership, smooth handoffs
 
-### Working with Layers
-- **Foundation Layer**: Core functionality and structure
-- **Design Layer**: Visual design and styling
-- **Experience Layer**: Animations and interactions
-- **Quality Layer**: Testing and standards
-
-### Agent-Driven Development
-- Start with `/plan` for any new work
-- Trust agent expertise in their domains
-- Use `/status` to track progress
-- Commit often with `/commit`
-- Deploy confidently with `/deploy`
-
-### Validation as Safety Net
-- Validation runs automatically
-- Errors block progress (good thing!)
-- Fix immediately when issues found
-- Quality maintained throughout
+### Business Impact
+- **Conversion**: CTAs prominently displayed
+- **Trust**: Premium feel inspires confidence
+- **Performance**: Fast loads keep users engaged
+- **SEO**: Optimized for AI consultancy keywords
+- **Maintenance**: Easy updates without refactoring
 
 ---
 
-*This document defines the unchanging principles that guide every decision in the Novum Labs website project. For layer specifications, see LAYERS.md. For design specifications, see DESIGN.md. For workflow details, see README.md.*
+*This document defines the technical principles, standards, and workflows that ensure Novum Labs' website represents the pinnacle of modern web development. For design specifications, see DESIGN.md. For project requirements, see PRD.md. For development workflow, see README.md.*

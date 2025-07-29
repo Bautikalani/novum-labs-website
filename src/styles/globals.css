@@ -1,333 +1,385 @@
 @import "tailwindcss";
 
 @theme {
-  /* Linear's Core Colors */
-  --color-background: lch(4.7% 0.6 265);
-  --color-foreground: lch(94.4% 1.3 265);
-  --color-primary: lch(41% 35.7 262);
-  --color-primary-foreground: lch(94.4% 1.3 265);
+  /* =================================================================
+     COLOR SYSTEM - LCH Color Space for perceptual uniformity
+     ================================================================= */
   
-  /* Linear's Surface Elevation System */
-  --color-secondary: lch(7.5% 0.6 265);
-  --color-secondary-foreground: lch(94.4% 1.3 265);
-  --color-accent: lch(10% 0.8 265);
-  --color-accent-foreground: lch(94.4% 1.3 265);
-  --color-muted: lch(7.5% 0.6 265);
-  --color-muted-foreground: lch(94.4% 1.3 265 / 0.85);
+  /* Primary Backgrounds - Deep sophistication */
+  --color-background: lch(2% 0 0);              /* Near black */
+  --color-foreground: lch(98% 0 0);             /* Near white */
   
-  /* Linear's Interactive States */
-  --color-border: lch(7.5% 0.6 265 / 0.3);
-  --color-input: lch(10% 0.8 265);
-  --color-ring: lch(41% 35.7 262);
-  --color-card: lch(7.5% 0.6 265);
-  --color-card-foreground: lch(94.4% 1.3 265);
-  --color-popover: lch(10% 0.8 265);
-  --color-popover-foreground: lch(94.4% 1.3 265);
-  --color-destructive: lch(53.7% 51.7 15);
-  --color-destructive-foreground: lch(94.4% 1.3 265);
+  /* Surface Elevation System - Linear-inspired hierarchy */
+  --color-surface-1: lch(5% 2 250);             /* Subtle blue tint */
+  --color-surface-2: lch(8% 3 250);             /* Card backgrounds */
+  --color-surface-3: lch(12% 4 250);            /* Hover states */
+  --color-surface-elevated: lch(15% 5 250);     /* Floating elements */
   
-  /* Linear's Text Opacity Variations */
-  --color-text-high: lch(94.4% 1.3 265);      /* 100% opacity */
-  --color-text-medium: lch(94.4% 1.3 265 / 0.85); /* 85% opacity */
-  --color-text-low: lch(94.4% 1.3 265 / 0.60);    /* 60% opacity */
-  --color-text-subtle: lch(94.4% 1.3 265 / 0.40); /* 40% opacity */
-  --color-text-ghost: lch(94.4% 1.3 265 / 0.30);  /* 30% opacity */
-
-  /* Linear's Accent Colors */
-  --color-accent-blue: lch(41% 35.7 262);
-  --color-accent-coral: lch(53.7% 51.7 15);
-  --color-accent-rose: lch(45.2% 45.8 348);
-  --color-accent-green: lch(67.9% 53.5 153);
+  /* Brand Colors - Electric presence */
+  --color-primary: lch(55% 65 250);             /* Electric blue */
+  --color-primary-hover: lch(60% 70 250);       /* L+5, C+5 */
+  --color-primary-active: lch(50% 60 250);      /* L-5, C-5 */
   
-  /* Linear's Gradient Colors for Mesh Backgrounds */
-  --gradient-blue: lch(67.9% 53.5 239);
-  --gradient-green: lch(86.7% 70.9 153);
-  --gradient-cyan: lch(95.2% 29.1 192);
-  --gradient-pink: lch(65.5% 79.3 338);
-
-  /* Linear's Surface Hierarchy */
-  --color-surface-1: lch(4.7% 0.6 265);
-  --color-surface-2: lch(7.5% 0.6 265);
-  --color-surface-3: lch(10% 0.8 265);
-  --color-surface-4: lch(12.5% 1.0 265);
-  --color-surface-5: lch(15% 1.2 265);
+  /* Accent Colors - Tech forward */
+  --color-accent-cyan: lch(75% 50 180);         /* Bright cyan */
+  --color-accent-purple: lch(65% 55 280);       /* AI purple */
+  --color-accent-green: lch(70% 60 145);        /* Success green */
   
-  /* UI Colors */
-  --color-surface: lch(7.5% 0.6 265);
-  --color-hover: lch(12.5% 1.0 265);
+  /* Text Hierarchy - Clear contrast ratios */
+  --color-text-primary: lch(98% 0 0);           /* High emphasis */
+  --color-text-secondary: lch(75% 0 0);         /* Medium emphasis */
+  --color-text-tertiary: lch(50% 0 0);          /* Low emphasis */
+  
+  /* Semantic Colors - Functional states */
+  --color-success: lch(70% 60 145);
+  --color-warning: lch(75% 65 85);
+  --color-error: lch(55% 70 25);
+  --color-info: lch(65% 50 220);
+  
+  /* =================================================================
+     GRADIENT SYSTEM
+     ================================================================= */
+  
+  /* Hero gradient - Ethereal mesh background */
+  --gradient-hero: 
+    radial-gradient(ellipse 800px 600px at 20% 30%, 
+      lch(55% 65 250 / 0.4) 0%, 
+      transparent 50%),
+    radial-gradient(ellipse 600px 800px at 80% 20%, 
+      lch(75% 50 180 / 0.3) 0%, 
+      transparent 50%),
+    radial-gradient(ellipse 1000px 1000px at 40% 70%, 
+      lch(65% 55 280 / 0.2) 0%, 
+      transparent 50%);
+  
+  /* Interactive elements */
+  --gradient-primary: linear-gradient(135deg, 
+    lch(55% 65 250) 0%, 
+    lch(65% 55 280) 100%);
+    
+  /* Surface enhancement */
+  --gradient-surface: linear-gradient(180deg,
+    lch(12% 4 250) 0%,
+    lch(8% 3 250) 100%);
+    
+  /* Text effects */
+  --gradient-text: linear-gradient(135deg,
+    lch(75% 50 180) 0%,
+    lch(55% 65 250) 50%,
+    lch(65% 55 280) 100%);
+    
+  /* =================================================================
+     TYPOGRAPHY SCALE - Perfect Fourth (1.333 ratio)
+     ================================================================= */
+  
+  --font-size-xs: 0.75rem;     /* 12px - Meta information */
+  --font-size-sm: 0.875rem;    /* 14px - Supporting text */
+  --font-size-base: 1rem;      /* 16px - Body text */
+  --font-size-lg: 1.125rem;    /* 18px - Lead paragraphs */
+  --font-size-xl: 1.333rem;    /* 21px - Section intros */
+  --font-size-2xl: 1.777rem;   /* 28px - H3 headings */
+  --font-size-3xl: 2.369rem;   /* 38px - H2 headings */
+  --font-size-4xl: 3.157rem;   /* 51px - H1 headings */
+  --font-size-5xl: 4.209rem;   /* 67px - Hero headlines */
+  --font-size-6xl: 5.61rem;    /* 90px - Display text */
+  
+  /* Font Weights */
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  
+  /* Line Heights */
+  --line-height-tight: 1.1;
+  --line-height-snug: 1.3;
+  --line-height-normal: 1.5;
+  --line-height-relaxed: 1.7;
+  
+  /* Letter Spacing */
+  --letter-spacing-tighter: -0.02em;
+  --letter-spacing-tight: -0.01em;
+  --letter-spacing-normal: 0;
+  --letter-spacing-wide: 0.025em;
+  --letter-spacing-wider: 0.05em;
+  
+  /* =================================================================
+     SPACING SYSTEM - 8px base unit
+     ================================================================= */
+  
+  /* Micro spacing */
+  --space-1: 0.25rem;   /* 4px - Tight grouping */
+  --space-2: 0.5rem;    /* 8px - Related elements */
+  --space-3: 0.75rem;   /* 12px - Internal padding */
+  --space-4: 1rem;      /* 16px - Standard gap */
+  
+  /* Component spacing */
+  --space-5: 1.25rem;   /* 20px - Section elements */
+  --space-6: 1.5rem;    /* 24px - Card padding */
+  --space-8: 2rem;      /* 32px - Major gaps */
+  --space-10: 2.5rem;   /* 40px - Section spacing */
+  
+  /* Layout spacing */
+  --space-12: 3rem;     /* 48px - Component separation */
+  --space-16: 4rem;     /* 64px - Section gaps */
+  --space-20: 5rem;     /* 80px - Major sections */
+  --space-24: 6rem;     /* 96px - Hero spacing */
+  
+  /* =================================================================
+     LAYOUT SYSTEM
+     ================================================================= */
+  
+  /* Container widths */
+  --container-sm: 640px;    /* Text content */
+  --container-md: 768px;    /* Forms */
+  --container-lg: 1024px;   /* Standard */
+  --container-xl: 1200px;   /* Wide */
+  --container-2xl: 1400px;  /* Hero */
+  
+  /* Breakpoints */
+  --breakpoint-sm: 640px;   /* Large phones */
+  --breakpoint-md: 768px;   /* Tablets */
+  --breakpoint-lg: 1024px;  /* Desktops */
+  --breakpoint-xl: 1280px;  /* Wide screens */
+  --breakpoint-2xl: 1536px; /* Ultra-wide */
+  
+  /* =================================================================
+     ANIMATION SYSTEM
+     ================================================================= */
+  
+  /* Duration scale */
+  --duration-instant: 100ms;   /* Micro feedback */
+  --duration-fast: 200ms;      /* Hover states */
+  --duration-normal: 300ms;    /* Transitions */
+  --duration-slow: 500ms;      /* Elements */
+  --duration-slower: 800ms;    /* Hero animations */
+  
+  /* Easing functions */
+  --ease-out: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-in-out: cubic-bezier(0.4, 0, 0.6, 1);
+  --ease-spring: cubic-bezier(0.68, -0.55, 0.265, 1.55);
 }
 
-/* Design System Tokens - DESIGN.md Sections 4-5 */
+/* =================================================================
+   BASE STYLES
+   ================================================================= */
+
 @layer base {
-  :root {
-    /* Typography Scale - Perfect Fourth (1.333) */
-    --font-size-xs: 0.75rem;     /* 12px */
-    --font-size-sm: 0.875rem;    /* 14px */
-    --font-size-base: 1rem;      /* 16px */
-    --font-size-lg: 1.125rem;    /* 18px */
-    --font-size-xl: 1.5rem;      /* 24px */
-    --font-size-2xl: 2rem;       /* 32px */
-    --font-size-3xl: 2.667rem;   /* 42.67px */
-    --font-size-4xl: 3.556rem;   /* 56.89px */
-    --font-size-5xl: 4.741rem;   /* 75.85px */
-    
-    /* Font Families */
-    --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-    --font-mono: 'JetBrains Mono', 'SF Mono', Consolas, monospace;
-    
-    /* Font Weights */
-    --font-normal: 400;
-    --font-medium: 500;
-    --font-semibold: 600;
-    --font-bold: 700;
-    
-    /* Line Heights */
-    --leading-tight: 1.1;    /* Headings */
-    --leading-snug: 1.3;     /* Sub-headings */
-    --leading-normal: 1.6;   /* Body text */
-    --leading-relaxed: 1.8;  /* Small text */
-    
-    /* Spacing System - 8px Base */
-    --space-0: 0;
-    --space-1: 0.25rem;   /* 4px */
-    --space-2: 0.5rem;    /* 8px */
-    --space-3: 0.75rem;   /* 12px */
-    --space-4: 1rem;      /* 16px */
-    --space-5: 1.5rem;    /* 24px */
-    --space-6: 2rem;      /* 32px */
-    --space-8: 3rem;      /* 48px */
-    --space-10: 4rem;     /* 64px */
-    --space-12: 6rem;     /* 96px */
-    --space-16: 8rem;     /* 128px */
-    --space-20: 10rem;    /* 160px */
-    
-    /* Container System */
-    --container-max: 1200px;
-    --container-padding-mobile: 1.25rem;  /* 20px */
-    --container-padding-tablet: 1.5rem;   /* 24px */  
-    --container-padding-desktop: 2rem;    /* 32px */
-    
-    /* Section Spacing System */
-    --section-spacing-mobile: 3rem;    /* 48px */
-    --section-spacing-tablet: 5rem;    /* 80px */
-    --section-spacing-desktop: 7.5rem; /* 120px */
-    
-    /* Component Tokens */
-    --radius-sm: 0.375rem;
-    --radius-md: 0.5rem;
-    --radius-lg: 0.75rem;
-    
-    /* Shadow System */
-    --shadow-sm: 0 1px 2px 0 lch(0% 0 0 / 0.05);
-    --shadow-md: 0 4px 6px -1px lch(0% 0 0 / 0.1);
-    --shadow-lg: 0 10px 15px -3px lch(0% 0 0 / 0.1);
-    --shadow-xl: 0 20px 25px -5px lch(0% 0 0 / 0.1);
-    
-    /* Glass Morphism System */
-    --glass-backdrop-blur: 16px;
-    --glass-backdrop-blur-lg: 24px;
-    --glass-backdrop-blur-xl: 32px;
-    
-    /* Glass Surface Colors - Accessibility Enhanced */
-    --glass-background: lch(94.4% 1.3 265 / 0.03);  /* Slightly more visible for contrast */
-    --glass-background-hover: lch(94.4% 1.3 265 / 0.08);  /* Enhanced hover for better visibility */
-    --glass-border: lch(94.4% 1.3 265 / 0.12);  /* 12% white border for better definition */
-    --glass-border-hover: lch(94.4% 1.3 265 / 0.18);  /* Enhanced border on hover */
-    
-    /* Glass Gradients */
-    --glass-gradient: linear-gradient(135deg, 
-      lch(94.4% 1.3 265 / 0.05) 0%, 
-      lch(94.4% 1.3 265 / 0.02) 50%, 
-      lch(94.4% 1.3 265 / 0.05) 100%
-    );
-    --glass-gradient-hover: linear-gradient(135deg, 
-      lch(94.4% 1.3 265 / 0.08) 0%, 
-      lch(94.4% 1.3 265 / 0.04) 50%, 
-      lch(94.4% 1.3 265 / 0.08) 100%
-    );
-    
-    /* Glass Shadows & Glows */
-    --glass-shadow: 0 8px 32px 0 lch(0% 0 0 / 0.1);
-    --glass-glow: 0 0 20px 0 lch(41% 35.7 262 / 0.1);
-    --glass-glow-hover: 0 0 30px 0 lch(41% 35.7 262 / 0.15);
-    
-    /* Grid System */
-    --grid-separator: lch(94.4% 1.3 265 / 0.06);  /* Subtle light greyish white separator */
-    
-    /* 3D Transform Values */
-    --glass-tilt-x: 5deg;
-    --glass-tilt-y: 3deg;
-    --glass-lift-y: -8px;
-    --glass-scale-hover: 1.02;
-  }
-}
-
-/* Linear's Signature Gradient System */
-.gradient-linear {
-  background: linear-gradient(135deg, 
-    lch(67.9% 53.5 239),  /* Gradient Blue */
-    lch(86.7% 70.9 153),  /* Gradient Green */  
-    lch(95.2% 29.1 192),  /* Gradient Cyan */
-    lch(65.5% 79.3 338)   /* Gradient Pink */
-  );
-}
-
-.gradient-mesh {
-  background: 
-    radial-gradient(at 40% 20%, lch(67.9% 53.5 239) 0px, transparent 50%),
-    radial-gradient(at 80% 0%, lch(86.7% 70.9 153) 0px, transparent 50%),
-    radial-gradient(at 0% 50%, lch(95.2% 29.1 192) 0px, transparent 50%),
-    radial-gradient(at 60% 80%, lch(65.5% 79.3 338) 0px, transparent 50%);
-}
-
-/* Linear's Interactive State Utilities */
-.surface-elevated {
-  background: lch(7.5% 0.6 265);
-  border: 1px solid lch(7.5% 0.6 265 / 0.3);
-}
-
-.surface-hover {
-  background: lch(12.5% 1.0 265);
-}
-
-.text-linear-high { color: lch(94.4% 1.3 265); }
-.text-linear-medium { color: lch(94.4% 1.3 265 / 0.85); }
-.text-linear-low { color: lch(94.4% 1.3 265 / 0.60); }
-.text-linear-subtle { color: lch(94.4% 1.3 265 / 0.40); }
-
-/* Global Styles */
-@layer base {
+  /* Reset and base elements */
   * {
-    border-color: var(--color-border);
+    @apply border-border;
+  }
+  
+  html {
+    @apply scroll-smooth;
+    font-size: 16px;
   }
   
   body {
     @apply bg-background text-foreground;
     font-feature-settings: "rlig" 1, "calt" 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  
+  /* Typography defaults */
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-bold tracking-tight;
+  }
+  
+  h1 { @apply text-4xl md:text-5xl; }
+  h2 { @apply text-3xl md:text-4xl; }
+  h3 { @apply text-2xl md:text-3xl; }
+  
+  p {
+    @apply leading-relaxed;
+  }
+  
+  /* Links */
+  a {
+    @apply transition-colors duration-200;
+  }
+  
+  /* Focus states */
+  :focus-visible {
+    @apply outline-none ring-2 ring-primary ring-offset-2 ring-offset-background;
   }
 }
 
-/* Component Layer - No animations allowed in Phase 2 */
+/* =================================================================
+   COMPONENTS
+   ================================================================= */
+
 @layer components {
+  /* Container utilities */
+  .container {
+    @apply mx-auto w-full px-6 md:px-8;
+    max-width: var(--container-xl);
+  }
+  
+  .container-narrow {
+    max-width: var(--container-md);
+  }
+  
+  .container-wide {
+    max-width: var(--container-2xl);
+  }
+  
+  /* Section spacing */
+  .section {
+    @apply py-16 md:py-20;
+  }
+  
+  .section-header {
+    @apply mb-12 md:mb-16 text-center;
+  }
+  
+  /* Button base styles */
   .btn {
-    @apply inline-flex items-center justify-center gap-2 rounded-md font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary disabled:pointer-events-none disabled:opacity-50;
+    @apply inline-flex items-center justify-center gap-2 rounded-xl px-6 py-3 text-base font-medium transition-all duration-200;
+    @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2;
   }
   
   .btn-primary {
-    @apply bg-primary text-primary-foreground hover:bg-primary/90;
+    @apply bg-primary text-white hover:bg-primary-hover active:bg-primary-active;
+    @apply shadow-lg hover:shadow-xl hover:-translate-y-0.5;
   }
   
   .btn-secondary {
-    @apply border border-input bg-background hover:bg-accent hover:text-accent-foreground;
+    @apply bg-surface-2 text-foreground hover:bg-surface-3;
+    @apply border border-white/10 hover:border-white/20;
   }
   
+  .btn-large {
+    @apply px-8 py-4 text-lg;
+  }
+  
+  /* Card styles */
   .card {
-    @apply rounded-lg border bg-card text-card-foreground shadow-sm;
+    @apply rounded-2xl bg-surface-2 p-6 transition-all duration-300;
+    @apply border border-white/10 hover:border-white/20;
+    @apply hover:bg-surface-3 hover:shadow-xl;
+  }
+  
+  /* Form elements */
+  .input {
+    @apply w-full rounded-lg bg-surface-2 px-4 py-3 text-base;
+    @apply border border-white/10 transition-colors duration-200;
+    @apply placeholder:text-muted-foreground;
+    @apply hover:border-white/20 focus:border-primary;
+    @apply focus:outline-none focus:ring-2 focus:ring-primary/20;
   }
 }
 
-/* Utility Layer */
+/* =================================================================
+   UTILITIES
+   ================================================================= */
+
 @layer utilities {
-  /* Gradient Text Utilities */
-  .bg-gradient-primary {
-    background: linear-gradient(135deg, 
-      lch(67.9% 53.5 239),  /* Gradient Blue */
-      lch(86.7% 70.9 153),  /* Gradient Green */  
-      lch(95.2% 29.1 192),  /* Gradient Cyan */
-      lch(65.5% 79.3 338)   /* Gradient Pink */
-    );
+  /* Text gradient */
+  .text-gradient {
+    @apply bg-gradient-to-r from-primary via-accent-cyan to-accent-purple;
+    @apply bg-clip-text text-transparent;
   }
   
-  /* Glass Morphism Utilities */
-  .glass-card {
-    background: var(--glass-gradient);
-    backdrop-filter: blur(var(--glass-backdrop-blur));
-    -webkit-backdrop-filter: blur(var(--glass-backdrop-blur));
-    border: 1px solid var(--glass-border);
-    box-shadow: var(--glass-shadow);
-    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  /* Glass morphism */
+  .glass {
+    @apply bg-white/5 backdrop-blur-lg backdrop-saturate-150;
+    @apply border border-white/10;
   }
   
-  .glass-card:hover {
-    background: var(--glass-gradient-hover);
-    border-color: var(--glass-border-hover);
-    box-shadow: var(--glass-shadow), var(--glass-glow-hover);
-    transform: translateY(var(--glass-lift-y)) scale(var(--glass-scale-hover));
+  /* Glow effects */
+  .glow {
+    box-shadow: 
+      0 0 20px theme('colors.primary/30%'),
+      0 0 40px theme('colors.primary/10%');
   }
   
-  .glass-card-3d {
-    perspective: 1000px;
-    transform-style: preserve-3d;
+  .glow-intense {
+    box-shadow: 
+      0 0 30px theme('colors.primary/50%'),
+      0 0 60px theme('colors.primary/30%'),
+      0 0 90px theme('colors.primary/10%');
   }
   
-  .glass-card-3d:hover .glass-card {
-    transform: 
-      translateY(var(--glass-lift-y)) 
-      scale(var(--glass-scale-hover))
-      rotateX(var(--glass-tilt-x)) 
-      rotateY(var(--glass-tilt-y));
+  /* Hide scrollbar */
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
   }
   
-  .glass-badge {
-    background: var(--glass-gradient);
-    backdrop-filter: blur(var(--glass-backdrop-blur));
-    -webkit-backdrop-filter: blur(var(--glass-backdrop-blur));
-    border: 1px solid var(--glass-border);
-    box-shadow: var(--glass-glow);
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
   }
   
-  .shimmer {
-    background: linear-gradient(
-      90deg,
-      lch(94.4% 1.3 265 / 0.4) 0px,
-      lch(94.4% 1.3 265 / 0.8) 40px,
-      lch(94.4% 1.3 265 / 0.4) 80px
-    );
-    background-size: 200% 100%;
-    background-clip: text;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    animation: shimmer 2s infinite ease-in-out;
+  /* Noise texture */
+  .noise {
+    position: relative;
   }
   
-  @keyframes shimmer {
-    0% { background-position: 200% 0; }
-    100% { background-position: -200% 0; }
+  .noise::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' /%3E%3C/filter%3E%3Crect width='100%' height='100%' filter='url(%23noise)' opacity='0.02'/%3E%3C/svg%3E");
+    opacity: 0.02;
+    pointer-events: none;
   }
   
-  /* Accessibility: Respect reduced motion preferences */
-  @media (prefers-reduced-motion: reduce) {
-    .glass-card {
-      transition: none !important;
-    }
-    
-    .glass-card:hover {
-      transform: none !important;
-    }
-    
-    .glass-card-3d:hover .glass-card {
-      transform: none !important;
-    }
-    
-    .shimmer {
-      animation: none !important;
-      background: lch(94.4% 1.3 265 / 0.6);
-      background-clip: text;
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
+  /* Grid pattern */
+  .grid-pattern {
+    background-image: 
+      linear-gradient(theme('colors.white/3%') 1px, transparent 1px),
+      linear-gradient(90deg, theme('colors.white/3%') 1px, transparent 1px);
+    background-size: 50px 50px;
   }
-  
-  /* Accessibility: High contrast support */
-  @media (prefers-contrast: high) {
-    .glass-card {
-      border-color: var(--glass-border-hover) !important;
-      background: var(--glass-background-hover) !important;
-    }
-    
-    .glass-badge {
-      border-color: var(--glass-border-hover) !important;
-      background: var(--glass-background-hover) !important;
-    }
+}
+
+/* =================================================================
+   ANIMATIONS
+   ================================================================= */
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes fade-in-up {
+  from { 
+    opacity: 0; 
+    transform: translateY(1rem);
+  }
+  to { 
+    opacity: 1; 
+    transform: translateY(0);
+  }
+}
+
+@keyframes scale-in {
+  from { 
+    opacity: 0; 
+    transform: scale(0.95);
+  }
+  to { 
+    opacity: 1; 
+    transform: scale(1);
+  }
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+/* Reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
   }
 }

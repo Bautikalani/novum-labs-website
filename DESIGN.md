@@ -1,523 +1,397 @@
-# DESIGN.md — Novum Labs Website Visual Design Specification
+# DESIGN.md — Novum Labs Design System
 
-## 🎨 Design Vision
+## 🎨 Design Philosophy
 
-Create a sophisticated AI consultancy website that balances Linear's systematic minimalism with CoLab's functional dynamism. Every visual decision reinforces technical excellence through purposeful simplicity.
+Sophisticated AI consultancy aesthetics that demonstrate technical excellence through refined minimalism. Every design decision reinforces trust, capability, and innovation.
 
-### Key Design Principles
-- **Seamless Flow**: One continuous black canvas with no visual section breaks
-- **Journey Narrative**: Animated line guides/follows users through the experience
-- **Purposeful Minimalism**: Every element earns its place
-- **Technical Elegance**: Professional without being cold
+### Core Principles
+1. **Technical Sophistication** - Demonstrate AI expertise through design excellence
+2. **Visual Hierarchy** - Guide users naturally through content with clear priority
+3. **Purposeful Motion** - Every animation serves user understanding
+4. **Semantic Clarity** - AI-forward language balanced with human warmth
+5. **Trust Through Quality** - Excellence speaks louder than testimonials
 
-## 🌈 Color System (LCH)
+## 📏 Typography System
 
-### Background Treatment
+### Type Scale (Perfect Fourth - 1.333 ratio)
 ```css
-/* Seamless background throughout entire page */
-body {
-  background: var(--color-background); /* lch(5% 0 0) */
-  /* No section dividers or color changes */
-  /* Sections flow continuously on single canvas */
-}
-
-/* Section separation through spacing only */
-section {
-  /* No background colors */
-  /* No borders */
-  /* Use padding/margin for visual separation */
-}
+/* Base: 16px (1rem) - Optimized for readability */
+--font-size-xs: 0.75rem;     /* 12px - Meta information */
+--font-size-sm: 0.875rem;    /* 14px - Supporting text */
+--font-size-base: 1rem;      /* 16px - Body text */
+--font-size-lg: 1.125rem;    /* 18px - Lead paragraphs */
+--font-size-xl: 1.333rem;    /* 21px - Section intros */
+--font-size-2xl: 1.777rem;   /* 28px - H3 headings */
+--font-size-3xl: 2.369rem;   /* 38px - H2 headings */
+--font-size-4xl: 3.157rem;   /* 51px - H1 headings */
+--font-size-5xl: 4.209rem;   /* 67px - Hero headlines */
+--font-size-6xl: 5.61rem;    /* 90px - Display text */
 ```
+
+### Font Stack
+```css
+/* Primary - Technical precision */
+--font-sans: 'Inter Variable', system-ui, -apple-system, sans-serif;
+
+/* Display - Statement headlines */
+--font-display: 'Satoshi Variable', var(--font-sans);
+
+/* Mono - Code/technical elements */
+--font-mono: 'JetBrains Mono Variable', 'SF Mono', monospace;
+
+/* Weights */
+--font-weight-regular: 400;
+--font-weight-medium: 500;
+--font-weight-semibold: 600;
+--font-weight-bold: 700;
+```
+
+### Typography Rules
+- **Headlines**: Display font, -0.02em tracking, bold weight
+- **Body**: Sans font, 1.6 line-height, regular weight
+- **UI Elements**: Sans font, medium weight, -0.01em tracking
+- **Technical**: Mono font for metrics, code, demos
+
+## 🎨 Color System (LCH Color Space)
 
 ### Core Palette
 ```css
-:root {
-  /* Linear's Core Background Colors */
-  --color-background: lch(4.7% 0.6 265);     /* Linear's Midnight Black #0F0F10 */
-  --color-foreground: lch(94.4% 1.3 265);    /* Linear's Near White #EEEFF1 */
-  --color-muted: lch(94.4% 1.3 265 / 0.85);  /* 85% opacity variation */
-  
-  /* Linear's Surface Elevation Hierarchy */
-  --color-surface-1: lch(4.7% 0.6 265);      /* Base level */
-  --color-surface-2: lch(7.5% 0.6 265);      /* Dark Charcoal #151516 */
-  --color-surface-3: lch(10% 0.8 265);       /* Elevated surfaces */
-  --color-surface-4: lch(12.5% 1.0 265);     /* Higher elevation */
-  --color-surface-5: lch(15% 1.2 265);       /* Highest elevation */
-  
-  /* Linear's Accent Colors */
-  --color-accent-blue: lch(41% 35.7 262);    /* Signature Blue #475BA1 */
-  --color-accent-coral: lch(53.7% 51.7 15);  /* Coral Red #D25E65 */
-  --color-accent-rose: lch(45.2% 45.8 348);  /* Rose Purple */
-  --color-accent-green: lch(67.9% 53.5 153); /* Success green */
-  
-  /* Linear's Gradient Components */
-  --gradient-blue: lch(67.9% 53.5 239);
-  --gradient-green: lch(86.7% 70.9 153);
-  --gradient-cyan: lch(95.2% 29.1 192);
-  --gradient-pink: lch(65.5% 79.3 338);
-  
-  /* UI Colors */
-  --color-border: lch(7.5% 0.6 265 / 0.3);   /* Subtle borders */
-  --color-surface: lch(7.5% 0.6 265);        /* Card backgrounds */
-  --color-hover: lch(12.5% 1.0 265);         /* Hover states */
-}
+/* Backgrounds - Deep, sophisticated */
+--color-background: lch(2% 0 0);              /* Pure black */
+--color-surface-1: lch(5% 2 250);             /* Subtle elevation */
+--color-surface-2: lch(8% 3 250);             /* Card background */
+--color-surface-3: lch(12% 4 250);            /* Hover state */
+--color-surface-elevated: lch(15% 5 250);     /* Floating elements */
+
+/* Brand Colors - Electric, modern */
+--color-primary: lch(55% 65 250);             /* Electric blue */
+--color-primary-hover: lch(60% 70 250);       /* L+5, C+5 */
+--color-primary-active: lch(50% 60 250);      /* L-5, C-5 */
+
+/* Accent Palette - Tech-forward */
+--color-accent-cyan: lch(75% 50 180);         /* Innovation */
+--color-accent-purple: lch(65% 55 280);       /* AI/ML */
+--color-accent-green: lch(70% 60 145);        /* Success */
+
+/* Text Hierarchy - Clear contrast */
+--color-text-primary: lch(98% 0 0);           /* High emphasis */
+--color-text-secondary: lch(75% 0 0);         /* Medium emphasis */
+--color-text-tertiary: lch(50% 0 0);          /* Low emphasis */
+
+/* Semantic - Functional */
+--color-success: lch(70% 60 145);
+--color-warning: lch(75% 65 85);
+--color-error: lch(55% 70 25);
+--color-info: lch(65% 50 220);
 ```
 
 ### Gradient System
 ```css
-/* Linear's signature gradient (hero, CTAs) */
---gradient-linear: linear-gradient(135deg, 
-  var(--gradient-blue),     /* lch(67.9% 53.5 239) */
-  var(--gradient-green),    /* lch(86.7% 70.9 153) */
-  var(--gradient-cyan),     /* lch(95.2% 29.1 192) */
-  var(--gradient-pink)      /* lch(65.5% 79.3 338) */
-);
+/* Hero gradient - Ethereal mesh */
+--gradient-hero: 
+  radial-gradient(at 20% 30%, lch(55% 65 250 / 0.3) 0px, transparent 50%),
+  radial-gradient(at 80% 20%, lch(75% 50 180 / 0.2) 0px, transparent 50%),
+  radial-gradient(at 40% 70%, lch(65% 55 280 / 0.2) 0px, transparent 50%);
 
-/* Linear's mesh gradient (backgrounds) */
---gradient-mesh: 
-  radial-gradient(at 40% 20%, var(--gradient-blue) 0px, transparent 50%),
-  radial-gradient(at 80% 0%, var(--gradient-green) 0px, transparent 50%),
-  radial-gradient(at 0% 50%, var(--gradient-cyan) 0px, transparent 50%),
-  radial-gradient(at 60% 80%, var(--gradient-pink) 0px, transparent 50%);
+/* Interactive elements */
+--gradient-primary: linear-gradient(135deg, 
+  lch(55% 65 250) 0%, 
+  lch(65% 55 280) 100%);
+
+/* Surface enhancement */
+--gradient-surface: linear-gradient(180deg,
+  lch(12% 4 250) 0%,
+  lch(8% 3 250) 100%);
 ```
 
-## 📐 Typography System
+## 📐 Spacing System
 
-### Font Stack
+### Base Unit: 8px
 ```css
---font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
---font-mono: 'JetBrains Mono', 'SF Mono', Consolas, monospace;
-```
-
-### Type Scale (Perfect Fourth - 1.333)
-```css
---text-xs: 0.75rem;     /* 12px */
---text-sm: 0.875rem;    /* 14px */
---text-base: 1rem;      /* 16px */
---text-lg: 1.125rem;    /* 18px */
---text-xl: 1.5rem;      /* 24px */
---text-2xl: 2rem;       /* 32px */
---text-3xl: 2.667rem;   /* 42.67px */
---text-4xl: 3.556rem;   /* 56.89px */
---text-5xl: 4.741rem;   /* 75.85px */
-```
-
-### Font Weights
-```css
---font-normal: 400;
---font-medium: 500;
---font-semibold: 600;
---font-bold: 700;
-```
-
-### Line Heights
-```css
---leading-tight: 1.1;    /* Headings */
---leading-snug: 1.3;     /* Sub-headings */
---leading-normal: 1.6;   /* Body text */
---leading-relaxed: 1.8;  /* Small text */
-```
-
-## 📏 Spacing System (8px Base)
-
-### Scale
-```css
---space-0: 0;
+/* Micro spacing - Tight relationships */
 --space-1: 0.25rem;   /* 4px */
 --space-2: 0.5rem;    /* 8px */
 --space-3: 0.75rem;   /* 12px */
 --space-4: 1rem;      /* 16px */
---space-5: 1.5rem;    /* 24px */
---space-6: 2rem;      /* 32px */
---space-8: 3rem;      /* 48px */
---space-10: 4rem;     /* 64px */
---space-12: 6rem;     /* 96px */
---space-16: 8rem;     /* 128px */
---space-20: 10rem;    /* 160px */
+
+/* Component spacing - Breathing room */
+--space-5: 1.25rem;   /* 20px */
+--space-6: 1.5rem;    /* 24px */
+--space-8: 2rem;      /* 32px */
+--space-10: 2.5rem;   /* 40px */
+
+/* Layout spacing - Major sections */
+--space-12: 3rem;     /* 48px */
+--space-16: 4rem;     /* 64px */
+--space-20: 5rem;     /* 80px */
+--space-24: 6rem;     /* 96px */
 ```
 
-### Container
+### Spacing Principles
+1. **Proximity**: Related elements use space-2 to space-4
+2. **Components**: Minimum space-6 internal padding
+3. **Sections**: space-20 vertical rhythm (space-24 for hero/CTA)
+4. **Responsive**: Scale -20% mobile, +20% wide screens
+
+## 🏗️ Layout Structure
+
+### Grid System
 ```css
---container-max: 1200px;
---container-padding: var(--space-4);
---container-padding-lg: var(--space-6);
+/* 12-column grid with responsive gutters */
+--grid-columns: 12;
+--grid-gutter-mobile: 20px;
+--grid-gutter-tablet: 32px;
+--grid-gutter-desktop: 40px;
+
+/* Container widths */
+--container-sm: 640px;    /* Text content */
+--container-md: 768px;    /* Forms */
+--container-lg: 1024px;   /* Standard */
+--container-xl: 1200px;   /* Wide */
+--container-2xl: 1400px;  /* Hero */
 ```
 
-## 🗺️ Layout Structure
-
-### Desktop Wireframe (1200px+)
+### Section Architecture
 ```
-┌─────────────────────────────────────────────────────────────────┐
-│ Header (fixed, blur backdrop)                    [Book Call CTA] │
-├─────────────────────────────────────────────────────────────────┤
-│                                                                 │
-│                         HERO SECTION                            │
-│                   (100vh - header height)                       │
-│  ┌─────────────────────────────────────────────────────────┐  │
-│  │                                                         │  │
-│  │           Headline (text-5xl, bold)                     │  │
-│  │         Subheadline (text-xl, muted)                   │  │
-│  │                                                         │  │
-│  │      [Primary CTA]    [Secondary CTA]                  │  │
-│  │                                                         │  │
-│  │          (Mesh gradient background)                     │  │
-│  └─────────────────────────────────────────────────────────┘  │
-│                                                                 │
-|                                                                 |
-│                    DEMOS SECTION                                │
-│                                                                 │
-│  ┌─────────────────────┐  ╱  ┌─────────────────────────────┐  │
-│  │                     │ ╱   │  Demo 1 Title               │  │
-│  │                     │╱    │                             │  │
-│  │    Demo 1 Preview  │     │  How to use this demo:      │  │
-│  │                     │     │  - Step 1 instruction       │  │
-│  │    Coming Soon     │     │  - Step 2 instruction       │  │
-│  │                     │     │  - Expected outcome         │  │
-│  └─────────────────────┘     └─────────────────────────────┘  │
-│                                                                 │
-|                                                                 |
-│                                                                 │
-│  ┌─────────────────────────────┐  ╲  ┌─────────────────────┐  │
-│  │  Demo 2 Title               │   ╲ │                     │  │
-│  │                             │    ╲│                     │  │
-│  │  How to use this demo:      │     │    Demo 2 Preview  │  │
-│  │  - Step 1 instruction       │     │                     │  │
-│  │  - Step 2 instruction       │     │    Coming Soon     │  │
-│  │  - Expected outcome         │     │                     │  │
-│  └─────────────────────────────┘     └─────────────────────┘  │
-│                                                                 │
-│                                                                 │
-│  ┌─────────────────────┐  ╱  ┌─────────────────────────────┐  │
-│  │                     │ ╱   │  Demo 3 Title               │  │
-│  │                     │╱    │                             │  │
-│  │    Demo 3 Preview  │     │  How to use this demo:      │  │
-│  │                     │     │  - Step 1 instruction       │  │
-│  │    Coming Soon     │     │  - Step 2 instruction       │  │
-│  │                     │     │  - Expected outcome         │  │
-│  └─────────────────────┘     └─────────────────────────────┘  │
-│                                                                 │
-|                                                                 |
-│                    PROCESS SECTION                              │
-│                                                                 │
-│     Discovery ──●── Strategy ──●── Development ──●── Deploy    │
-│                                                                 │
-|                                                                 |
-│                      TEAM SECTION                               │
-│                                                                 │
-│            ┌─────┐    ┌─────┐    ┌─────┐    ┌─────┐           │
-│            │ IMG │    │ IMG │    │ IMG │    │ IMG │           │
-│            │     │    │     │    │     │    │     │           │
-│            └─────┘    └─────┘    └─────┘    └─────┘           │
-│             Name       Name       Name       Name              │
-│             Role       Role       Role       Role              │
-│                                                                 │
-|-----------------------------------------------------------------| 
-│                       CTA SECTION                               │
-│                                                                 │
-│              Ready to Transform with AI?                        │
-│                                                                 │
-│                   [Book Discovery Call]                         │
-│                                                                 │
-└─────────────────────────────────────────────────────────────────┘
-
-Legend:
-● = Start and end points of the ONE continuous journey line (static in Phase 1, animated in Phase 3)
-│ = The single continuous line flowing through the entire page
-╱ ╲ = Where the line curves between demos to create zigzag reading flow
-    = Seamless black background with no section dividers
-    = Visual separation through spacing only
+┌─── NAVIGATION (80px fixed) ─────────────────┐
+├─── HERO (100vh - 80px) ────────────────────┤
+│     Padding: 120px top, 80px bottom         │
+├─── DEMOS ───────────────────────────────────┤
+│     Padding: 80px vertical                  │
+├─── WHY CHOOSE US ───────────────────────────┤
+│     Padding: 80px vertical                  │
+├─── PROCESS ─────────────────────────────────┤
+│     Padding: 80px vertical                  │
+├─── TEAM ────────────────────────────────────┤
+│     Padding: 80px vertical                  │
+├─── CTA (60vh minimum) ──────────────────────┤
+│     Padding: 120px vertical                 │
+└─────────────────────────────────────────────┘
 ```
-
-### Mobile Wireframe (< 768px)
-```
-┌─────────────────┐
-│ [≡]    [CTA]    │
-├─────────────────┤
-│                 │
-│      HERO       │
-│                 │
-│    Headline     │
-│   Subheadline   │
-│                 │
-│   [Primary]     │
-│  [Secondary]    │
-│●                │
-││     DEMOS      │
-││                │
-││ ┌───────────┐  │
-││ │  Demo 1   │  │
-││ │  Preview  │  │
-││ └───────────┘  │
-││ How to use:    │
-││ - Step 1       │
-││ - Step 2       │
-││                │
-││ ┌───────────┐  │
-││ │  Demo 2   │  │
-││ │  Preview  │  │
-││ └───────────┘  │
-││ How to use:    │
-││ - Step 1       │
-││ - Step 2       │
-││                │
-││ ┌───────────┐  │
-││ │  Demo 3   │  │
-││ │  Preview  │  │
-││ └───────────┘  │
-││ How to use:    │
-││ - Step 1       │
-││ - Step 2       │
-││                │
-││   PROCESS      │
-││  Discovery     │
-││      ↓         │
-││  Strategy      │
-││      ↓         │
-││ Development    │
-││      ↓         │
-││   Deploy       │
-││                │
-││     TEAM       │
-││ ┌──┐  ┌──┐    │
-││ └──┘  └──┘    │
-││ Name  Name     │
-││ Role  Role     │
-││                │
-││ ┌──┐  ┌──┐    │
-││ └──┘  └──┘    │
-││ Name  Name     │
-││ Role  Role     │
-││                │
-││     CTA        │
-││ [Book Call]    │
-│●                │
-└─────────────────┘
-
-Legend:
-● = Start and end points of journey line
-│ = ONE continuous line flowing down the page
-    = Seamless black background throughout
-```
-
-## 🧩 Component Specifications
-
-### Demo Cards
-```css
-/* Demo section layout */
---demo-spacing: var(--space-20);        /* Between demos */
---demo-preview-width: 45%;              /* Preview area */
---demo-explanation-width: 45%;          /* Explanation area */
---demo-gap: var(--space-8);            /* Gap between preview/explanation */
-
-/* Zigzag pattern (creates visual flow) */
-/* Demo 1: Preview left, explanation right   → */
-/* Demo 2: Explanation left, preview right   ← */  
-/* Demo 3: Preview left, explanation right   → */
-
-/* This creates natural eye movement pattern */
-/* Journey line follows this zigzag flow */
-```
-
-### Cards
-```css
-/* Base card */
---card-padding: var(--space-6);
---card-radius: 0.75rem;
---card-border: 1px solid var(--color-border);
---card-shadow: 0 1px 3px 0 lch(0% 0 0 / 0.1);
---card-shadow-hover: 0 10px 40px -10px lch(0% 0 0 / 0.2);
-```
-
-### Buttons
-```css
-/* Primary button */
---button-padding-x: var(--space-6);
---button-padding-y: var(--space-3);
---button-radius: 0.5rem;
---button-font-weight: var(--font-semibold);
-
-/* Sizes */
---button-height-sm: 2.25rem;   /* 36px */
---button-height-md: 2.75rem;   /* 44px */
---button-height-lg: 3.25rem;   /* 52px */
-```
-
-### Forms
-```css
-/* Input fields */
---input-height: 2.75rem;        /* 44px */
---input-padding-x: var(--space-4);
---input-border-width: 2px;
---input-radius: 0.5rem;
-```
-
-## 🎭 Animation Specifications
-
-### Timing Functions
-```css
---ease-smooth: cubic-bezier(0.65, 0, 0.35, 1);
---ease-out: cubic-bezier(0.16, 1, 0.3, 1);
---ease-in: cubic-bezier(0.87, 0, 0.13, 1);
-```
-
-### Durations
-```css
---duration-fast: 200ms;
---duration-normal: 300ms;
---duration-slow: 500ms;
---duration-slower: 800ms;
-```
-
-### Animation Patterns (Phase 3)
-
-> **Note**: All animations are Phase 3 only. In Phase 1-2, elements are static with journey line visible but not animated.
-
-#### Journey Line (Primary Navigation Element)
-- **Concept**: ONE continuous line that guides users through their entire journey
-- **Visual**: Like a single thread or river flowing through the page
-  
-- **Path Details**: 
-  - Starts at hero section (below CTAs)
-  - Flows vertically down the left side
-  - Gently curves/weaves to connect the zigzag demo pattern
-  - Continues straight through Process and Team sections
-  - Ends at the final CTA
-  - No breaks, no segments - one smooth, continuous path
-  
-- **Phase 1 (Static)**:
-  - Entire line visible as a faint path (opacity: 0.2)
-  - Shows users the journey they'll take
-  - No animation, just a subtle visual guide
-  - Implemented as SVG path or CSS pseudo-element
-  
-- **Phase 3 (Animated)**:
-  - **Scroll Progress**: Line "fills" like a loading bar as user scrolls
-  - **Visual Effect**: 
-    - Unfilled portion: faint (opacity: 0.2)
-    - Filled portion: brighter (opacity: 0.8)  
-    - Current position: glowing pulse effect
-  - **Technical**: Uses scroll percentage to determine fill amount
-  - **Smooth**: Slight easing for fluid motion, no jumps
-  
-- **Implementation Note**: This is a single SVG path or continuous element, NOT multiple separate lines
-- **Future**: Can host an animated avatar that runs along this path
-- **Mobile**: Same concept but straight vertical line
-
-#### Scroll-Triggered Reveals
-- Elements fade in and slide up 20px
-- Stagger children by 100ms
-- Use Intersection Observer with 10% threshold
-
-#### Demo Section Animations
-- Alternating fade-in from left/right
-- Subtle hover glow on demo cards
-- Preview areas can pulse gently to indicate interactivity
-
-#### Hover States
-- Scale: 1.02 for cards
-- Brightness: 1.1 for buttons
-- All transitions: 200ms ease-smooth
-
-#### Hero Mesh Gradient
-- Slow rotation: 20s infinite
-- Subtle scale breathing: 10s alternate
-- Performance: Use CSS transforms only
-
-## 📱 Responsive Breakpoints
-
-```css
---breakpoint-sm: 640px;
---breakpoint-md: 768px;
---breakpoint-lg: 1024px;
---breakpoint-xl: 1280px;
---breakpoint-2xl: 1536px;
-```
-
-### Scaling Strategy
-- **Mobile First**: Base styles for < 640px
-- **Tablet**: Enhance at 768px+
-- **Desktop**: Optimize at 1024px+
-- **Wide**: Max width at 1200px
 
 ## 🎯 Visual Hierarchy
 
-### Journey Line Specifications
+### Hierarchy Levels
+1. **Primary**: Hero CTAs - Largest, highest contrast, animated
+2. **Secondary**: Section headers - Large, high contrast
+3. **Tertiary**: Cards/components - Medium size, interactive
+4. **Supporting**: Body text - Optimized readability
+5. **Meta**: Labels/timestamps - Smallest, subtle
+
+### Implementation
 ```css
-/* ONE continuous line that flows through the entire page */
---journey-line-width: 2px;
---journey-line-color: var(--gradient-primary);
---journey-line-glow: 0 0 20px var(--color-accent-blue);
+/* Size hierarchy */
+.h1 { font-size: var(--font-size-4xl); line-height: 1.1; }
+.h2 { font-size: var(--font-size-3xl); line-height: 1.2; }
+.h3 { font-size: var(--font-size-2xl); line-height: 1.3; }
+.lead { font-size: var(--font-size-lg); line-height: 1.6; }
+.body { font-size: var(--font-size-base); line-height: 1.7; }
+.small { font-size: var(--font-size-sm); line-height: 1.5; }
 
-/* Path description:
-   This is a SINGLE continuous line (like a river) that:
-   1. Starts below hero CTA buttons
-   2. Flows down the left side
-   3. Weaves right to Demo 1, then left to Demo 2, then right to Demo 3
-   4. Continues straight down through Process and Team
-   5. Ends at the CTA button
-   
-   Think of it as a single thread guiding users through the experience.
-   No breaks, no separate segments - one flowing path.
-*/
-
-/* Visual positioning */
---journey-line-desktop-offset: 60px;    /* From left edge on desktop */
---journey-line-mobile-offset: 20px;     /* From left edge on mobile */
-
-/* Phase 1: Static appearance */
---journey-line-static-opacity: 0.2;
---journey-line-static-color: var(--color-muted);
-
-/* Phase 3: Animation states */
---journey-line-filled-opacity: 0.8;     /* Already scrolled */
---journey-line-active-opacity: 1;       /* Current position + glow */
---journey-line-unfilled-opacity: 0.2;   /* Not yet scrolled */
-
-/* Scroll progress calculation for Phase 3 */
-/* fillPercentage = (window.scrollY / (document.height - window.height)) * 100 */
-/* The line "fills" like a loading bar as user scrolls */
+/* Emphasis hierarchy */
+.text-high { color: var(--color-text-primary); }
+.text-medium { color: var(--color-text-secondary); }
+.text-low { color: var(--color-text-tertiary); }
 ```
 
-### Z-Index Scale
+## 🎭 Motion Design
+
+### Animation Principles
+1. **Purpose**: Guide attention and provide feedback
+2. **Performance**: 60fps minimum, GPU-accelerated
+3. **Subtlety**: Enhance without distraction
+4. **Consistency**: Unified timing system
+
+### Timing System
 ```css
---z-base: 0;
---z-dropdown: 10;
---z-sticky: 20;
---z-fixed: 30;
---z-modal-backdrop: 40;
---z-modal: 50;
---z-popover: 60;
---z-tooltip: 70;
+/* Duration scale */
+--duration-instant: 100ms;    /* Micro feedback */
+--duration-fast: 200ms;       /* Hover states */
+--duration-normal: 300ms;     /* Transitions */
+--duration-slow: 500ms;       /* Elements */
+--duration-slower: 800ms;     /* Hero animations */
+
+/* Easing functions */
+--ease-out: cubic-bezier(0.4, 0, 0.2, 1);
+--ease-in-out: cubic-bezier(0.4, 0, 0.6, 1);
+--ease-spring: cubic-bezier(0.68, -0.55, 0.265, 1.55);
 ```
 
-### Focus States
-- Ring width: 2px
-- Ring color: var(--color-accent-blue)
-- Ring offset: 2px
-- Ring opacity: 0.5
+### Core Animations
+```css
+/* Entrance animations */
+@keyframes fadeInUp {
+  from { 
+    opacity: 0; 
+    transform: translateY(30px);
+  }
+  to { 
+    opacity: 1; 
+    transform: translateY(0);
+  }
+}
 
-## 🌟 Design Inspiration References
+/* Hover interactions */
+.interactive {
+  transition: all var(--duration-fast) var(--ease-out);
+}
 
-### Linear.app Principles
-- **Systematic Design**: Every spacing value follows the scale
-- **Purposeful Simplicity**: No decoration without function
-- **High Contrast**: Clear visual hierarchy
-- **Consistent Rhythm**: Mathematical relationships
-- **Seamless Experience**: Continuous flow without jarring transitions
+.interactive:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+}
+```
 
-### CoLab Software Patterns
-- **Functional Animation**: Every motion has purpose
-- **Progressive Disclosure**: Complexity revealed as needed
-- **Engineering Aesthetic**: Technical but approachable
-- **Performance First**: 60fps mandatory
-- **Guided Journey**: Clear navigation through content
+## 📱 Responsive Design
 
-### Unique Novum Elements
-- **Journey Line**: Animated companion that guides users through the experience
-- **Seamless Canvas**: No section dividers, one continuous black background
-- **Alternating Demos**: Left/right pattern creates visual rhythm
-- **Symmetrical Team**: Balanced 4-person grid layout
+### Breakpoints
+```css
+/* Mobile-first approach */
+--breakpoint-sm: 640px;   /* Large phones */
+--breakpoint-md: 768px;   /* Tablets */
+--breakpoint-lg: 1024px;  /* Desktops */
+--breakpoint-xl: 1280px;  /* Wide screens */
+--breakpoint-2xl: 1536px; /* Ultra-wide */
+```
+
+### Fluid Typography
+```css
+/* Responsive type with clamp() */
+--font-size-hero: clamp(2.5rem, 5vw + 1rem, 5.61rem);
+--font-size-h1: clamp(2rem, 4vw + 0.5rem, 3.157rem);
+--font-size-h2: clamp(1.5rem, 3vw + 0.5rem, 2.369rem);
+--font-size-body: clamp(0.875rem, 1vw + 0.5rem, 1rem);
+```
+
+### Touch Optimization
+- Minimum 48px touch targets
+- Increased tap spacing on mobile
+- Swipe gestures for carousels
+- Bottom-sheet patterns for mobile CTAs
+
+## 🔄 User Experience Flow
+
+### Primary Journey
+```
+1. LANDING (Hero)
+   → Typewriter headline captures attention
+   → Clear value proposition
+   → Dual CTA options (demos/call)
+
+2. ENGAGEMENT (Demos)
+   → Interactive previews prove capability
+   → "Try it yourself" approach
+   → Technical competence displayed
+
+3. UNDERSTANDING (Why Choose Us)
+   → Fast, Smart, Scalable messaging
+   → Clear differentiators
+   → Benefits over features
+
+4. TRUST (Team)
+   → Real people, real expertise
+   → LinkedIn integration
+   → Approachable professionals
+
+5. ACTION (CTA)
+   → Multiple conversion paths
+   → Reduced friction
+   → Clear next steps
+```
+
+### Micro-interactions
+- **Hover**: 200ms ease-out transitions
+- **Focus**: 2px primary color outline
+- **Loading**: Skeleton screens with shimmer
+- **Feedback**: Instant visual confirmation
+
+## 🎪 Component Patterns
+
+### Button Hierarchy
+```css
+/* Primary - High emphasis actions */
+.btn-primary {
+  background: var(--gradient-primary);
+  color: white;
+  padding: var(--space-4) var(--space-8);
+  font-weight: var(--font-weight-semibold);
+}
+
+/* Secondary - Alternative actions */
+.btn-secondary {
+  background: var(--color-surface-2);
+  color: var(--color-text-primary);
+  border: 1px solid var(--color-surface-3);
+}
+
+/* Ghost - Tertiary actions */
+.btn-ghost {
+  background: transparent;
+  color: var(--color-text-secondary);
+  text-decoration: underline;
+}
+```
+
+### Card System
+```css
+.card {
+  background: var(--color-surface-2);
+  border-radius: 16px;
+  padding: var(--space-6);
+  transition: all var(--duration-fast) var(--ease-out);
+}
+
+.card:hover {
+  background: var(--gradient-surface);
+  transform: translateY(-4px);
+  box-shadow: 0 20px 40px -20px rgba(0, 0, 0, 0.5);
+}
+```
+
+## 📊 Implementation Phases
+
+### Phase 1: Foundation (Week 1)
+- [ ] Typography system setup
+- [ ] Color system implementation
+- [ ] Grid and spacing framework
+- [ ] Core component library
+- [ ] Mobile-first responsive base
+
+### Phase 2: Experience (Week 2)
+- [ ] Motion system integration
+- [ ] Interactive components
+- [ ] Advanced hover states
+- [ ] Gradient backgrounds
+- [ ] Performance optimization
+
+### Phase 3: Polish (Week 3)
+- [ ] Micro-interaction details
+- [ ] Loading/error states
+- [ ] Accessibility audit
+- [ ] Cross-browser testing
+- [ ] Final optimizations
+
+## 🎯 Success Metrics
+
+### Performance
+- Lighthouse Score: 90+ all categories
+- FCP: < 1.5s
+- LCP: < 2.5s
+- CLS: < 0.1
+- FID: < 100ms
+
+### Engagement
+- Demo interaction rate: > 40%
+- Time on page: > 2 minutes
+- CTA click rate: > 15%
+- Mobile bounce rate: < 40%
+
+### Quality
+- WCAG AA compliance
+- Cross-browser compatibility
+- Touch-friendly on all devices
+- Smooth 60fps animations
 
 ---
 
-*This document contains only visual design specifications. For technical implementation details, see INITIAL.md. For phase-specific constraints, see PHASES.md.*
+*This design system creates a premium AI consultancy presence through sophisticated typography, refined color usage, purposeful spacing, clear hierarchy, and seamless user flows. Every element reinforces Novum Labs' position as a technical leader with human understanding.*
